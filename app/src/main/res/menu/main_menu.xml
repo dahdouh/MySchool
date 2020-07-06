@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/icons8_student_homme_48"
+            android:title="@string/navigation_menu_dashboard" />
+        <item
+            android:id="@+id/nav_courses"
+            android:icon="@drawable/courses_icon"
+            android:title="@string/navigation_menu_courses" />
+        <item
+            android:id="@+id/nav_subscriptions"
+            android:icon="@drawable/abonnement"
+            android:title="@string/subscribe_title" />
+        <item
+            android:id="@+id/nav_exercices"
+            android:icon="@drawable/recommandation"
+            android:title="@string/navigation_menu_exercices" />
+        <item
+            android:id="@+id/nav_recommendation"
+            android:icon="@drawable/recommandation"
+            android:title="@string/navigation_menu_recommendation" />
+        <item
+            android:id="@+id/nav_payment"
+            android:icon="@drawable/payment_icon_48"
+            android:title="@string/navigation_menu_payment" />
+
+    </group>
+
+    <item android:title="Profile">
+
+        <menu>
+
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_profile"
+                    android:icon="@drawable/profile_icon"
+                    android:title="@string/navigation_menu_profile" />
+                <item
+                    android:id="@+id/nav_unsubscribe"
+                    android:icon="@drawable/icons8_unsubscribe_48"
+                    android:title="@string/navigation_menu_unsubscribe" />
+                <item
+                    android:id="@+id/nav_synchronisation"
+                    android:icon="@drawable/icons8_synchronisation_48"
+                    android:title="@string/navigation_menu_synchronisation" />
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/logout_icon"
+                    android:title="@string/navigation_menu_logout" />
+
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="@string/navigation_menu_communicate">
+
+        <menu>
+            <item
+                android:id="@+id/nav_chat"
+                android:icon="@drawable/icons8_chat_48"
+                android:title="@string/navigation_menu_chat" />
+            <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/share_icon"
+            android:title="@string/navigation_menu_share"/>
+
+        </menu>
+    </item>
+</menu>

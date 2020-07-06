@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EcoleEnLigne</string>
+    <string name="app_learn" translatable="false">Apprendre depuis chez vous!</string>
+    <string name="login_welcome" translatable="false">Bienvenue</string>
+
+    <string name="navigation_menu" translatable="false">Menu</string>
+    <string name="navigation_menu_dashboard" translatable="false">Dashboard</string>
+    <string name="navigation_menu_courses" translatable="false">Cours</string>
+    <string name="navigation_menu_subscription" translatable="false">Abonnement</string>
+    <string name="navigation_menu_exercices" translatable="false">Exercices</string>
+    <string name="navigation_menu_quiz" translatable="false">Quiz</string>
+    <string name="navigation_menu_recommendation" translatable="false">Recommandation</string>
+    <string name="navigation_menu_evaluation" translatable="false">Evaluation</string>
+    <string name="navigation_menu_login" translatable="false">Se connecter</string>
+    <string name="navigation_menu_unsubscribe" translatable="false">Se désabonner</string>
+    <string name="navigation_menu_logout" translatable="false">Se déconnecter</string>
+    <string name="navigation_menu_profile" translatable="false">Profil</string>
+    <string name="navigation_menu_communicate" translatable="false">Communiquer</string>
+    <string name="navigation_menu_share" translatable="false">Partager</string>
+    <string name="share_title" translatable="false"> Partager via </string>
+    <string name="share_msg" translatable="false">Vous pouvez maintenant apprendre de chez vous. Veuillez cliquer sur ce lien pour commencer l\'aprentissage: : https://github.com/dahdouh/android/tree/master/APK</string>
+    <string name="navigation_darawer_open" translatable="false">Ouvre la navigation</string>
+    <string name="navigation_darawer_close" translatable="false">Fermer la navigation</string>
+    <string name="navigation_menu_synchronisation" translatable="false">Synchronization</string>
+    <string name="navigation_menu_payment" translatable="false">Paiement</string>
+    <string name="navigation_menu_chat" translatable="false">Discussion</string>
+    <string name="navigation_menu_forum" translatable="false">Forum</string>
+
+    <string name="login_continue" translatable="false">Connectez-vous pour continue</string>
+    <string name="login_signin">Se connecter</string>
+    <string name="login_username">Login</string>
+    <string name="login_password">Password</string>
+    <string name="login_username_valid" translatable="false">Le login ne peut pas être vide</string>
+    <string name="login_username_valid_toolong" translatable="false">Login trop long</string>
+    <string name="login_username_valid_space" translatable="false">Les espaces ne sont pas autorisés</string>
+    <string name="login_password_valid" translatable="false">Le mot de passe ne peut pas être vide</string>
+    <string name="login_password_valid_weak" translatable="false">Le mot de passe est trop faible</string>
+    <string name="login_forget"> mot de pass oublier?</string>
+    <string name="login_forget_title">Récupérer le mot de passe</string>
+    <string name="login_forget_message">Pour récupérer le mot de passe, veuillez saisir votre adresse e-mail.</string>
+    <string name="login_forget_send">Envoyer mot de passe</string>
+    <string name="login_forget_send_ok">Votre mot de passe a bien été envoyé à votre adresse e-mail</string>
+    <string name="login_forget_email_notfoud">Cet e-mail n\'existe pas, essayez-en un autre</string>
+    <string name="login_singup">S\'inscrire</string>
+    <string name="login_success">Vous êtes connecté avec succès</string>
+    <string name="login_failed">login ou mot de passe incorrect. Veuillez réessayer!</string>
+    <string name="logout_success">Vous êtes déconnecté avec succès</string>
+    <string name="login_never_connected">Etudiant n\'est pas encore connecté à l\'applciation</string>
+
+
+    <string name="subscribe_title"> Subscriptions</string>
+    <string name="subscribe_msg">Souscrire à un nouvel abonnement </string>
+    <string name="subscribe_done"> Votre abonnement a été bien effectué </string>
+
+    <string name="unsubscribe_success">You are successfully unsubscribed!</string>
+    <string name="unsubscribe_confirm">You want really unscuscribe?</string>
+    <string name="unsubscribe_no">No</string>
+    <string name="unsubscribe_yes">Yes</string>
+
+    <string name="register">S\'inscrire</string>
+    <string name="register_go">C\'est parti</string>
+    <string name="confirm">Confirmer</string>
+    <string name="register_profile_student">Éleve</string>
+    <string name="register_profile_parent">Parent</string>
+    <string name="register_profile_Teacher">Professeur</string>
+    <string name="register_profile_choose">Choix du profil</string>
+    <string name="register_profile_choose_msg">Vous êtes</string>
+    <string name="register_login_validat_empty">Login connot be empty</string>
+    <string name="register_password_validat_empty">Password connot be empty</string>
+    <string name="register_password_validat_regex"> Le mot de passe doit contenir au moins 4 caractères au moins 1 alphabet, 1 chiffre et 1 caractère spécial </string>
+    <string name="register_firstname">Prénom</string>
+    <string name="register_firstname_validat_empty">Prénom ne peut pas être vide</string>
+    <string name="register_lastname">Nom</string>
+    <string name="register_lastname_validat_empty">Nom ne peut pas être vide</string>
+    <string name="register_email">Email</string>
+    <string name="register_email_validat_empty">Email ne peyt pas être vide</string>
+    <string name="register_email_validat_invalid">Adresse email invalide</string>
+    <string name="register_tel">Tél</string>
+    <string name="register_tel_validat_empty">Téléphone account cannot be empty</string>
+    <string name="register_ville">Ville</string>
+    <string name="register_ville_validat_empty">Ville cannot be empty</string>
+    <string name="register_alreadyHaveAccount">Vous avez déjà un compte? S\'identifier</string>
+    <string name="register_user_alreadyexist">Le nom d\'utilisateur ou l\'email est déjà utilisé. Essaie un autre.</string>
+    <string name="register_success">Votre compte est créé avec succès.</string>
+    <string name="register_welcome" translatable="false">Welcome you!</string>
+
+    <string name="student_add_title"> Inscription Etudiant</string>
+    <string name="student_add_msg">Pour ajouter un nouvel étudiant, veuillez entrer les informations suivantes</string>
+    <string name="empty_students_msg">Pas d\'enfants! Veuillez ajouter vos enfants.</string>
+    <string name="student_update_title">MISE A JOUR ÉTUDIANT</string>
+    <string name="student_update_msg">Pour mette à jour le profile d\'étudiant , veuillez entrer les informations suivantes</string>
+    <string name="student_firstname">Prénom</string>
+    <string name="student_lastname">Nom</string>
+    <string name="student_parent">Parent</string>
+    <string name="student_parent_mother">Mère</string>
+    <string name="student_parent_father">Père</string>
+    <string name="student_parent_other">Autre</string>
+    <string name="student_sex">Etudiant</string>
+    <string name="student_sex_girl">fille</string>
+    <string name="student_sex_boy">garçon</string>
+    <string name="student_birthday">Date de naissance</string>
+    <string name="student_level">Niveau scolaire</string>
+    <string name="student_matiere">Matière</string>
+    <string name="student_duration">Durée</string>
+    <string name="save">Enregistrer</string>
+    <string name="pay">Payer</string>
+
+    <string name="parent_children">Enfants</string>
+
+    <string name="connection_msg">Vous devriez être connecté pour profiter de ce service</string>
+    <string name="server_restful_error">Erreur de connexion au serveur</string>
+
+    <string name="credit_card">Carte de credit</string>
+    <string name="credit_card_owner">Propriétaire</string>
+    <string name="card_number">Numero de la carte</string>
+    <string name="expiration">Expiration</string>
+    <string name="mont">Mois</string>
+    <string name="year">Année</string>
+    <string name="crypto">Crypto</string>
+
+
+    <string name="menu_maths">Mathematiques</string>
+
+    <string name="menu_français">Français</string>
+    <string name="menu_physique">Physique</string>
+    <string name="menu_chimie">Chimie</string>
+    <string name="menu_biologie">Biologie</string>
+    <string name="menu_geographie">Géographie</string>
+    <string name="menu_histoire">Histoire</string>
+    <string name="menu_anglais">Anglais</string>
+
+    <string name="type_content_choice">Choix du tYpe de contenu</string>
+
+    <string name="course_list_msg">Cours de tous les niveaux</string>
+    <string name="course_list_title">Liste des cours</string>
+    <string name="exercice_list_title">Liste des exercices</string>
+    <string name="exercice_show">Afficher</string>
+    <string name="exercice_correction">Correction</string>
+    <string name="exercice_correction_understand"> Bien compris !</string>
+    <string name="course_description">Description du cours</string>
+    <string name="go_to_course">Voir le cours</string>
+    <string name="course">Cours</string>
+    <string name="qcm">QCM</string>
+
+    <string name="recommandation_title">Recommandations pour vous</string>
+    <string name="synchronisation_inprogress" translatable="false">Synchronisation in progress</string>
+
+
+
+
+    <string name="accueil">Accueil</string>
+    <string name="cours">Cours</string>
+    <string name="exercices">Exercices</string>
+    <string name="progression">Progression</string>
+    <string name="historique">Historiques</string>
+    <string name="recommandation">Recommandations</string>
+    <string name="btnconnexion">Se connecter</string>
+    <string name="btninscription">Inscription</string>
+    <string name="login">Nom d\'utilisateur</string>
+    <string name="password">Mot de passe</string>
+    <string name="mdpoublie">Mot de passe oublié?</string>
+
+    <string-array name="mois">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+    <string-array name="annee">
+        <item>2020</item>
+        <item>2021</item>
+        <item>2022</item>
+        <item>2023</item>
+        <item>2024</item>
+        <item>2025</item>
+        <item>2026</item>
+        <item>2027</item>
+        <item>2028</item>
+        <item>2029</item>
+        <item>2030</item>
+    </string-array>
+
+
+
+
+
+
+
+</resources>

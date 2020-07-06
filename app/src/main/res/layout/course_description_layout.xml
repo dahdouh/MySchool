@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlc"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/slogan_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_curvee2"
+        android:text="@string/course_description"
+        android:gravity="center_horizontal|center_vertical"
+        android:textSize="24dp"
+        android:textColor="#FFF"
+        android:justificationMode="inter_word"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
+
+
+    <ImageView
+        android:id="@+id/imgCours"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="100sp"
+        android:layout_marginTop="130dp"
+        tools:srcCompat="@drawable/pdf" />
+
+    <TextView
+        android:id="@+id/titre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="160sp"
+        android:layout_marginTop="280dp"
+        android:padding="10sp"
+        android:text="TextView"
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="310dp"
+        android:padding="20sp"
+        android:text="Description"
+        android:textSelectHandleRight="@drawable/biologie"
+        android:textSize="18sp"
+        android:textStyle="italic" />
+
+    <Button
+        android:id="@+id/btnIns"
+        android:layout_width="169dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="460dp"
+        android:background="@drawable/border"
+        android:padding="10sp"
+        android:text="S'inscrire"
+        android:textColor="#2196F3"
+        android:textSize="18sp" />
+
+
+</RelativeLayout>

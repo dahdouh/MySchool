@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlc"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/slogan_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_curvee2"
+        android:text="@string/type_content_choice"
+        android:gravity="center_horizontal|center_vertical"
+        android:textSize="24dp"
+        android:textColor="#FFF"
+        android:justificationMode="inter_word"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
+
+    <ImageView
+        android:id="@+id/imgPdf"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="100sp"
+        android:layout_marginTop="150dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        tools:srcCompat="@drawable/pdf" />
+
+    <ImageView
+        android:id="@+id/imgVideo"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="100sp"
+        android:layout_marginTop="350dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        tools:srcCompat="@drawable/iconevideo" />
+
+</RelativeLayout>

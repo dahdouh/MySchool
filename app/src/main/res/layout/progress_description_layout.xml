@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlc"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <TextView
+        android:id="@+id/slogan_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_curvee2"
+        android:text="@string/progression"
+        android:gravity="center_horizontal|center_vertical"
+        android:textSize="24dp"
+        android:textColor="#FFF"
+        android:justificationMode="inter_word"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
+
+    <TextView
+        android:id="@+id/nbrdone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="160sp"
+        android:layout_marginTop="430sp"
+        android:padding="10sp"
+        android:text="TextView"
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:id="@+id/pourcentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="370sp"
+        android:padding="10sp"
+        android:text="Description"
+        android:textColor="#03A9F4"
+        android:textSelectHandleRight="@drawable/biologie"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/nbrtot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="400sp"
+        android:padding="10sp"
+        android:text="Description"
+        android:textSelectHandleRight="@drawable/biologie"
+        android:textSize="18sp"
+        android:textStyle="normal" />
+
+    <ProgressBar
+        android:id="@+id/progbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_marginTop="150sp"
+        android:layout_height="200sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50sp"
+        android:layout_marginTop="350sp"
+        android:layout_marginRight="50sp" />
+
+</RelativeLayout>

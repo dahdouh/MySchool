@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a5dfaeac-868f-4b75-bf31-01212e69f3e8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../../../.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_annotations_2_9_0_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../../.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_core_2_9_0_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../../.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_databind_2_9_0_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../../.idea/libraries/Gradle__com_scaledrone_scaledrone_java_0_6_0_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../../.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_9_1_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../../.idea/libraries/Gradle__com_squareup_okio_okio_1_13_0_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/ChatActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/MessageAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../drawable/circle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../drawable/ic_send_black_24dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../drawable/icons8_student_homme_48.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../drawable/my_message.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../drawable/their_message.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/activity_chat.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_message.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/their_message.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/javaCompile/jarAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.gradle/5.6.4/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/DashboardActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/DashboardActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/DashboardParentActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/DashboardParentActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/HistoriqueListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/HistoriqueListActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/PayementListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/PayementListActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/ProfileActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/ProfileActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/RecommendationActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/RecommendationActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/RegisterActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/RegisterActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/StudentDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/example/ecoleenligne/StudentDetailActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/activity_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/activity_dashboard.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/activity_recommendation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/activity_recommendation.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/activity_synchronisation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/activity_synchronisation.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/header.xml" beforeDir="false" afterPath="$PROJECT_DIR$/header.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../menu/main_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../menu/main_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../values-fr/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../values-fr/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../values/strings.xml" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../../.." />
+  </component>
+  <component name="ProjectId" id="1aX9qqwvLo2t3SLrpgUui35LkVU" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a5dfaeac-868f-4b75-bf31-01212e69f3e8" name="Default Changelist" comment="" />
+      <created>1586871264401</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1586871264401</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
