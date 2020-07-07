@@ -58,18 +58,6 @@ tools:context=".ForumActivity">
         android:layout_marginTop="35dp"
         android:textStyle="bold"/>
 
-    <ImageButton
-        android:id="@+id/student_add_imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="190dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="15px"
-        android:layout_toRightOf="@id/user_photo"
-        android:background="@android:color/transparent"
-        app:srcCompat="@drawable/icons8_add_65" />
-
-
 </RelativeLayout>
 
 

@@ -19,7 +19,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ecoleenligne.MainActivity;
+import com.example.ecoleenligne.PostActivity;
 import com.example.ecoleenligne.R;
+import com.example.ecoleenligne.SubscriptionListActivity;
 import com.example.ecoleenligne.model.Topic;
 
 import org.json.JSONObject;
@@ -61,6 +63,23 @@ public class ForumListAdapter extends BaseAdapter {
 
         TextView subject = view.findViewById(R.id.subject);
         subject.setText(topic.getSubject().getName());
+
+
+
+        final int topic_id = topic.getId();
+        final String topic_subject = topic.getSubject().getName();
+        //Toast.makeText(context, "##### "+ topic_id, Toast.LENGTH_LONG).show();
+        final Button subscription_delete_btn = view.findViewById(R.id.subscription_delete_btn);
+        subscription_delete_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PostActivity.class);
+                intent.putExtra("id", topic_id);
+                intent.putExtra("subject", topic_subject);
+                context.startActivity(intent);
+            }
+
+        });
+
 
         return view;
     }

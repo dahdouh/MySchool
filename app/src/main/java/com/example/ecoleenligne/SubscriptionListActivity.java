@@ -311,6 +311,10 @@ public class SubscriptionListActivity extends AppCompatActivity implements Navig
                 Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
                 startActivity(intent_subscription);
                 break;
+            case R.id.nav_forum:
+                Intent intent_forum = new Intent(this, ForumActivity.class);
+                startActivity(intent_forum);
+                break;
             case R.id.nav_exercices:
                 if(MainActivity.MODE.equals("ONLINE")) {
                     Intent intent_exercices = new Intent(this, ListeCoursExerciceActivity.class);
