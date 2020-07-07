@@ -28,6 +28,12 @@ public class User {
 		this.lastname = lastname;
 	}
 
+	public User(int id, String firstname, String lastname) {
+		this.id = id;
+		this.firstname = firstname;
+		this.lastname = lastname;
+	}
+
 	public User(int id, String firstname, String lastname, String level) {
 		this.id = id;
 		this.firstname = firstname;

@@ -16,10 +16,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".SubscriptionListActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-
+            android:name=".ForumActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".SubscriptionListActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".SubscriptionActivity"
             android:theme="@style/AppTheme.NoActionBar" />

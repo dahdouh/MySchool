@@ -15,6 +15,10 @@
             android:icon="@drawable/abonnement"
             android:title="@string/subscribe_title" />
         <item
+            android:id="@+id/nav_forum"
+            android:icon="@drawable/icons8_chat_48"
+            android:title="@string/navigation_menu_forum" />
+        <item
             android:id="@+id/nav_exercices"
             android:icon="@drawable/recommandation"
             android:title="@string/navigation_menu_exercices" />

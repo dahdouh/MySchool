@@ -103,7 +103,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         LinearLayout lb = (LinearLayout) findViewById(R.id.rl1);
         LinearLayout subscription_card = (LinearLayout) findViewById(R.id.subscription_card);
         LinearLayout historic = (LinearLayout) findViewById(R.id.historic);
-        LinearLayout lbpro = (LinearLayout) findViewById(R.id.rlprogre);
+        LinearLayout forum = (LinearLayout) findViewById(R.id.forum);
         LinearLayout recommendation = (LinearLayout) findViewById(R.id.recommendation);
 
         lb.setOnClickListener(new View.OnClickListener() {
@@ -144,11 +144,11 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             }
         });
 
-        lbpro.setOnClickListener(new View.OnClickListener() {
+        forum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intent = new Intent(DashboardActivity.this, ListeCoursProgressActivity.class);
+                    Intent intent = new Intent(DashboardActivity.this, ForumActivity.class);
                     startActivity(intent);
                 } else {
                     Toast toast = Toast.makeText(context, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
@@ -363,6 +363,10 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             case R.id.nav_subscriptions:
                 Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
                 startActivity(intent_subscription);
+                break;
+            case R.id.nav_forum:
+                Intent intent_forum = new Intent(this, ForumActivity.class);
+                startActivity(intent_forum);
                 break;
             case R.id.nav_exercices:
                 if(MainActivity.MODE.equals("ONLINE")) {

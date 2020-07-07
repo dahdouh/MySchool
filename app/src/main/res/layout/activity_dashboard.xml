@@ -235,14 +235,14 @@
                 android:layout_margin="16dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:id="@+id/rlprogre"
+                android:id="@+id/forum"
                 android:clickable="true">
 
                 <ImageView
                     android:layout_width="105dp"
                     android:layout_height="75dp"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/tchat" />
+                    android:background="@drawable/icons8_chat_48" />
 
                 <TextView
                     android:layout_width="wrap_content"
