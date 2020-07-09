@@ -140,10 +140,6 @@ public class ListeExercicesActivity extends AppCompatActivity implements Navigat
                     }
             );
             queueUserConnected.add(requestUserConnected);
-               /* if(students.isEmpty()){
-                    empty_students_msg.setText(R.string.empty_students_msg);
-                }
-                */
 
         } else  {
 

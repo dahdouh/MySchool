@@ -71,7 +71,7 @@ android:background="@drawable/bg_header">
                 <TextView
                     android:id="@+id/user_name"
                     android:textSize="25sp"
-                    android:text="@string/student_add_title"
+                    android:text="@string/child_add_title"
                     android:textColor="#ffffff"
                     android:fontFamily="@font/antic"
                     android:layout_width="wrap_content"

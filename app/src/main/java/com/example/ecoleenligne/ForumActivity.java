@@ -168,10 +168,6 @@ public class ForumActivity extends AppCompatActivity  implements NavigationView.
                     }
             );
             queueUserConnected.add(requestUserConnected);
-               /* if(students.isEmpty()){
-                    empty_students_msg.setText(R.string.empty_students_msg);
-                }
-                */
 
         } else  {
 

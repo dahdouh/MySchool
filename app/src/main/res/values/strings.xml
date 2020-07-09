@@ -63,7 +63,7 @@
     <string name="register_firstname_validat_empty">First name cannot be empty</string>
     <string name="register_lastname">Last Name</string>
     <string name="register_lastname_validat_empty">Last name cannot be empty</string>
-    <string name="register_email">Email</string>
+    <string name="register_email">Email adress</string>
     <string name="register_email_validat_empty">Email cannot be empty</string>
     <string name="register_email_validat_invalid">Invalid email address</string>
     <string name="register_tel">Phone number</string>
@@ -79,6 +79,7 @@
     <string name="subscribe_title"> Subscriptions</string>
     <string name="subscribe_msg"> Subscribe to a new subscription</string>
     <string name="subscribe_done"> your subscription has been successfully completed </string>
+    <string name="forum_post_add" translatable="false">Message cannot be empty</string>
 
 
     <string name="unsubscribe_success">You are successfully unsubscribed!</string>
@@ -87,9 +88,8 @@
     <string name="unsubscribe_yes">Yes</string>
 
 
-    <string name="student_add_title">Student registration</string>
-    <string name="student_add_msg">To add new student, please type the following information</string>
-    <string name="empty_students_msg">No kids! Please add you child.</string>
+    <string name="child_add_title">Child\'s account</string>
+    <string name="child_add_msg">To add new child, please type his email adress</string>
     <string name="student_update_title">UPDATE STUDENT</string>
     <string name="student_update_msg">For updating student profile, please enter the following information</string>
     <string name="student_firstname">Firstname</string>
@@ -109,6 +109,7 @@
     <string name="pay">Pay</string>
 
     <string name="parent_children">Children</string>
+    <string name="parent_child_not_found">No kids! Please add your children.</string>
 
     <string name="credit_card">Credit Card</string>
     <string name="credit_card_owner">Owner</string>
@@ -224,10 +225,14 @@
     <string name="menu_anglais">Anglais</string>
 
 
-    <string name="count_initial_value">0</string>
-    <string name="button_label">Send</string>
-    <string name="toast_message">Hurra!</string>
-    <string name="input_placeholder">Write a message</string>
+    <string name="button_ok">Ok</string>
+    <string name="button_yes">Yes</string>
+    <string name="button_no">No</string>
+    <string name="button_confirm">Confirm</string>
+    <string name="button_send">Send</string>
+    <string name="button_add">Add</string>
+    <string name="button_update">Update</string>
+    <string name="button_delete">Delete</string>
 
 
 </resources>

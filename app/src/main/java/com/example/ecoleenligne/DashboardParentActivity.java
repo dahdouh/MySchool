@@ -90,7 +90,7 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
         /*------------------- hide items from menu ---------------------*/
-        if(user_profile_data.equals("ROLE_PARENT")) {
+        if(user_profile_data.equals("ROLE_TUTOR")) {
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.nav_courses).setVisible(false);
             menu.findItem(R.id.nav_recommendation).setVisible(false);
@@ -104,17 +104,15 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
 
-        LinearLayout lb = (LinearLayout) findViewById(R.id.rl1);
+        LinearLayout child = (LinearLayout) findViewById(R.id.child);
         LinearLayout lbex = (LinearLayout) findViewById(R.id.rlexo);
         LinearLayout lbhist = (LinearLayout) findViewById(R.id.rlhist);
         LinearLayout recommendation = (LinearLayout) findViewById(R.id.recommendation);
 
-        lb.setOnClickListener(new View.OnClickListener() {
+        child.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DashboardParentActivity.this, ListeCoursActivity.class);
-                String libelle = "Maths";
-                intent.putExtra("libelle", libelle);
+                Intent intent = new Intent(DashboardParentActivity.this, ChildActivity.class);
                 startActivity(intent);
             }
         });
@@ -246,12 +244,14 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
         super.onResume();
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_connected = sharedpreferences.getString(MainActivity.Id, null);
+        /*
         if(MainActivity.MODE.equals("ONLINE")) {
             String url = MainActivity.IP + "/students/" + user_connected;
             RequestQueue queue = Volley.newRequestQueue(this);
             JsonArrayRequest microPostsRequest = new JsonArrayRequest(url, this, this);
             queue.add(microPostsRequest);
         }
+        */
     }
 
     /*---------------------- Unsubscribe out function --------------------------*/
@@ -370,6 +370,7 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
         /*--------------get user from session --------------*/
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_profile = sharedpreferences.getString(MainActivity.Role, null);
+        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
 
         switch (menuItem.getItemId()) {
             case R.id.nav_profile:
@@ -378,7 +379,7 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
                 break;
             case R.id.nav_dashboard:
                 Intent intent_dashboard;
-                if(user_profile.equals("ROLE_PARENT")) {
+                if(user_profile.equals("ROLE_TUTOR")) {
                     intent_dashboard = new Intent(this, DashboardParentActivity.class);
                 } else {
                     intent_dashboard = new Intent(this, DashboardActivity.class);
@@ -392,6 +393,10 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
             case R.id.nav_subscriptions:
                 Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
                 startActivity(intent_subscription);
+                break;
+            case R.id.nav_forum:
+                Intent intent_forum = new Intent(this, ForumActivity.class);
+                startActivity(intent_forum);
                 break;
             case R.id.nav_exercices:
                 if(MainActivity.MODE.equals("ONLINE")) {

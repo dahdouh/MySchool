@@ -146,37 +146,40 @@ public class PostActivity extends AppCompatActivity implements NavigationView.On
             final ImageButton post_add_done_btn = findViewById(R.id.post_add_done_btn);
             post_add_done_btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    post_add_layout.setVisibility(View.GONE);
-                    //Intent intent = new Intent(context, ForumActivity.class);
-                    //intent.putExtra("id", topic_id);
-                    //context.startActivity(intent);
-                    post_add_btn.setVisibility(View.VISIBLE);
 
-                    String content = editText.getText().toString();
-                    String url = MainActivity.IP+"/api/forum/"+ topic_id +"/posts/add/"+ user_connected +"/"+content;
-                    Toast.makeText(context, url, Toast.LENGTH_SHORT).show();
-                    RequestQueue queue = Volley.newRequestQueue(context);
-                    JSONObject jsonObject = new JSONObject();
-                    /*--------------- allow connection with https and ssl-------------*/
-                    HttpsTrustManager.allowAllSSL();
-                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            finish();
-                            startActivity(getIntent());
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError e) {
-                            new AlertDialog.Builder(context)
-                                    .setTitle("Error")
-                                    .setMessage(e.toString())
-                                    .show();
-                        }
-                    });
+                   if(!validatePost()) {
+                       return;
+                   } else{
 
-                    queue.add(request);
-                    editText.getText().clear();
+
+                           post_add_layout.setVisibility(View.GONE);
+                           post_add_btn.setVisibility(View.VISIBLE);
+                           String content = editText.getText().toString();
+                           String url = MainActivity.IP + "/api/forum/" + topic_id + "/posts/add/" + user_connected + "/" + content;
+                           Toast.makeText(context, url, Toast.LENGTH_SHORT).show();
+                           RequestQueue queue = Volley.newRequestQueue(context);
+                           JSONObject jsonObject = new JSONObject();
+                           /*--------------- allow connection with https and ssl-------------*/
+                           HttpsTrustManager.allowAllSSL();
+                           JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
+                               @Override
+                               public void onResponse(JSONObject response) {
+                                   finish();
+                                   startActivity(getIntent());
+                               }
+                           }, new Response.ErrorListener() {
+                               @Override
+                               public void onErrorResponse(VolleyError e) {
+                                   new AlertDialog.Builder(context)
+                                           .setTitle("Error")
+                                           .setMessage(e.toString())
+                                           .show();
+                               }
+                           });
+
+                           queue.add(request);
+                           editText.getText().clear();
+                       }
 
                 }
             });
@@ -236,16 +239,23 @@ public class PostActivity extends AppCompatActivity implements NavigationView.On
                     }
             );
             queueUserConnected.add(requestUserConnected);
-               /* if(students.isEmpty()){
-                    empty_students_msg.setText(R.string.empty_students_msg);
-                }
-                */
 
         } else  {
 
         }
 
 
+    }
+
+    private Boolean validatePost() {
+        String val = editText.getText().toString();
+        if (val.isEmpty()) {
+            editText.setError(getString(R.string.forum_post_add));
+            return false;
+        } else {
+            editText.setError(null);
+            return true;
+        }
     }
 
     /*---------------------- confirm unsubscribe --------------------------*/

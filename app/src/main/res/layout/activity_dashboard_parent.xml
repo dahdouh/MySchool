@@ -116,7 +116,7 @@
                 android:layout_margin="16dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:id="@+id/rl1"
+                android:id="@+id/child"
                 android:clickable="true">
 
                 <ImageView

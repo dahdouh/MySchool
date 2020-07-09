@@ -52,6 +52,7 @@
     <string name="subscribe_title"> Subscriptions</string>
     <string name="subscribe_msg">Souscrire à un nouvel abonnement </string>
     <string name="subscribe_done"> Votre abonnement a été bien effectué </string>
+    <string name="forum_post_add" translatable="false">Le message ne peut pas être vide</string>
 
     <string name="unsubscribe_success">You are successfully unsubscribed!</string>
     <string name="unsubscribe_confirm">You want really unscuscribe?</string>
@@ -73,7 +74,7 @@
     <string name="register_firstname_validat_empty">Prénom ne peut pas être vide</string>
     <string name="register_lastname">Nom</string>
     <string name="register_lastname_validat_empty">Nom ne peut pas être vide</string>
-    <string name="register_email">Email</string>
+    <string name="register_email">Adresse email</string>
     <string name="register_email_validat_empty">Email ne peyt pas être vide</string>
     <string name="register_email_validat_invalid">Adresse email invalide</string>
     <string name="register_tel">Tél</string>
@@ -85,9 +86,8 @@
     <string name="register_success">Votre compte est créé avec succès.</string>
     <string name="register_welcome" translatable="false">Welcome you!</string>
 
-    <string name="student_add_title"> Inscription Etudiant</string>
-    <string name="student_add_msg">Pour ajouter un nouvel étudiant, veuillez entrer les informations suivantes</string>
-    <string name="empty_students_msg">Pas d\'enfants! Veuillez ajouter vos enfants.</string>
+    <string name="child_add_title">Compte enfant</string>
+    <string name="child_add_msg">Pour ajouter un nouvel étudiant, veuillez entrer son email</string>
     <string name="student_update_title">MISE A JOUR ÉTUDIANT</string>
     <string name="student_update_msg">Pour mette à jour le profile d\'étudiant , veuillez entrer les informations suivantes</string>
     <string name="student_firstname">Prénom</string>
@@ -107,6 +107,7 @@
     <string name="pay">Payer</string>
 
     <string name="parent_children">Enfants</string>
+    <string name="parent_child_not_found">Pas d\'enfants! Veuillez ajouter vos enfants.</string>
 
     <string name="connection_msg">Vous devriez être connecté pour profiter de ce service</string>
     <string name="server_restful_error">Erreur de connexion au serveur</string>
@@ -191,6 +192,14 @@
     </string-array>
 
 
+    <string name="button_ok">Ok</string>
+    <string name="button_yes">Oui</string>
+    <string name="button_no">Non</string>
+    <string name="button_confirm">Confirmer</string>
+    <string name="button_send">Envoyer</string>
+    <string name="button_add">Ajouter</string>
+    <string name="button_update">Modifier</string>
+    <string name="button_delete">Supprimer</string>
 
 
 

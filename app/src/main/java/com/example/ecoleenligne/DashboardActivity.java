@@ -89,7 +89,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
         /*------------------- hide items from menu ---------------------*/
-        if(user_profile_data.equals("ROLE_PARENT")) {
+        if(user_profile_data.equals("ROLE_TUTOR")) {
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.nav_courses).setVisible(false);
             menu.findItem(R.id.nav_recommendation).setVisible(false);
@@ -341,6 +341,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         /*--------------get user from session --------------*/
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_profile = sharedpreferences.getString(MainActivity.Role, null);
+        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
 
         switch (menuItem.getItemId()) {
             case R.id.nav_profile:
@@ -349,7 +350,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 break;
             case R.id.nav_dashboard:
                 Intent intent_dashboard;
-                if(user_profile.equals("ROLE_PARENT")) {
+                if(user_profile.equals("ROLE_TUTOR")) {
                     intent_dashboard = new Intent(this, DashboardParentActivity.class);
                 } else {
                     intent_dashboard = new Intent(this, DashboardActivity.class);

@@ -128,12 +128,14 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                         } else {
                             String fullname_data = response.getString("firstName")+" "+response.getString("lastName");
                             String birthday_data = response.getString("date_birth");
-                            //String ville_data = response.getString("ville");
+
+                            String[] parts = birthday_data.split("T");
+                            String date1 = parts[0]; // dd/mm/YYYY
 
                             fullname.setText(fullname_data);
                             role.setText(sharedpreferences.getString(MainActivity.Role, null));
                             email.setText(sharedpreferences.getString(MainActivity.Email, null));
-                            birthday.setText(birthday_data);
+                            birthday.setText(date1);
                             //ville.setText(ville_data);
                         }
 

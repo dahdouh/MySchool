@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_curvee2"
-            android:text="@string/student_add_title"
+            android:text="@string/child_add_title"
             android:gravity="center_horizontal|center_vertical"
             android:textSize="24dp"
             android:textColor="#FFF"
