@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,9 +32,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ecoleenligne.model.Course;
+import com.example.ecoleenligne.model.Kinship;
 import com.example.ecoleenligne.model.Level;
 import com.example.ecoleenligne.model.Subject;
 import com.example.ecoleenligne.model.Subscription;
+import com.example.ecoleenligne.model.User;
 import com.example.ecoleenligne.util.CourseListAdapter;
 import com.example.ecoleenligne.util.SQLiteHelper;
 import com.example.ecoleenligne.util.SubscriptionListAdapter;
@@ -104,24 +107,114 @@ public class SubscriptionListActivity extends AppCompatActivity implements Navig
         ListView subscriptionsListView = findViewById(R.id.list_students);
         subscriptionsListView.setAdapter(subscriptionListAdapter);
 
+        /*--------------get user from session --------------*/
+        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        String user_connected = sharedpreferences.getString(MainActivity.Id, null);
+
         /*-------------- check if there is connection--------------*/
         if(MainActivity.MODE.equals("ONLINE")) {
             /*------------------------ ONLINE MODE  ---------------------*/
-            /*------------------  get profile of user connected from server  -----------------*/
+            Intent intent = getIntent();
+            final String parent_id = intent.getStringExtra("parent_id");
+            // If parent list all his students susbscriptions, otherwise show only student's connected subscriptions
+            if(parent_id != null) {
+                String url = MainActivity.IP + "/api/tutor/child/list/"+parent_id;
+                RequestQueue queue = Volley.newRequestQueue(context);
+                JSONObject jsonObject = new JSONObject();
+                /*--------------- allow connection with https and ssl-------------*/
+                HttpsTrustManager.allowAllSSL();
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, response -> {
+                    try{
 
-            /*--------------get user from session --------------*/
-            sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-            String user_connected = sharedpreferences.getString(MainActivity.Id, null);
+                        List<String> students_ids = new ArrayList<String>();
+                        for (int j = 0; j < response.getJSONArray("kinshipStudents").length(); j++) {
+                            JSONObject studentJson = response.getJSONArray("kinshipStudents").getJSONObject(j).getJSONObject("student");
+                            String student_id = studentJson.getString("id");
+                            students_ids.add(student_id);
+                        }
 
-            /*-------------- call restful webservices ----------*/
-            String url =  MainActivity.IP+"/api/subscription/list/"+ user_connected;
-            //Toast.makeText(context, "ddddddd "+ url, Toast.LENGTH_SHORT).show();
-            /*-------------------- get subscriptions from server RESTful ------------------*/
-            RequestQueue queueUserConnected = Volley.newRequestQueue(context);
-            JsonArrayRequest requestUserConnected = new JsonArrayRequest(Request.Method.GET, url, null,
-                    new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray response) {
+                        if(students_ids.size()>0){
+                            for (String student_id: students_ids) {
+                                //Toast.makeText(context, "########## "+ id, Toast.LENGTH_LONG).show();
+
+                                String url2 = MainActivity.IP + "/api/subscription/list/" + student_id;
+                                //Toast.makeText(context, "ddddddd "+ url, Toast.LENGTH_SHORT).show();
+                                /*-------------------- get subscriptions from server RESTful ------------------*/
+                                RequestQueue queueUserConnected = Volley.newRequestQueue(context);
+                                JsonArrayRequest requestUserConnected = new JsonArrayRequest(Request.Method.GET, url2, null,
+                                        res -> {
+                                            try {
+                                                if (res.length() != 0) {
+                                                    for (int i = 0; i < res.length(); i++) {
+                                                        JSONObject item = res.getJSONObject(i);
+                                                        String subscription_id = item.getString("id");
+                                                        String subscription_price = item.getString("price");
+
+                                                        JSONObject levelJsonObject = item.getJSONObject("level");
+                                                        String level_id = levelJsonObject.getString("id");
+                                                        String level_name = levelJsonObject.getString("name");
+                                                        for (int j = 0; j < item.getJSONArray("subjects").length(); j++) {
+                                                            JSONObject subjectJsonObject = item.getJSONArray("subjects").getJSONObject(j);
+                                                            String subject_id = subjectJsonObject.getString("id");
+                                                            String subject_name = subjectJsonObject.getString("name");
+                                                            Subject subject = new Subject(Integer.parseInt(subject_id), subject_name);
+                                                            Level level = new Level(Integer.parseInt(level_id), level_name);
+                                                            subscriptions.add(new Subscription(Integer.parseInt(subscription_id), subject, subscription_price, level));
+                                                        }
+                                                    }
+                                                    subscriptionListAdapter.setSubscriptions(subscriptions);
+                                                }
+
+                                            } catch (JSONException error) {
+                                                new AlertDialog.Builder(context)
+                                                        .setTitle("Error")
+                                                        .setMessage(error.toString())
+                                                        .show();
+                                            }
+                                        },
+                                        e -> new AlertDialog.Builder(context)
+                                                .setTitle("Error")
+                                                .setMessage(e.getMessage())
+                                                .show()
+                                );
+                                queueUserConnected.add(requestUserConnected);
+
+                            }
+                        }
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        new AlertDialog.Builder(context)
+                                .setTitle("Error")
+                                .setMessage(e.toString())
+                                .show();
+                    }
+                }, error -> new AlertDialog.Builder(context)
+                        .setTitle("Error")
+                        .setMessage(error.toString())
+                        .show());
+                queue.add(request);
+
+
+
+
+
+
+
+
+
+
+
+            } else {
+                /*--------------  If student  ---------------*/
+                String url = MainActivity.IP + "/api/subscription/list/" + user_connected;
+                //Toast.makeText(context, "ddddddd "+ url, Toast.LENGTH_SHORT).show();
+                /*-------------------- get subscriptions from server RESTful ------------------*/
+                RequestQueue queueUserConnected = Volley.newRequestQueue(context);
+                JsonArrayRequest requestUserConnected = new JsonArrayRequest(Request.Method.GET, url, null,
+                        response -> {
                             try {
                                 if (response.length() != 0) {
                                     subscriptions = new ArrayList<>(response.length());
@@ -151,23 +244,14 @@ public class SubscriptionListActivity extends AppCompatActivity implements Navig
                                         .setMessage(error.toString())
                                         .show();
                             }
-                        }
-                    },
-                    new Response.ErrorListener(){
-                        @Override
-                        public void onErrorResponse(VolleyError error){
-                            new AlertDialog.Builder(context)
-                                    .setTitle("Error")
-                                    .setMessage(error.getMessage())
-                                    .show();
-                        }
-                    }
-            );
-            queueUserConnected.add(requestUserConnected);
-               /* if(students.isEmpty()){
-                    empty_students_msg.setText(R.string.empty_students_msg);
-                }
-                */
+                        },
+                        error -> new AlertDialog.Builder(context)
+                                .setTitle("Error")
+                                .setMessage(error.getMessage())
+                                .show()
+                );
+                queueUserConnected.add(requestUserConnected);
+            }
 
         } else  {
 
@@ -177,7 +261,7 @@ public class SubscriptionListActivity extends AppCompatActivity implements Navig
 
     }
 
-    /*---------------------- Unsubscribe out function --------------------------*/
+    /*---------------------- confirm unsubscribe --------------------------*/
     public void confirmUnsubscribe(){
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.presence_busy)
@@ -197,6 +281,7 @@ public class SubscriptionListActivity extends AppCompatActivity implements Navig
                 .show();
     }
 
+    /*---------------------- Log out function --------------------------*/
     public  void unsubscribe(){
         /*--------------get user from session --------------*/
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
@@ -215,7 +300,7 @@ public class SubscriptionListActivity extends AppCompatActivity implements Navig
                 public void onResponse(JSONObject response) {
 
                     Toast.makeText(context, R.string.unsubscribe_success, Toast.LENGTH_LONG).show();
-                    Intent intent=new Intent(SubscriptionListActivity.this, LoginActivity.class);
+                    Intent intent=new Intent(context, LoginActivity.class);
                     context.startActivity(intent);
                     logout();
 
@@ -235,6 +320,7 @@ public class SubscriptionListActivity extends AppCompatActivity implements Navig
 
     }
 
+    /*---------------------- Log out function --------------------------*/
     public  void logout(){
         /*--------------get user from session --------------*/
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
@@ -243,17 +329,17 @@ public class SubscriptionListActivity extends AppCompatActivity implements Navig
 
         if(user_connected_id == null && user_connected_login == null) {
             Toast.makeText(context, "You are already disconnected!", Toast.LENGTH_LONG).show();
-        } else {
-            /*-------------- check if there is connection--------------*/
+        }
+        /*
+        else {
             if(MainActivity.MODE.equals("ONLINE")) {
-                /*-------------- user logout ----------*/
                 String url = MainActivity.IP+"/logout/" + user_connected_id;
                 RequestQueue queue = Volley.newRequestQueue(context);
                 JSONObject jsonObject = new JSONObject();
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Intent intent=new Intent(SubscriptionListActivity.this, LoginActivity.class);
+                        Intent intent=new Intent(DashboardActivity.this, LoginActivity.class);
                         context.startActivity(intent);
 
                     }
@@ -268,17 +354,21 @@ public class SubscriptionListActivity extends AppCompatActivity implements Navig
                 });
                 queue.add(request);
             } else {
-                Intent intent=new Intent(SubscriptionListActivity.this, LoginActivity.class);
+                Intent intent=new Intent(DashboardActivity.this, LoginActivity.class);
                 context.startActivity(intent);
             }
-
-            /*---------------clear session ------*/
-            SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.clear();
-            editor.commit();
-            Toast.makeText(context, getString(R.string.logout_success), Toast.LENGTH_LONG).show();
         }
+        */
+
+        /*---------------clear session ------*/
+        SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.clear();
+        editor.commit();
+        Toast.makeText(context, getString(R.string.logout_success), Toast.LENGTH_LONG).show();
+
+        Intent intent=new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
 
     }
 
@@ -288,6 +378,7 @@ public class SubscriptionListActivity extends AppCompatActivity implements Navig
         /*--------------get user from session --------------*/
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_profile = sharedpreferences.getString(MainActivity.Role, null);
+        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
 
         switch (menuItem.getItemId()) {
             case R.id.nav_profile:
@@ -296,7 +387,7 @@ public class SubscriptionListActivity extends AppCompatActivity implements Navig
                 break;
             case R.id.nav_dashboard:
                 Intent intent_dashboard;
-                if(user_profile.equals("ROLE_PARENT")) {
+                if(user_profile.equals("ROLE_TUTOR")) {
                     intent_dashboard = new Intent(this, DashboardParentActivity.class);
                 } else {
                     intent_dashboard = new Intent(this, DashboardActivity.class);

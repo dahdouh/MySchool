@@ -157,7 +157,7 @@
                 android:layout_margin="16dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:id="@+id/rlexo"
+                android:id="@+id/subscription"
                 android:clickable="true">
 
                 <ImageView

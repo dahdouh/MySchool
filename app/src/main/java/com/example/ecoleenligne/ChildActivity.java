@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -48,6 +49,7 @@ import com.example.ecoleenligne.model.Subscription;
 import com.example.ecoleenligne.model.User;
 import com.example.ecoleenligne.util.KinshipListAdapter;
 import com.example.ecoleenligne.util.PostListAdapter;
+import com.example.ecoleenligne.util.StudentListAdapter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -73,7 +75,7 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
     SharedPreferences sharedpreferences;
 
     private KinshipListAdapter kinshipListAdapter;
-    ListView listview;
+    ListView listView;
     List<Kinship> kinships = new ArrayList<Kinship>();
 
    // Popup dialog
@@ -120,27 +122,96 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
 
 
         this.kinshipListAdapter = new KinshipListAdapter(this, kinships);
-        ListView forumListView = findViewById(R.id.list_students);
-        forumListView.setAdapter(kinshipListAdapter);
+        ListView listView = findViewById(R.id.list_students);
+        listView.setAdapter(kinshipListAdapter);
 
-        dialog = new Dialog(this);
-        if(kinships.isEmpty()){
-            actionNegative();
-            negative_title = dialog.findViewById(R.id.negative_title);
-            negative_content = dialog.findViewById(R.id.negative_content);
-            negative_button = dialog.findViewById(R.id.negative_button);
-            negative_button.setOnClickListener(v -> {
-                dialog.dismiss();
-            });
-            negative_title.setText(R.string.parent_children);
-            negative_content.setText(R.string.parent_child_not_found);
-            negative_button.setText(R.string.button_ok);
+        //get list of children from server
+        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
+        String url = MainActivity.IP + "/api/tutor/child/list/"+user_connected_id;
+        RequestQueue queue = Volley.newRequestQueue(context);
+        JSONObject jsonObject = new JSONObject();
+        /*--------------- allow connection with https and ssl-------------*/
+        HttpsTrustManager.allowAllSSL();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try{
+                    String emailResponse = response.getString("email");
+                    String tutor_id = response.getString("id");
+                    String tutor_firstName = response.getString("firstName");
+                    String tutor_lastName = response.getString("lastName");
+                    User tutor = new User(Integer.parseInt(tutor_id), tutor_firstName, tutor_lastName);
 
-        } else{
+                    kinships = new ArrayList<>(response.getJSONArray("kinshipStudents").length());
+                    for (int j = 0; j < response.getJSONArray("kinshipStudents").length(); j++) {
+                        JSONObject kindshipJsonObject = response.getJSONArray("kinshipStudents").getJSONObject(j);
+                        String kinship_id = kindshipJsonObject.getString("id");
+
+                        JSONObject studentJson = kindshipJsonObject.getJSONObject("student");
+                        String student_id = studentJson.getString("id");
+                        String student_firstName = studentJson.getString("firstName");
+                        String student_lastName = studentJson.getString("lastName");
+                        String student_email = studentJson.getString("email");
+
+                        User student= new User();
+                        if(response.getJSONArray("kinshipStudents").length()>0) {
+                            JSONObject studentSubscription = studentJson.getJSONArray("subscriptions").getJSONObject(0);
+                            JSONObject levelJson = studentSubscription.getJSONObject("level");
+                            String student_level = levelJson.getString("name");
+                            student = new User(Integer.parseInt(student_id), student_firstName, student_lastName, student_email, student_level);
+                        } else {
+                            student = new User(Integer.parseInt(student_id), student_firstName, student_lastName, student_email);
+                        }
+
+                        kinships.add(new Kinship(Integer.parseInt(kinship_id), tutor, student));
+                    }
+
+                    dialog = new Dialog(context);
+                    if(kinships.isEmpty()){
+                        actionNegative();
+                        negative_title = dialog.findViewById(R.id.negative_title);
+                        negative_content = dialog.findViewById(R.id.negative_content);
+                        negative_button = dialog.findViewById(R.id.negative_button);
+                        negative_button.setOnClickListener(v -> {
+                            dialog.dismiss();
+                        });
+                        negative_title.setText(R.string.parent_children);
+                        negative_content.setText(R.string.parent_child_not_found);
+                        negative_button.setText(R.string.button_ok);
+                    }
+                    kinshipListAdapter.setKinships(kinships);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    new AlertDialog.Builder(context)
+                            .setTitle("Error")
+                            .setMessage(e.toString())
+                            .show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError e) {
+                new AlertDialog.Builder(context)
+                        .setTitle("Error")
+                        .setMessage(e.toString())
+                        .show();
+            }
+        });
+        queue.add(request);
 
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // selected item
+                String child_id =((TextView)view.findViewById(R.id.user_id)).getText().toString();
+                Intent intent = new Intent(context, ProfileActivity.class);
+                intent.putExtra("id", ""+child_id);
+                context.startActivity(intent);
+            }
 
-        }
+        });
 
 
         //Add child dialog popup
@@ -193,7 +264,6 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
                 public void onResponse(JSONObject response) {
                     try{
                         String emailResponse = response.getString("email");
-                        Toast.makeText(context, "email : "+emailResponse, Toast.LENGTH_LONG).show();
                         if (emailResponse.equals("not found")) {
                             formChildError.setText("Le compte étudiant associé à cette adresse mail n'existe pas");
                         } else if(emailResponse.equals("already your child")){
@@ -201,35 +271,10 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
                         } else if(emailResponse.equals("already associated")){
                             formChildError.setText("Ce compte étudiant a déjà été associé à un compte parent");
                         } else {
-
-                            /*
-                            String tutor_id = response.getString("id");
-                            String tutor_firstName = response.getString("firstName");
-                            String tutor_lastName = response.getString("lastName");
-                            User tutor = new User(Integer.parseInt(tutor_id), tutor_firstName, tutor_lastName);
-
-                            for (int j = 0; j < response.getJSONArray("kinshipStudents").length(); j++) {
-                                JSONObject kindshipJsonObject = response.getJSONArray("kinshipStudents").getJSONObject(j);
-                                String kinship_id = kindshipJsonObject.getString("id");
-                                JSONObject studentJson = kindshipJsonObject.getJSONObject("student");
-                                String student_id = studentJson.getString("id");
-                                String student_firstName = studentJson.getString("firstName");
-                                String student_lastName = studentJson.getString("lastName");
-                                User student = new User(Integer.parseInt(student_id), student_firstName, student_lastName);
-                                kinships.add(new Kinship(Integer.parseInt(kinship_id), tutor, student));
-                            }
-
-                            kinshipListAdapter.setKinships(kinships);
-                            */
-
-
-                            //finish();
-                            //overridePendingTransition(0, 0);
-                            //startActivity(getIntent());
-                            //overridePendingTransition(0, 0);
-
-
-
+                            finish();
+                            overridePendingTransition(0, 0);
+                            startActivity(getIntent());
+                            overridePendingTransition(0, 0);
                         }
 
 

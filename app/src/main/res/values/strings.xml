@@ -79,7 +79,10 @@
     <string name="subscribe_title"> Subscriptions</string>
     <string name="subscribe_msg"> Subscribe to a new subscription</string>
     <string name="subscribe_done"> your subscription has been successfully completed </string>
+    <string name="subscribtion_empty"> No subscription for the moment </string>
     <string name="forum_post_add" translatable="false">Message cannot be empty</string>
+
+
 
 
     <string name="unsubscribe_success">You are successfully unsubscribed!</string>
@@ -110,6 +113,8 @@
 
     <string name="parent_children">Children</string>
     <string name="parent_child_not_found">No kids! Please add your children.</string>
+    <string name="parent_child_delete">Delete</string>
+    <string name="parent_child_unsubscribe">Unsubscribe</string>
 
     <string name="credit_card">Credit Card</string>
     <string name="credit_card_owner">Owner</string>
@@ -233,6 +238,10 @@
     <string name="button_add">Add</string>
     <string name="button_update">Update</string>
     <string name="button_delete">Delete</string>
+
+
+    <string name="msg_delete"> Ara you sure you want to delete this item?</string>
+
 
 
 </resources>

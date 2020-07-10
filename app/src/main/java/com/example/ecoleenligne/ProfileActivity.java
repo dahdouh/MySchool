@@ -45,7 +45,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
     final Context context = this;
     SharedPreferences sharedpreferences;
-    TextView fullname, role, email, birthday, ville;
+    TextView fullname, role, email, birthday, level;
     /*---- Menu ---*/
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -100,15 +100,20 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         role = findViewById(R.id.role);
         email = findViewById(R.id.email);
         birthday = findViewById(R.id.birthday);
-        ville = findViewById(R.id.ville);
+        level = findViewById(R.id.level);
 
         /*--------------get user from session --------------*/
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
 
-
-        /*--------------get selected user from previous listView --------------*/
+        // If child selected show his profile
         Intent intent = getIntent();
+        final String child_id = intent.getStringExtra("id");
+        if(child_id != null) {
+            //Toast.makeText(context, "pppppppp "+ child_id, Toast.LENGTH_LONG).show();
+            user_connected_id = "" + child_id;
+        }
+
         /*-------------- check if there is connection--------------*/
         if(MainActivity.MODE.equals("ONLINE")) {
             /*------------------  get profile from server  -----------------*/
@@ -128,15 +133,22 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                         } else {
                             String fullname_data = response.getString("firstName")+" "+response.getString("lastName");
                             String birthday_data = response.getString("date_birth");
-
                             String[] parts = birthday_data.split("T");
                             String date1 = parts[0]; // dd/mm/YYYY
+                            if(response.getJSONArray("subscriptions").length()>0) {
+                                JSONObject studentSubscription = response.getJSONArray("subscriptions").getJSONObject(0);
+                                JSONObject levelJson = studentSubscription.getJSONObject("level");
+                                String student_level = levelJson.getString("name");
+                                level.setText(student_level);
+                            } else {
+                                level.setVisibility(View.GONE);
+                            }
 
                             fullname.setText(fullname_data);
                             role.setText(sharedpreferences.getString(MainActivity.Role, null));
                             email.setText(sharedpreferences.getString(MainActivity.Email, null));
                             birthday.setText(date1);
-                            //ville.setText(ville_data);
+
                         }
 
 
@@ -160,21 +172,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
             queue.add(request);
         } else {
-            User user= sqLiteHelper.getUserByIdFromDb(Integer.parseInt(user_connected_id));
-            String fullname_data = user.getFirstname()+" "+user.getLastname();
-            int compte_id = user.getCompte_id();
-            Compte compte = sqLiteHelper.getCompteByIdFromDb(compte_id);
-            int profile_id = compte.getProfile_id();
-            Profile profile = sqLiteHelper.getProfileByIdFromDb(profile_id);
-            String profile_role_data = profile.getLibelle();
-            String email_data = user.getEmail();
-            String birthday_data = user.getTel();
-            String ville_data = user.getVille();
-            fullname.setText(fullname_data);
-            role.setText(profile_role_data);
-            email.setText(email_data);
-            birthday.setText(birthday_data);
-            ville.setText(ville_data);
+
         }
     }
 

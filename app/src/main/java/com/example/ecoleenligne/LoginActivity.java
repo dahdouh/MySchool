@@ -292,18 +292,21 @@ public class LoginActivity extends AppCompatActivity {
 
     private Boolean validateUsername() {
         String val = username.getEditText().getText().toString();
-        String noWhiteSpace = "\\A\\w{4,20}\\z";
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
         if (val.isEmpty()) {
-            username.setError(getString(R.string.login_username_valid));
+            username.setError(getString(R.string.register_email_validat_empty));
             return false;
-        } else if (val.length() >= 35) {
-            username.setError(getString(R.string.login_username_valid_toolong));
+        } else if (!val.matches(emailPattern)) {
+            username.setError(getString(R.string.register_email_validat_invalid));
             return false;
         } else {
             username.setError(null);
             username.setErrorEnabled(false);
             return true;
         }
+
+
     }
     private Boolean validatePassword() {
         password_data = password.getEditText().getText().toString();

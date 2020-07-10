@@ -105,7 +105,7 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
         String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
 
         LinearLayout child = (LinearLayout) findViewById(R.id.child);
-        LinearLayout lbex = (LinearLayout) findViewById(R.id.rlexo);
+        LinearLayout subscription = (LinearLayout) findViewById(R.id.subscription);
         LinearLayout lbhist = (LinearLayout) findViewById(R.id.rlhist);
         LinearLayout recommendation = (LinearLayout) findViewById(R.id.recommendation);
 
@@ -117,12 +117,13 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
             }
         });
 
-        lbex.setOnClickListener(new View.OnClickListener() {
+        subscription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intent = new Intent(DashboardParentActivity.this, ListeCoursExerciceActivity.class);
-                    startActivity(intent);
+                    Intent intent = new Intent(context, SubscriptionListActivity.class);
+                    intent.putExtra("parent_id", ""+user_connected_id);
+                    context.startActivity(intent);
                 } else {
                     Toast toast = Toast.makeText(context, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
                     View view = toast.getView();

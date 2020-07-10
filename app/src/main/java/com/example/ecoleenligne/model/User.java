@@ -18,7 +18,8 @@ public class User {
 	public int compte_id;
 	public int parent_id;
 	public List<Course> courses = new ArrayList<>();
-	
+	public List<Subscription> subscriptions = new ArrayList<Subscription>();
+
 	//public List<Recommendation> recommendations;
 
 	public User() { }
@@ -34,12 +35,21 @@ public class User {
 		this.lastname = lastname;
 	}
 
-	public User(int id, String firstname, String lastname, String level) {
+	public User(int id, String firstname, String lastname, String email) {
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
+		this.email = email;
+	}
+
+	public User(int id, String firstname, String lastname, String email, String level) {
+		this.id = id;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
 		this.level = level;
 	}
+
 
 	public User(String firstname, String lastname, String email, String tel, String ville) {
 		this.firstname = firstname;
@@ -164,8 +174,14 @@ public class User {
 		return courses;
 	}
 
-	public void setCourses(List<Course> courses) {
-		this.courses = courses;
+	public void setCourses(List<Course> courses) { this.courses = courses; }
+
+	public List<Subscription> getsubscriptions() {
+		return subscriptions;
+	}
+
+	public void setSubscriptions(List<Subscription> subscriptions) {
+		this.subscriptions = subscriptions;
 	}
 
 	/*
