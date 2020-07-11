@@ -65,7 +65,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         setContentView(R.layout.activity_dashboard);
         sqLiteHelper= new SQLiteHelper(this);
 
-        /*------------------  make transparent Status Bar  -----------------*/
+        /*------------------  make  Status Bar transparent ----------------*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -263,7 +263,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                         public void onResponse(JSONObject response) {
 
                                 Toast.makeText(context, R.string.unsubscribe_success, Toast.LENGTH_LONG).show();
-                                Intent intent=new Intent(DashboardActivity.this, LoginActivity.class);
+                                Intent intent=new Intent(context, LoginActivity.class);
                                 context.startActivity(intent);
                                 logout();
 
@@ -293,35 +293,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         if(user_connected_id == null && user_connected_login == null) {
             Toast.makeText(context, "You are already disconnected!", Toast.LENGTH_LONG).show();
         }
-        /*
-        else {
-            if(MainActivity.MODE.equals("ONLINE")) {
-                String url = MainActivity.IP+"/logout/" + user_connected_id;
-                RequestQueue queue = Volley.newRequestQueue(context);
-                JSONObject jsonObject = new JSONObject();
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Intent intent=new Intent(DashboardActivity.this, LoginActivity.class);
-                        context.startActivity(intent);
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        new AlertDialog.Builder(context)
-                                .setTitle("Error")
-                                .setMessage(R.string.server_restful_error)
-                                .show();
-                    }
-                });
-                queue.add(request);
-            } else {
-                Intent intent=new Intent(DashboardActivity.this, LoginActivity.class);
-                context.startActivity(intent);
-            }
-        }
-        */
 
         /*---------------clear session ------*/
         SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
@@ -330,7 +301,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         editor.commit();
         Toast.makeText(context, getString(R.string.logout_success), Toast.LENGTH_LONG).show();
 
-        Intent intent=new Intent(DashboardActivity.this, LoginActivity.class);
+        Intent intent=new Intent(context, LoginActivity.class);
         context.startActivity(intent);
 
     }

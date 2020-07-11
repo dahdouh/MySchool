@@ -206,6 +206,15 @@
 
 
     <string name="msg_delete"> Êtes-vous sûr de bien vouloir supprimer cet élément? </string>
+    <string name="msg_result_title"> Résultats</string>
+    <string name="msg_result_cool_title"> Cool</string>
+    <string name="msg_result_cool_content"> Trop fort ! Continue comme ça !</string>
+    <string name="msg_result_good_title"> Good! </string>
+    <string name="msg_result_good_content"> T\'as eu la moyenne, bien joué ! On essaye de faire mieux ? </string>
+    <string name="msg_result_ok_title"> Ooops !</string>
+    <string name="msg_result_ok_content"> Si près de la moyenne ! On recommence ? </string>
+    <string name="msg_result_no_title"> Aieee ! !</string>
+    <string name="msg_result_no_content"> Je suis sûr que tu peux faire mieux ! On recommence ? </string>
 
 
 

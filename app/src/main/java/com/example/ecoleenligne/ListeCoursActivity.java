@@ -114,22 +114,6 @@ public class ListeCoursActivity extends AppCompatActivity implements NavigationV
         ListView studentsListView = findViewById(R.id.list_students);
         studentsListView.setAdapter(courseListAdapter);
 
-        /*--------------retrieve data from customer student listView --------------*/
-       /*
-        studentsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // selected item
-                String user_selected =((TextView)view.findViewById(R.id.user_id)).getText().toString();
-                //Intent intent=new Intent(ListeCoursActivity.this, StudentDetailActivity.class);
-                //intent.putExtra("user_id", user_selected);
-                //context.startActivity(intent);
-            }
-
-        });
-        */
-
         /*-------------- check if there is connection--------------*/
         if(MainActivity.MODE.equals("ONLINE")) {
             /*------------------------ ONLINE MODE  ---------------------*/
@@ -219,7 +203,7 @@ public class ListeCoursActivity extends AppCompatActivity implements NavigationV
 
     }
 
-    /*---------------------- Unsubscribe out function --------------------------*/
+    /*---------------------- confirm unsubscribe --------------------------*/
     public void confirmUnsubscribe(){
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.presence_busy)
@@ -239,6 +223,7 @@ public class ListeCoursActivity extends AppCompatActivity implements NavigationV
                 .show();
     }
 
+    /*---------------------- Log out function --------------------------*/
     public  void unsubscribe(){
         /*--------------get user from session --------------*/
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
@@ -257,7 +242,7 @@ public class ListeCoursActivity extends AppCompatActivity implements NavigationV
                 public void onResponse(JSONObject response) {
 
                     Toast.makeText(context, R.string.unsubscribe_success, Toast.LENGTH_LONG).show();
-                    Intent intent=new Intent(ListeCoursActivity.this, LoginActivity.class);
+                    Intent intent=new Intent(context, LoginActivity.class);
                     context.startActivity(intent);
                     logout();
 
@@ -286,42 +271,17 @@ public class ListeCoursActivity extends AppCompatActivity implements NavigationV
 
         if(user_connected_id == null && user_connected_login == null) {
             Toast.makeText(context, "You are already disconnected!", Toast.LENGTH_LONG).show();
-        } else {
-            /*-------------- check if there is connection--------------*/
-            if(MainActivity.MODE.equals("ONLINE")) {
-                /*-------------- user logout ----------*/
-                String url = MainActivity.IP+"/logout/" + user_connected_id;
-                RequestQueue queue = Volley.newRequestQueue(context);
-                JSONObject jsonObject = new JSONObject();
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Intent intent=new Intent(ListeCoursActivity.this, LoginActivity.class);
-                        context.startActivity(intent);
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        new AlertDialog.Builder(context)
-                                .setTitle("Error")
-                                .setMessage(R.string.server_restful_error)
-                                .show();
-                    }
-                });
-                queue.add(request);
-            } else {
-                Intent intent=new Intent(ListeCoursActivity.this, LoginActivity.class);
-                context.startActivity(intent);
-            }
-
-            /*---------------clear session ------*/
-            SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.clear();
-            editor.commit();
-            Toast.makeText(context, getString(R.string.logout_success), Toast.LENGTH_LONG).show();
         }
+
+        /*---------------clear session ------*/
+        SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.clear();
+        editor.commit();
+        Toast.makeText(context, getString(R.string.logout_success), Toast.LENGTH_LONG).show();
+
+        Intent intent=new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
 
     }
 
@@ -331,6 +291,7 @@ public class ListeCoursActivity extends AppCompatActivity implements NavigationV
         /*--------------get user from session --------------*/
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_profile = sharedpreferences.getString(MainActivity.Role, null);
+        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
 
         switch (menuItem.getItemId()) {
             case R.id.nav_profile:
@@ -339,7 +300,7 @@ public class ListeCoursActivity extends AppCompatActivity implements NavigationV
                 break;
             case R.id.nav_dashboard:
                 Intent intent_dashboard;
-                if(user_profile.equals("ROLE_PARENT")) {
+                if(user_profile.equals("ROLE_TUTOR")) {
                     intent_dashboard = new Intent(this, DashboardParentActivity.class);
                 } else {
                     intent_dashboard = new Intent(this, DashboardActivity.class);
@@ -349,6 +310,14 @@ public class ListeCoursActivity extends AppCompatActivity implements NavigationV
             case R.id.nav_courses:
                 Intent intent_courses = new Intent(this, ListeCoursActivity.class);
                 startActivity(intent_courses);
+                break;
+            case R.id.nav_subscriptions:
+                Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
+                startActivity(intent_subscription);
+                break;
+            case R.id.nav_forum:
+                Intent intent_forum = new Intent(this, ForumActivity.class);
+                startActivity(intent_forum);
                 break;
             case R.id.nav_exercices:
                 if(MainActivity.MODE.equals("ONLINE")) {

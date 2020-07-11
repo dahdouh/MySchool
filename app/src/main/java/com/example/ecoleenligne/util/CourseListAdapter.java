@@ -15,6 +15,7 @@ import com.example.ecoleenligne.ListeExercicesActivity;
 import com.example.ecoleenligne.LoginActivity;
 import com.example.ecoleenligne.PdfCourseActivity;
 import com.example.ecoleenligne.ProfileActivity;
+import com.example.ecoleenligne.QuizActivity;
 import com.example.ecoleenligne.R;
 import com.example.ecoleenligne.TypeCoursActivity;
 import com.example.ecoleenligne.model.Course;
@@ -59,22 +60,18 @@ public class CourseListAdapter extends BaseAdapter {
         final Button exercices_btn = view.findViewById(R.id.exercices);
         exercices_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Intent intent = new Intent(context, ListeExercicesActivity.class);
-                //intent.putExtra("course_id", course_id);
-                //Toast.makeText(context, "eeeeeeeeeeeeeee !  "+ course_id, Toast.LENGTH_SHORT).show();
-
                 Intent intent1 = new Intent(context, ListeExercicesActivity.class);
                 intent1.putExtra("id",course_id);
-
                 context.startActivity(intent1);
             }
         });
 
+
         final Button quiz_btn = view.findViewById(R.id.quiz);
         quiz_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(context, ProfileActivity.class);
-                intent.putExtra("course_id", course_id);
+                Intent intent = new Intent(context, QuizActivity.class);
+                intent.putExtra("course_id", ""+course_id);
                 context.startActivity(intent);
             }
         });
