@@ -16,7 +16,7 @@ android:scrollbarSize="0dp">
     android:layout_width="match_parent"
     android:layout_height="90dp"
     android:orientation="horizontal"
-    android:layout_marginBottom="20dp"
+    android:layout_marginBottom="0dp"
     android:background="@drawable/header_rectangle">
 
     <ImageView
@@ -41,20 +41,14 @@ android:scrollbarSize="0dp">
         android:textStyle="bold"/>
 </LinearLayout>
 
-<androidx.core.widget.NestedScrollView
-    android:id="@+id/scrolleur"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:layout_marginTop="-20dp"
-    android:scrollbarSize="0dp">
 
     <LinearLayout
         android:id="@+id/listeChapitre"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="-80dp">
 
         <LinearLayout
             android:id="@+id/video"
@@ -77,16 +71,16 @@ android:scrollbarSize="0dp">
                 android:layout_marginLeft="20dp"/>
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:layout_marginLeft="220dp"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/icons8_video_48"
-                app:srcCompat="@drawable/icons8_video_48" />
+                app:srcCompat="@drawable/icons8_email" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/cours"
+            android:id="@+id/courses"
             android:layout_width="340dp"
             android:layout_height="70dp"
             android:orientation="horizontal"
@@ -106,39 +100,11 @@ android:scrollbarSize="0dp">
                 android:layout_marginLeft="20dp"/>
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:src="@drawable/courses_icon"
                 android:layout_marginLeft="210dp"
                 android:layout_marginRight="10dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/revision"
-            android:layout_width="340dp"
-            android:layout_height="70dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:onClick="gotoNextInterface"
-            android:background="@drawable/bgfrenchquiz">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="FICHE DE RÈVISION"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#252525"
-                android:layout_marginRight="95dp"
-                android:layout_marginLeft="30dp"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/cours"
-                android:layout_marginRight="20dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -162,8 +128,8 @@ android:scrollbarSize="0dp">
                 android:layout_marginLeft="20dp"/>
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:layout_marginLeft="230dp"
                 android:layout_marginRight="6dp"
                 android:src="@drawable/icon_quiz"
@@ -192,12 +158,11 @@ android:scrollbarSize="0dp">
                 android:layout_marginLeft="20dp"/>
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:src="@drawable/exercice_gif"
                 android:layout_marginRight="0dp"/>
         </LinearLayout>
     </LinearLayout>
-</androidx.core.widget.NestedScrollView>
-</LinearLayout>
+ </LinearLayout>
 

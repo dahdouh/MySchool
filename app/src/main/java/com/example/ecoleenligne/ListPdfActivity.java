@@ -6,46 +6,31 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.ecoleenligne.model.Course;
 import com.example.ecoleenligne.model.CourseContent;
 import com.example.ecoleenligne.util.CourseContentListAdapter;
-import com.example.ecoleenligne.util.CourseListAdapter;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
-public class ListVideoActivity extends AppCompatActivity {
+public class ListPdfActivity extends AppCompatActivity {
 
     final Context context = this;
     private SharedPreferences sharedpreferences;
@@ -65,7 +50,7 @@ public class ListVideoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_video);
+        setContentView(R.layout.activity_list_pdf);
 
         Intent intent = getIntent();
         course_id = intent.getStringExtra("course_id");
@@ -86,7 +71,7 @@ public class ListVideoActivity extends AppCompatActivity {
             String user_connected = sharedpreferences.getString(MainActivity.Id, null);
 
             /*-------------- call restful webservices ----------*/
-            String url =  MainActivity.IP+"/api/cours/content/video/"+ course_id;
+            String url =  MainActivity.IP+"/api/cours/content/pdf/"+ course_id;
             /*-------------------- get courses from server RESTful ------------------*/
             RequestQueue queue = Volley.newRequestQueue(context);
             JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -115,8 +100,8 @@ public class ListVideoActivity extends AppCompatActivity {
                                 negative_button.setOnClickListener(v -> {
                                     finish();
                                 });
-                                negative_title.setText(R.string.course_video_title);
-                                negative_content.setText(R.string.course_video_not_found);
+                                negative_title.setText(R.string.course_pdf_title);
+                                negative_content.setText(R.string.course_pdf_not_found);
                                 negative_button.setText(R.string.button_ok);
                             }
 

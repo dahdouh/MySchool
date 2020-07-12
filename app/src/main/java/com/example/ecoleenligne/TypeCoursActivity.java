@@ -24,7 +24,8 @@ int[] img ={R.drawable.pdf,R.drawable.pdf,R.drawable.pdf};
         imgpdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(TypeCoursActivity.this, PdfCourseActivity.class);
+                //Intent intent1 = new Intent(TypeCoursActivity.this, PdfCourseActivity.class);
+                Intent intent1 = new Intent(TypeCoursActivity.this, ProfileActivity.class);
                 intent1.putExtra("id",id);
                 startActivity(intent1);
             }

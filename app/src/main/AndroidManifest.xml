@@ -16,12 +16,14 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ListPdfActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".ListVideoActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".ListeCourseContentActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ChildActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -56,9 +58,6 @@
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".PdfCourseActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".CoursActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -76,9 +75,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".VideoContentActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ChoixCourorExoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CourseProgressActivity"

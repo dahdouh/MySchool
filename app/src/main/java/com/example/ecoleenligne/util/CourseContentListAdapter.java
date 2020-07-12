@@ -7,18 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageView;
 
-import com.example.ecoleenligne.ListVideoActivity;
-import com.example.ecoleenligne.ListeCourseContentActivity;
 import com.example.ecoleenligne.ListeExercicesActivity;
 import com.example.ecoleenligne.VideoContentActivity;
+import com.example.ecoleenligne.ContentActivity;
 import com.example.ecoleenligne.QuizActivity;
 import com.example.ecoleenligne.R;
-import com.example.ecoleenligne.model.Course;
 import com.example.ecoleenligne.model.CourseContent;
 
 import java.util.ArrayList;
@@ -40,7 +38,13 @@ public class CourseContentListAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup parent) {
         CourseContent courseContent = (CourseContent) getItem(position);
         if (view == null) {
-            view = inflater.inflate(R.layout.video_item, null);
+            view = inflater.inflate(R.layout.content_item, null);
+        }
+
+        //Pdf content
+        if(courseContent.type.equals("1")) {
+            ImageView mainImage = view.findViewById(R.id.content_image);
+            mainImage.setBackgroundResource(R.drawable.image_course_elearnig);
         }
 
         TextView video_title = view.findViewById(R.id.video_title);
@@ -50,10 +54,17 @@ public class CourseContentListAdapter extends BaseAdapter {
         final LinearLayout video_play = view.findViewById(R.id.video_play);
         video_play.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(context, VideoContentActivity.class);
-                intent.putExtra("lien", courseContent.getPath());
-                Toast.makeText(context, "FFFFF "+ courseContent.getPath(), Toast.LENGTH_LONG).show();
-                context.startActivity(intent);
+                //pdf content
+                if(courseContent.type.equals("1")) {
+                    Intent intent = new Intent(context, ContentActivity.class);
+                    intent.putExtra("lien", courseContent.getPath());
+                    context.startActivity(intent);
+                } else {
+                    //video content
+                    Intent intent = new Intent(context, VideoContentActivity.class);
+                    intent.putExtra("lien", courseContent.getPath());
+                    context.startActivity(intent);
+                }
 
 
             }

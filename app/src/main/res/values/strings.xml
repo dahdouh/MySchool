@@ -134,8 +134,8 @@
     <string name="course">Courses</string>
     <string name="course_video_title"> Video </string>
     <string name="course_video_not_found">No video! You can see other courses </string>
-    <string name="course_pdf_title">Pdf </string>
-    <string name="course_pdf_not_found">No Pdf! You can read other courses </string>
+    <string name="course_pdf_title">Course </string>
+    <string name="course_pdf_not_found">No Course! You can read other courses </string>
     <string name="qcm">QCM</string>
 
     <string name="recommandation_title">Recommandations for you</string>

@@ -60,17 +60,20 @@ public class ListeCourseContentActivity extends AppCompatActivity {
                 intent.putExtra("course_id", ""+course_id);
                 intent.putExtra("course_title", ""+ course_title);
                 break;
-            case "cours" :
-                intent = new Intent(this, CoursActivity.class);
-                break;
-            case "revision" :
-                intent = new Intent(this, QuizActivity.class);
+            case "courses" :
+                intent = new Intent(this, ListPdfActivity.class);
+                intent.putExtra("course_id", ""+course_id);
+                intent.putExtra("course_title", ""+ course_title);
                 break;
             case "quiz" :
                 intent = new Intent(this, QuizActivity.class);
+                intent.putExtra("course_id", ""+course_id);
+                context.startActivity(intent);
                 break;
             case "exercice" :
-                intent = new Intent(this, QuizActivity.class);
+                intent = new Intent(context, ListeExercicesActivity.class);
+                intent.putExtra("id",course_id);
+                context.startActivity(intent);
                 break;
         }
 

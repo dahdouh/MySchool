@@ -95,7 +95,7 @@ public class ListeExercicesActivity extends AppCompatActivity implements Navigat
             String user_connected = sharedpreferences.getString(MainActivity.Id, null);
 
             Intent intent = getIntent();
-            int course_id = intent.getIntExtra("id", -1);
+            String course_id = intent.getStringExtra("id");
 
             /*-------------- call restful webservices ----------*/
             String url =  MainActivity.IP+"/api/exercice/"+ course_id;

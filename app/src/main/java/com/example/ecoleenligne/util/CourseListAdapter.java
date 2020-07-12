@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.example.ecoleenligne.ListeCourseContentActivity;
 import com.example.ecoleenligne.ListeExercicesActivity;
 import com.example.ecoleenligne.LoginActivity;
-import com.example.ecoleenligne.PdfCourseActivity;
 import com.example.ecoleenligne.ProfileActivity;
 import com.example.ecoleenligne.QuizActivity;
 import com.example.ecoleenligne.R;
