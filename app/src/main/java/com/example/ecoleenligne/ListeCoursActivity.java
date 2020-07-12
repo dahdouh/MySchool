@@ -187,18 +187,6 @@ public class ListeCoursActivity extends AppCompatActivity implements NavigationV
             sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
             String user_connected = sharedpreferences.getString(MainActivity.Id, null);
 
-            /*
-            List<User> list_users_sqlite= sqLiteHelper.getUserByParentFromDb(Integer.parseInt(user_connected));
-            courses = new ArrayList<>(list_users_sqlite.size());
-            for(User user : list_users_sqlite){
-                int id = user.getId();
-                String firstname = user.getFirstname();
-                String lastname = user.getLastname();
-                String level = user.getLevel();
-                courses.add(new User(id, firstname, lastname, level));
-            }
-            courseListAdapter.setCourses(courses);
-             */
         }
 
     }

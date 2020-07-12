@@ -52,8 +52,6 @@ public class ResultatQuizActivity extends AppCompatActivity {
         Intent intent = getIntent();
         course_id = intent.getStringExtra("course_id");
 
-        Toast.makeText(context, "cooooooooourse = "+ course_id, Toast.LENGTH_SHORT).show();
-
         Bundle bundle = getIntent().getExtras();
 
         navBar = findViewById(R.id.navBar);

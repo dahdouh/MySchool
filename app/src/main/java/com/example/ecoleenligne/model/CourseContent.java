@@ -8,6 +8,18 @@ public class CourseContent {
 	public String type;
 	public String path;
 	public Course course;
+
+	public CourseContent(){
+
+	}
+	public CourseContent(int id, String title, String path, String type){
+		this.id = id;
+		this.title = title;
+		this.path = path;
+		this.type = type;
+	}
+
+
 	public int getId() {
 		return id;
 	}

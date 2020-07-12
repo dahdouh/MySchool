@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+android:id="@+id/registerActivity"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".ListeCourseContentActivity"
+android:background="#fff"
+android:orientation="vertical"
+android:scrollbarSize="0dp">
+
+<LinearLayout
+    android:id="@+id/navBarLecon"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:orientation="horizontal"
+    android:layout_marginBottom="20dp"
+    android:background="@drawable/header_rectangle">
+
+    <ImageView
+        android:id="@+id/arrowBack"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:src="@drawable/icons8_back_48"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:clickable="true"
+        android:onClick="backStep"/>
+
+    <TextView
+        android:id="@+id/titleCourse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFF"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:textSize="20dp"
+        android:text="@string/course"
+        android:textStyle="bold"/>
+</LinearLayout>
+
+<androidx.core.widget.NestedScrollView
+    android:id="@+id/scrolleur"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:layout_marginTop="-20dp"
+    android:scrollbarSize="0dp">
+
+    <LinearLayout
+        android:id="@+id/listeChapitre"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:id="@+id/video"
+            android:layout_width="340dp"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:onClick="gotoNextInterface"
+            android:background="@drawable/bgfrenchquiz">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VIDÉO"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#252525"
+                android:layout_marginLeft="20dp"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="220dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/icons8_video_48"
+                app:srcCompat="@drawable/icons8_video_48" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cours"
+            android:layout_width="340dp"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:onClick="gotoNextInterface"
+            android:background="@drawable/bgfrenchquiz">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="COURS"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#252525"
+                android:layout_marginLeft="20dp"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/courses_icon"
+                android:layout_marginLeft="210dp"
+                android:layout_marginRight="10dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/revision"
+            android:layout_width="340dp"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:onClick="gotoNextInterface"
+            android:background="@drawable/bgfrenchquiz">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FICHE DE RÈVISION"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#252525"
+                android:layout_marginRight="95dp"
+                android:layout_marginLeft="30dp"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/cours"
+                android:layout_marginRight="20dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/quiz"
+            android:layout_width="340dp"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:onClick="gotoNextInterface"
+            android:background="@drawable/bgfrenchquiz">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="QUIZ"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#252525"
+                android:layout_marginLeft="20dp"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="230dp"
+                android:layout_marginRight="6dp"
+                android:src="@drawable/icon_quiz"
+                app:srcCompat="@drawable/icon_quiz" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/exercice"
+            android:layout_width="340dp"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:onClick="gotoNextInterface"
+            android:background="@drawable/bgfrenchquiz">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EXERCICES"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#252525"
+                android:layout_marginRight="170dp"
+                android:layout_marginLeft="20dp"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/exercice_gif"
+                android:layout_marginRight="0dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
+</LinearLayout>
+

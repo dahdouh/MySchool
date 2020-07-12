@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ecoleenligne.ListeCourseContentActivity;
 import com.example.ecoleenligne.ListeExercicesActivity;
 import com.example.ecoleenligne.LoginActivity;
 import com.example.ecoleenligne.PdfCourseActivity;
@@ -46,8 +47,8 @@ public class CourseListAdapter extends BaseAdapter {
 
         //String name_data = course.getName();
         //name_data = name_data.substring(0, 20);
-        TextView user_id = view.findViewById(R.id.user_id);
-        user_id.setText(""+ course.getName());
+        TextView subject = view.findViewById(R.id.user_id);
+        subject.setText(""+ course.getName());
         TextView name = view.findViewById(R.id.name);
         if(course.getDescription().length()>70)
             name.setText(course.getDescription().substring(0, 70)+ " ...");
@@ -56,6 +57,16 @@ public class CourseListAdapter extends BaseAdapter {
 
 
         final int course_id = course.getId();
+
+        final Button details_btn = view.findViewById(R.id.details);
+        details_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ListeCourseContentActivity.class);
+                intent.putExtra("course_id", ""+course_id);
+                intent.putExtra("course_title", ""+course.getName());
+                context.startActivity(intent);
+            }
+        });
 
         final Button exercices_btn = view.findViewById(R.id.exercices);
         exercices_btn.setOnClickListener(new View.OnClickListener() {

@@ -145,6 +145,10 @@
     <string name="course_description">Description du cours</string>
     <string name="go_to_course">Voir le cours</string>
     <string name="course">Cours</string>
+    <string name="course_video_title"> Vidéo </string>
+    <string name="course_video_not_found">Pas de vidéo! Vous pouvez voir d\'autres cours </string>
+    <string name="course_pdf_title">Pdf </string>
+    <string name="course_pdf_not_found">Pas de vidéo! Vous pouvez lire d\'autres cours </string>
     <string name="qcm">QCM</string>
 
     <string name="recommandation_title">Recommandations pour vous</string>
@@ -203,6 +207,7 @@
     <string name="button_add">Ajouter</string>
     <string name="button_update">Modifier</string>
     <string name="button_delete">Supprimer</string>
+    <string name="button_details">Details</string>
 
 
     <string name="msg_delete"> Êtes-vous sûr de bien vouloir supprimer cet élément? </string>

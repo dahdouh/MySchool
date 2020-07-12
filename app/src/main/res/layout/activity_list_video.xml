@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:id="@+id/videoListActivity"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ListVideoActivity"
+    android:background="#fff"
+    android:orientation="vertical"
+    android:scrollbarSize="0dp">
+
+    <LinearLayout
+        android:id="@+id/scrolListVideo"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp">
+
+            <LinearLayout
+            android:id="@+id/navBarLecon"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
+
+            <ImageView
+                android:id="@+id/arrowBack"
+                android:layout_width="30dp"
+                android:layout_height="50dp"
+                android:src="@drawable/icons8_back_48"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:clickable="true"
+                android:onClick="backStep"/>
+
+            <TextView
+                android:id="@+id/titleCourse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FF4500"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="@string/course"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:id="@+id/listeVideo"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="0dp">
+
+
+                    <ListView
+                        android:id="@+id/list_students"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="@android:color/transparent"
+                        android:paddingBottom="8dp" />
+
+
+                <!--
+                <androidx.cardview.widget.CardView
+                    android:layout_width="300dp"
+                    android:layout_height="235dp"
+                    app:cardCornerRadius="30dp"
+                    app:cardBackgroundColor="@color/colorWhite"
+                    android:layout_marginTop="30dp"
+                    android:onClick="playVideo">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:elevation="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="  2 - Fonctions et espaces des métropoles"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="180dp"
+                            android:background="@drawable/gif_video_paly"/>
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/ic_play"
+                            android:layout_marginLeft="100dp"
+                            android:layout_marginTop="-150dp"/>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                -->
+
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/entrainement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:background="@drawable/bgfrenchquiz">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Je m'entraine"
+                    android:textSize="23dp"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:layout_marginTop="2dp"/>
+
+                <ImageView
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/tool"
+                    app:srcCompat="@drawable/tool" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/exercice"
+                android:layout_width="340dp"
+                android:layout_height="70dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/bgwhite"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:elevation="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="QUIZ"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#252525"
+                    android:layout_marginLeft="20dp"/>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/icon_quiz"
+                    android:layout_marginLeft="230dp"
+                    android:layout_marginRight="6dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quiz"
+                android:layout_width="340dp"
+                android:layout_height="70dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/bgwhite"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:elevation="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="EXERCICES"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#252525"
+                    android:layout_marginRight="170dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/exercie"
+                    android:layout_marginRight="0dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+ </ScrollView>
