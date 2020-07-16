@@ -64,9 +64,9 @@ tools:context=".SubscriptionListActivity">
 
             <GridLayout
                 android:layout_width="match_parent"
-                android:layout_height="470dp"
-                android:layout_marginTop="120dp"
-                android:layout_marginBottom="60dp"
+                android:layout_height="550dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="10dp"
                 android:alignmentMode="alignMargins"
                 android:columnCount="2"
                 android:columnOrderPreserved="false"

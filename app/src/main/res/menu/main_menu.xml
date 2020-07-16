@@ -18,6 +18,7 @@
             android:id="@+id/nav_forum"
             android:icon="@drawable/icons8_chat_48"
             android:title="@string/navigation_menu_forum" />
+        <!--
         <item
             android:id="@+id/nav_exercices"
             android:icon="@drawable/recommandation"
@@ -30,6 +31,7 @@
             android:id="@+id/nav_payment"
             android:icon="@drawable/payment_icon_48"
             android:title="@string/navigation_menu_payment" />
+            -->
 
     </group>
 
@@ -42,6 +44,7 @@
                     android:id="@+id/nav_profile"
                     android:icon="@drawable/profile_icon"
                     android:title="@string/navigation_menu_profile" />
+                <!--
                 <item
                     android:id="@+id/nav_unsubscribe"
                     android:icon="@drawable/icons8_unsubscribe_48"
@@ -50,6 +53,7 @@
                     android:id="@+id/nav_synchronisation"
                     android:icon="@drawable/icons8_synchronisation_48"
                     android:title="@string/navigation_menu_synchronisation" />
+                    -->
                 <item
                     android:id="@+id/nav_logout"
                     android:icon="@drawable/logout_icon"

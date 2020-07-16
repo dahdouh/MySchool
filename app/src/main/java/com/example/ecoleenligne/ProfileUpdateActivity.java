@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,20 +39,15 @@ public class ProfileUpdateActivity extends AppCompatActivity {
 
     final Context context = this;
     SharedPreferences sharedpreferences;
-
-    TextInputLayout login_textLayout, password_textLayout, firstname_textLayout, lastname_textLayout, email_textLayout, tel_textLayout, ville_textLayout;
-    TextInputEditText login, password, firstname, lastname, email, tel, ville;
-    String login_data, password_data, firstname_data, lastname_data, email_data, tel_data, ville_data;
-    String userAlreadyExist ="";
+    TextInputLayout password, firstname, lastname, email;
+    String password_data, firstname_data, lastname_data, email_data, date_data;
     TextView msg_error;
-    /*------ offline mode -------*/
-    SQLiteHelper sqLiteHelper;
+    DatePicker picker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_update);
-        sqLiteHelper= new SQLiteHelper(this);
 
         /*------------------  make transparent Status Bar  -----------------*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -59,37 +55,32 @@ public class ProfileUpdateActivity extends AppCompatActivity {
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
-        /*----------- Edit input Layout ---------*/
-        login_textLayout = findViewById(R.id.usernameTextLayout);
-        password_textLayout = findViewById(R.id.passwordTextLayout);
-        firstname_textLayout = findViewById(R.id.firstnameTextLayout);
-        lastname_textLayout = findViewById(R.id.lastnameTextLayout);
-        email_textLayout = findViewById(R.id.emailTextLayout);
-        tel_textLayout = findViewById(R.id.telTextLayout);
-        ville_textLayout = findViewById(R.id.villeTextLayout);
-
-        /*----------- Edit input Text ---------*/
-        login = findViewById(R.id.login_username);
         password = findViewById(R.id.login_password);
         firstname = findViewById(R.id.firstname);
         lastname = findViewById(R.id.lastname);
         email = findViewById(R.id.email);
-        tel = findViewById(R.id.tel);
-        ville = findViewById(R.id.ville);
+        picker=(DatePicker)findViewById(R.id.datePicker);
         msg_error = findViewById(R.id.msg_error);
 
+        final Button save_btn = findViewById(R.id.save_btn);
+        save_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(!validateFirstname() || !validateLastname() || !validatePassword() || !validateEmail()){
+                    return;
+                } else {
+                    date_data = picker.getYear()+"-"+ (picker.getMonth() + 1)+"-"+picker.getDayOfMonth();
+                    updateStudentRest(email_data, password_data, firstname_data, lastname_data, date_data);
+                }
+            }
+        });
 
         /*--------------get user from session --------------*/
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         final String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
 
-        /*--------------get selected user from previous listView --------------*/
-        Intent intent = getIntent();
-
-        /*-------------- check if there is connection--------------*/
+        //online mode
         if(MainActivity.MODE.equals("ONLINE")) {
-            /*------------------  get profile from webservice  -----------------*/
-            String url = MainActivity.IP + "/profile/" + user_connected_id;
+            /*String url = MainActivity.IP + "/api/profile/" + user_connected_id;
             RequestQueue queue = Volley.newRequestQueue(context);
             JSONObject jsonObject = new JSONObject();
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
@@ -105,17 +96,17 @@ public class ProfileUpdateActivity extends AppCompatActivity {
                             firstname_data = response.getString("firstname");
                             lastname_data = response.getString("lastname");
                             email_data = response.getString("email");
-                            tel_data = response.getString("tel");
-                            ville_data = response.getString("ville");
-                            JSONObject compteJsonObject = response.getJSONObject("compte");
-                            login_data = compteJsonObject.getString("login");
+                            //tel_data = response.getString("tel");
+                            //ville_data = response.getString("ville");
+                            //JSONObject compteJsonObject = response.getJSONObject("compte");
+                            //login_data = compteJsonObject.getString("login");
 
-                            firstname.setText(firstname_data);
-                            lastname.setText(lastname_data);
-                            email.setText(email_data);
-                            tel.setText(tel_data);
-                            ville.setText(ville_data);
-                            login.setText(login_data);
+                            firstname.getEditText().setText(firstname_data);
+                            lastname.getEditText().setText(lastname_data);
+                            email.getEditText().setText(email_data);
+                            //tel.setText(tel_data);
+                            //ville.setText(ville_data);
+                            //login.setText(login_data);
                         }
 
 
@@ -138,64 +129,73 @@ public class ProfileUpdateActivity extends AppCompatActivity {
             });
 
             queue.add(request);
+             */
+
+            String url = MainActivity.IP + "/api/profile/" + user_connected_id;
+            RequestQueue queue = Volley.newRequestQueue(context);
+
+            JSONObject jsonObject = new JSONObject();
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, response -> {
+                try {
+                    String user_exist = response.getString("email");
+
+
+                    if (user_exist.equals("not found")) {
+                        Toast.makeText(context, "=====>  User not exist", Toast.LENGTH_LONG).show();
+                    } else {
+                        firstname.getEditText().setText(response.getString("firstName"));
+                        lastname.getEditText().setText(response.getString("lastName"));
+                        email.getEditText().setText(response.getString("email"));
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    new AlertDialog.Builder(context)
+                            .setTitle("Error")
+                            .setMessage(e.toString())
+                            .show();
+                }
+            }, error -> new AlertDialog.Builder(context)
+                    .setTitle("Error")
+                    .setMessage(R.string.server_restful_error)
+                    .show());
+
+            queue.add(request);
+
         } else {
-            User user= sqLiteHelper.getUserByIdFromDb(Integer.parseInt(user_connected_id));
-            firstname_data = user.getFirstname();
-            lastname_data = user.getLastname();
-            email_data = user.getEmail();
-            tel_data = user.getTel();
-            ville_data = user.getVille();
-            int compte_id = user.getCompte_id();
-            Compte compte = sqLiteHelper.getCompteByIdFromDb(compte_id);
-            login_data = compte.getLogin();
-            firstname.setText(firstname_data);
-            lastname.setText(lastname_data);
-            email.setText(email_data);
-            tel.setText(tel_data);
-            ville.setText(ville_data);
-            login.setText(login_data);
         }
 
-        final Button update_btn = findViewById(R.id.update_btn);
-        update_btn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if(!validateFirstname() || !validateLastname() || !validateEmail() || !validateTel() || !validateVille() ||
-                        !validateLogin() || !validatePassword()){
-                    return;
-                } else {
-                        Compte compte = new Compte(login_data, password_data);
-                        User user = new User(firstname_data, lastname_data, email_data, tel_data, ville_data);
-                        user.setId(Integer.parseInt(user_connected_id));
-                        if(MainActivity.MODE.equals("ONLINE")) {
-                            //call rest webservice
-                            updateProfileRest(user, compte);
-                        } else {
-                            SQLiteHelper.updateUserParent(sqLiteHelper.getDatabase(), user, compte);
-                            Intent intent = new Intent(ProfileUpdateActivity.this, ProfileActivity.class);
-                            context.startActivity(intent);
-                        }
-                }
-            }
-        });
+    }
+
+
+    /*------------------ call restful service ----------------*/
+    public void updateStudentRest(String email, String password, String firstName, String lastName, String date) {
+        String url = MainActivity.IP+"/api/profile/update/"+email+"/"+password+"/"+firstName+"/"+lastName+"/"+date;
+        Toast.makeText(context, "eee "+url, Toast.LENGTH_LONG).show();
+        RequestQueue queue = Volley.newRequestQueue(context);
+        JSONObject jsonObject = new JSONObject();
+        // allow connection with https and ssl
+        HttpsTrustManager.allowAllSSL();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, response -> {
+                  Intent intent=new Intent(context, ProfileActivity.class);
+                  context.startActivity(intent);
+
+        }, e -> new AlertDialog.Builder(context)
+                .setTitle("#Error")
+                .setMessage(e.toString())
+                .show());
+
+        queue.add(request);
+
     }
 
 
     /*------------------ validate data --------------*/
-    private Boolean validateLogin() {
-        login_data = login_textLayout.getEditText().getText().toString();
-        if (login_data.isEmpty()) {
-            login.setError(getString(R.string.register_login_validat_empty));
-            return false;
-        } else {
-            login_textLayout.setError(null);
-            login_textLayout.setErrorEnabled(false);
-            return true;
-        }
-    }
     private Boolean validatePassword() {
-        password_data = password_textLayout.getEditText().getText().toString();
+        password_data = password.getEditText().getText().toString();
         if (password_data.isEmpty()) {
-            password_textLayout.setError(getString(R.string.register_password_validat_empty));
+            password.setError(getString(R.string.register_password_validat_empty));
             return false;
         } else {
 
@@ -205,115 +205,50 @@ public class ProfileUpdateActivity extends AppCompatActivity {
             pattern = Pattern.compile(PASSWORD_PATTERN);
             matcher = pattern.matcher(password_data);
             if(!matcher.matches() && password_data.length()<4) {
-                password_textLayout.setError(getString(R.string.register_password_validat_regex));
+                password.setError(getString(R.string.register_password_validat_regex));
                 return false;
             }else {
                 return true;
             }
         }
     }
-
     private Boolean validateFirstname() {
-        firstname_data = firstname_textLayout.getEditText().getText().toString();
+        firstname_data = firstname.getEditText().getText().toString();
         if (firstname_data.isEmpty()) {
-            firstname_textLayout.setError(getString(R.string.register_firstname_validat_empty));
+            firstname.setError(getString(R.string.register_firstname_validat_empty));
             return false;
         } else {
-            firstname_textLayout.setError(null);
-            firstname_textLayout.setErrorEnabled(false);
+            firstname.setError(null);
+            firstname.setErrorEnabled(false);
             return true;
         }
     }
     private Boolean validateLastname() {
-        lastname_data = lastname_textLayout.getEditText().getText().toString();
+        lastname_data = lastname.getEditText().getText().toString();
         if (lastname_data.isEmpty()) {
-            lastname_textLayout.setError(getString(R.string.register_lastname_validat_empty));
+            lastname.setError(getString(R.string.register_lastname_validat_empty));
             return false;
         } else {
-            lastname_textLayout.setError(null);
-            lastname_textLayout.setErrorEnabled(false);
+            lastname.setError(null);
+            lastname.setErrorEnabled(false);
             return true;
         }
     }
     private Boolean validateEmail() {
-        email_data = email_textLayout.getEditText().getText().toString();
+        email_data = email.getEditText().getText().toString();
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
         if (email_data.isEmpty()) {
-            email_textLayout.setError(getString(R.string.register_email_validat_empty));
+            email.setError(getString(R.string.register_email_validat_empty));
             return false;
         } else if (!email_data.matches(emailPattern)) {
-            email_textLayout.setError(getString(R.string.register_email_validat_invalid));
+            email.setError(getString(R.string.register_email_validat_invalid));
             return false;
         } else {
-            email_textLayout.setError(null);
-            email_textLayout.setErrorEnabled(false);
+            email.setError(null);
+            email.setErrorEnabled(false);
             return true;
         }
-    }
-    private Boolean validateTel() {
-        tel_data = tel_textLayout.getEditText().getText().toString();
-        if (tel_data.isEmpty()) {
-            tel_textLayout.setError(getString(R.string.register_tel_validat_empty));
-            return false;
-        } else {
-            tel_textLayout.setError(null);
-            tel_textLayout.setErrorEnabled(false);
-            return true;
-        }
-    }
-    private Boolean validateVille() {
-        ville_data = ville_textLayout.getEditText().getText().toString();
-        if (ville_data.isEmpty()) {
-            ville_textLayout.setError(getString(R.string.register_ville_validat_empty));
-            return false;
-        } else {
-            ville_textLayout.setError(null);
-            ville_textLayout.setErrorEnabled(false);
-            return true;
-        }
-    }
-
-
-    /*------------------ update user profile RESTful ----------------*/
-    public void updateProfileRest(User user, Compte compte) {
-        String url = MainActivity.IP+"/updateProfile/"+user.getId()+"/"+compte.getLogin()+"/"+compte.getPassword()+"/"+user.getFirstname()+"/"+user.getLastname()+"/"+user.getEmail()+"/"+user.getTel()+"/"+user.getVille();
-        RequestQueue queue = Volley.newRequestQueue(context);
-
-        JSONObject jsonObject = new JSONObject();
-        JsonObjectRequest request=new JsonObjectRequest(Request.Method.GET, url,jsonObject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    userAlreadyExist = response.getString("firstname");
-                    if(userAlreadyExist.equals("already exist")) {
-                        msg_error.setText(getString(R.string.register_user_alreadyexist));
-                        Toast.makeText(context, getString(R.string.register_user_alreadyexist), Toast.LENGTH_LONG).show();
-                    } else {
-                        Intent intent = new Intent(ProfileUpdateActivity.this, ProfileActivity.class);
-                        context.startActivity(intent);
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    new AlertDialog.Builder(context)
-                            .setTitle("Error")
-                            .setMessage(e.toString())
-                            .show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                new AlertDialog.Builder(context)
-                        .setTitle("Error")
-                        .setMessage(R.string.server_restful_error)
-                        .show();
-            }
-        });
-
-        queue.add(request);
-
     }
 
 }

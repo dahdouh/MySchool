@@ -9,6 +9,7 @@ android:orientation="horizontal">
 
 
 <RelativeLayout
+    android:id="@+id/child_select"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="6dp"

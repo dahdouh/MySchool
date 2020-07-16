@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ecoleenligne.ChildActivity;
 import com.example.ecoleenligne.MainActivity;
+import com.example.ecoleenligne.ProfileActivity;
 import com.example.ecoleenligne.R;
 import com.example.ecoleenligne.SubscriptionListActivity;
 import com.example.ecoleenligne.model.Kinship;
@@ -75,6 +77,14 @@ public class KinshipListAdapter extends BaseAdapter {
                 Objects.requireNonNull(dialog_delete.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog_delete.show();
             }
+        });
+
+        // button delete child
+        RelativeLayout child_select = view.findViewById(R.id.child_select);
+        child_select.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ProfileActivity.class);
+            intent.putExtra("id", ""+ kinship.getStudent().getId());
+            context.startActivity(intent);
         });
 
         // button confirm delete child

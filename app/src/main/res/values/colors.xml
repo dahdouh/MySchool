@@ -10,6 +10,9 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="active_dots">#cc6600</color>
+    <color name="inactive_dots">#83878b</color>
+
     <!--
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>

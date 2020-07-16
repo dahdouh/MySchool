@@ -15,6 +15,7 @@
     <string name="navigation_menu_unsubscribe" translatable="false">Unsubscribe</string>
     <string name="navigation_menu_logout" translatable="false">Logout</string>
     <string name="navigation_menu_profile" translatable="false">Profile</string>
+    <string name="navigation_menu_myspace" translatable="false">My space</string>
     <string name="navigation_menu_communicate" translatable="false">Communicate</string>
     <string name="navigation_menu_share" translatable="false">Share</string>
     <string name="share_title" translatable="false"> Share using </string>
@@ -25,6 +26,16 @@
     <string name="navigation_menu_payment" translatable="false">Payment</string>
     <string name="navigation_menu_chat" translatable="false">Chat</string>
     <string name="navigation_menu_forum" translatable="false">Forum</string>
+
+
+    <string name="slide1_title" translatable="false">A tool designed by experts</string>
+    <string name="slide1_content" translatable="false"> Educational engineers, teachers, video production professionals! </string>
+    <string name="slide2_title" translatable="false">Unique and adapted content</string>
+    <string name="slide2_content" translatable="false"> Online courses of all subjects with videos, exercises, interactive quizzes ... nothing is missing! </string>
+    <string name="slide3_title" translatable="false">An innovative and positive approach to learning</string>
+    <string name="slide3_content" translatable="false"> Designed for students, parents and anyone who wants to learn </string>
+    <string name="slide4_title" translatable="false"> Succeeding in your year has never been easier </string>
+    <string name="slide4_content" translatable="false"> Insure your year or that of your children using SchoolAx application </string>
 
 
     <string name="login_continue">Sign in to continue</string>
@@ -205,6 +216,10 @@
     </string-array>
 
 
+    <string name="my_preference">"com.abc.com.MyPref"</string>
+    <string name="my_preference_key">"com.abc.com.MyPrefKey"</string>
+
+
     <string name="connection_msg">You should be connected to access to this service</string>
     <string name="server_restful_error">Server connexion error</string>
 
@@ -241,6 +256,8 @@
     <string name="button_update">Update</string>
     <string name="button_delete">Delete</string>
     <string name="button_details">Details</string>
+    <string name="button_next">Next</string>
+    <string name="button_letsgo">Let\'s go</string>
 
 
     <string name="msg_delete"> Ara you sure you want to delete this item?</string>

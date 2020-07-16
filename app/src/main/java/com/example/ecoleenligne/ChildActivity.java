@@ -78,6 +78,8 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
     ListView listView;
     List<Kinship> kinships = new ArrayList<Kinship>();
 
+    String email_data;
+
    // Popup dialog
     Button positive, negative;
     Dialog dialog, dialog_child_form;
@@ -116,10 +118,7 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
         if(user_profile_data.equals("ROLE_TUTOR")) {
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.nav_courses).setVisible(false);
-            menu.findItem(R.id.nav_recommendation).setVisible(false);
-            menu.findItem(R.id.nav_exercices).setVisible(false);
         }
-
 
         this.kinshipListAdapter = new KinshipListAdapter(this, kinships);
         ListView listView = findViewById(R.id.list_students);
@@ -200,20 +199,6 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
         });
         queue.add(request);
 
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // selected item
-                String child_id =((TextView)view.findViewById(R.id.user_id)).getText().toString();
-                Intent intent = new Intent(context, ProfileActivity.class);
-                intent.putExtra("id", ""+child_id);
-                context.startActivity(intent);
-            }
-
-        });
-
-
         //Add child dialog popup
         dialog_child_form = new Dialog(context);
         dialog_child_form.setContentView(R.layout.popup_positive_child_add);
@@ -237,9 +222,11 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
                 add_form_button.setOnClickListener(v3 -> {
                     TextInputLayout emailInput = (TextInputLayout) dialog_child_form.findViewById(R.id.email);
                     String email = emailInput.getEditText().getText().toString();
-                    //call rest webservice to very id the child exist in the remote database
-                    //Toast.makeText(context, "email : "+email, Toast.LENGTH_LONG).show();
-                    addChild(email);
+                    if(!validateEmail()){
+                        return;
+                    } else {
+                        addChild(email);
+                    }
                 });
 
                 Objects.requireNonNull(dialog_child_form.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -247,6 +234,24 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
             }
         });
 
+    }
+
+    private Boolean validateEmail() {
+        TextInputLayout emailInput = (TextInputLayout) dialog_child_form.findViewById(R.id.email);
+        email_data = emailInput.getEditText().getText().toString();
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+        if (email_data.isEmpty()) {
+            emailInput.setError(getString(R.string.register_email_validat_empty));
+            return false;
+        } else if (!email_data.matches(emailPattern)) {
+            emailInput.setError(getString(R.string.register_email_validat_invalid));
+            return false;
+        } else {
+            emailInput.setError(null);
+            emailInput.setErrorEnabled(false);
+            return true;
+        }
     }
 
 
@@ -316,65 +321,6 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
         dialog.show();
     }
 
-    /*---------------------- confirm unsubscribe --------------------------*/
-    public void confirmUnsubscribe(){
-        AlertDialog alertDialog = new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.presence_busy)
-                .setTitle("Confirmation")
-                .setMessage(R.string.unsubscribe_confirm)
-                .setPositiveButton(R.string.unsubscribe_yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        unsubscribe();
-                    }
-                })
-                .setNegativeButton(R.string.unsubscribe_no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                })
-                .show();
-    }
-
-    /*---------------------- Log out function --------------------------*/
-    public  void unsubscribe(){
-        /*--------------get user from session --------------*/
-        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
-        String user_connected_login = sharedpreferences.getString(MainActivity.Login, null);
-
-        if(user_connected_id == null && user_connected_login == null) {
-            Toast.makeText(context, "You must fisrt connect!", Toast.LENGTH_LONG).show();
-        } else {
-            /*-------------- user unsubscribe ----------*/
-            String url = MainActivity.IP+"/unsubscribe/" + user_connected_id;
-            RequestQueue queue = Volley.newRequestQueue(context);
-            JSONObject jsonObject = new JSONObject();
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-
-                    Toast.makeText(context, R.string.unsubscribe_success, Toast.LENGTH_LONG).show();
-                    Intent intent=new Intent(ChildActivity.this, LoginActivity.class);
-                    context.startActivity(intent);
-                    logout();
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    new AlertDialog.Builder(context)
-                            .setTitle("Error")
-                            .setMessage(R.string.server_restful_error)
-                            .show();
-                }
-            });
-
-            queue.add(request);
-        }
-
-    }
-
     /*---------------------- Log out function --------------------------*/
     public  void logout(){
         /*--------------get user from session --------------*/
@@ -385,6 +331,7 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
         if(user_connected_id == null && user_connected_login == null) {
             Toast.makeText(context, "You are already disconnected!", Toast.LENGTH_LONG).show();
         }
+
         /*---------------clear session ------*/
         SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -392,7 +339,7 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
         editor.commit();
         Toast.makeText(context, getString(R.string.logout_success), Toast.LENGTH_LONG).show();
 
-        Intent intent=new Intent(ChildActivity.this, LoginActivity.class);
+        Intent intent=new Intent(this, LoginActivity.class);
         context.startActivity(intent);
 
     }
@@ -431,57 +378,10 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
                 Intent intent_forum = new Intent(this, ForumActivity.class);
                 startActivity(intent_forum);
                 break;
-            case R.id.nav_exercices:
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intent_exercices = new Intent(this, ListeCoursExerciceActivity.class);
-                    startActivity(intent_exercices);
-                } else {
-                    Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-                break;
-            case R.id.nav_recommendation:
-                Intent intent_recommendation = new Intent(this, RecommendationActivity.class);
-                startActivity(intent_recommendation);
-                break;
             case R.id.nav_chat:
                 if(MainActivity.MODE.equals("ONLINE")) {
                     Intent intent_chat = new Intent(this, ChatActivity.class);
                     startActivity(intent_chat);
-                } else {
-                    Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-                break;
-            case R.id.nav_payment:
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intent_payment = new Intent(this, PayementActivity.class);
-                    startActivity(intent_payment);
-                } else {
-                    Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-                break;
-            case R.id.nav_synchronisation:
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intent_synchronisation = new Intent(this, SynchronisationActivity.class);
-                    startActivity(intent_synchronisation);
-                } else {
-                    Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-                break;
-            case R.id.nav_unsubscribe:
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    confirmUnsubscribe();
                 } else {
                     Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
                     View view = toast.getView();

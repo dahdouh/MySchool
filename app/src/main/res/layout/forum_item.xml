@@ -31,16 +31,16 @@
                 android:textSize="18dp"
                 android:textStyle="bold|italic" />
 
-            <TextView
+            <com.codesgood.views.JustifiedTextView
                 android:id="@+id/user_id"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="13dp"
                 android:fontFamily="sans-serif-medium"
                 android:text=""
                 android:textColor="#000"
                 android:textSize="20dp"
-                android:layout_below="@id/subject"/>
+                android:layout_below="@id/subject" />
 
 
             <TextView
@@ -55,19 +55,30 @@
                 android:textSize="17dp"
                 android:textStyle="normal|italic" />
 
+            <ImageView
+                android:id="@+id/icon_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="centerCrop"
+                android:src="@drawable/icons8_date_20"
+                android:layout_margin="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_below="@id/name"/>
+
             <TextView
                 android:id="@+id/date"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="13dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginRight="10dp"
-                android:layout_below="@id/name"
                 android:fontFamily="sans-serif-medium"
-                android:text=""
-                android:textColor="#FF4500"
+                android:text="ddddddd"
+                android:textColor="#FAAA00"
                 android:textSize="18dp"
-                android:textStyle="bold|italic" />
+                android:textStyle="bold|italic"
+                android:layout_below="@id/name"
+                android:layout_toRightOf="@id/icon_date"/>
 
             <Button
                 android:id="@+id/subscription_delete_btn"
@@ -85,7 +96,8 @@
                 android:textColor="#fff"
                 android:textSize="14sp"
                 android:transitionName="trans_btn_signup"
-                app:srcCompat="@drawable/icons8_delete_65" />
+                app:srcCompat="@drawable/icons8_delete_65"
+                android:layout_below="@id/name"/>
 
         </RelativeLayout>
 

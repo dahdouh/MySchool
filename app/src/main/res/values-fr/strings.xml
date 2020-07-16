@@ -16,6 +16,7 @@
     <string name="navigation_menu_unsubscribe" translatable="false">Se désabonner</string>
     <string name="navigation_menu_logout" translatable="false">Se déconnecter</string>
     <string name="navigation_menu_profile" translatable="false">Profil</string>
+    <string name="navigation_menu_myspace" translatable="false">Mon espace</string>
     <string name="navigation_menu_communicate" translatable="false">Communiquer</string>
     <string name="navigation_menu_share" translatable="false">Partager</string>
     <string name="share_title" translatable="false"> Partager via </string>
@@ -26,6 +27,15 @@
     <string name="navigation_menu_payment" translatable="false">Paiement</string>
     <string name="navigation_menu_chat" translatable="false">Discussion</string>
     <string name="navigation_menu_forum" translatable="false">Forum</string>
+
+    <string name="slide1_title" translatable="false">Un outil conçu par des\n experts</string>
+    <string name="slide1_content" translatable="false"> Ingénieurs pédagogiques, enseignants, professionnels de l’édition et de la production vidéo : la totale !</string>
+    <string name="slide2_title" translatable="false">Des contenus uniques et adaptés</string>
+    <string name="slide2_content" translatable="false"> Cours en ligne de toutes les matières avec des vidéos, des exercices, des quiz interactifs… il ne manque rien ! </string>
+    <string name="slide3_title" translatable="false">Une approche bienveillante et positive de l’apprentissage</string>
+    <string name="slide3_content" translatable="false"> Conçu pour élève, parent ainsi qu\'à toute personne voulant apprendre </string>
+    <string name="slide4_title" translatable="false"> Réussir votre année n\'a jamais été aussi facile </string>
+    <string name="slide4_content" translatable="false"> \nAssurer votre année ou celui de vos enfants en utilisant SchoolAx application </string>
 
     <string name="login_continue" translatable="false">Connectez-vous pour continue</string>
     <string name="login_signin">Se connecter</string>
@@ -198,6 +208,8 @@
         <item>2030</item>
     </string-array>
 
+    <string name="my_preference">"com.abc.com.MyPref"</string>
+    <string name="my_preference_key">"com.abc.com.MyPrefKey"</string>
 
     <string name="button_ok">Ok</string>
     <string name="button_yes">Oui</string>
@@ -208,6 +220,8 @@
     <string name="button_update">Modifier</string>
     <string name="button_delete">Supprimer</string>
     <string name="button_details">Details</string>
+    <string name="button_next">Suivant</string>
+    <string name="button_letsgo">Commencer</string>
 
 
     <string name="msg_delete"> Êtes-vous sûr de bien vouloir supprimer cet élément? </string>

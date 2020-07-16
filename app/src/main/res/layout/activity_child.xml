@@ -115,7 +115,7 @@ tools:context=".ChildActivity">
             android:layout_height="match_parent"
             android:divider="@android:color/transparent"
             android:paddingTop="10dp"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="8dp"/>
 
     </GridLayout>
 </RelativeLayout>

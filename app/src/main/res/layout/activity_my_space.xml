@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+android:id="@+id/registerActivity"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MySpaceActivity"
+android:background="#fff"
+android:orientation="vertical"
+android:scrollbarSize="0dp">
+
+    <LinearLayout
+        android:id="@+id/navBarLecon"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/bg_red">
+
+        <ImageView
+            android:id="@+id/arrowBack"
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:src="@drawable/icons8_back_48"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:clickable="true"
+            android:onClick="backStep"/>
+
+        <TextView
+            android:id="@+id/titleCourse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:textSize="20dp"
+            android:text="@string/navigation_menu_myspace"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:id="@+id/listeVideo"
+        android:layout_width="match_parent"
+        android:layout_height="520dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp">
+
+
+        <ListView
+            android:id="@+id/list_students"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:paddingBottom="8dp" />
+    </LinearLayout>
+
+</LinearLayout>

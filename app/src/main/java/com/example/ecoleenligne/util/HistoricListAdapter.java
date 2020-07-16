@@ -55,7 +55,9 @@ public class HistoricListAdapter extends BaseAdapter {
         String[] date3 = date2.split("\\+");
         String hour = date3[0];
         TextView desc = view.findViewById(R.id.desc);
-        desc.setText(date1 +" at "+hour);
+        desc.setText(date1);
+        TextView desc2 = view.findViewById(R.id.desc2);
+        desc2.setText("at  "+hour);
 
         return view;
     }

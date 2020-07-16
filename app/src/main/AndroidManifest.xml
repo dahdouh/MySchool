@@ -16,11 +16,18 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ListPdfActivity"
+            android:name=".MySpaceActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".StartActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
+            android:name=".ListPdfActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ListVideoActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ListeCourseContentActivity"
             android:theme="@style/AppTheme.NoActionBar" />

@@ -44,7 +44,7 @@ public class CourseContentListAdapter extends BaseAdapter {
         //Pdf content
         if(courseContent.type.equals("1")) {
             ImageView mainImage = view.findViewById(R.id.content_image);
-            mainImage.setBackgroundResource(R.drawable.image_course_elearnig);
+            mainImage.setBackgroundResource(R.drawable.image_pdf);
         }
 
         TextView video_title = view.findViewById(R.id.video_title);
@@ -58,6 +58,7 @@ public class CourseContentListAdapter extends BaseAdapter {
                 if(courseContent.type.equals("1")) {
                     Intent intent = new Intent(context, ContentActivity.class);
                     intent.putExtra("lien", courseContent.getPath());
+
                     context.startActivity(intent);
                 } else {
                     //video content

@@ -101,8 +101,6 @@ public class PostActivity extends AppCompatActivity implements NavigationView.On
         if(user_profile_data.equals("ROLE_PARENT")) {
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.nav_courses).setVisible(false);
-            menu.findItem(R.id.nav_recommendation).setVisible(false);
-            menu.findItem(R.id.nav_exercices).setVisible(false);
         }
 
         this.postListAdapter = new PostListAdapter(this, posts);
@@ -258,65 +256,6 @@ public class PostActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    /*---------------------- confirm unsubscribe --------------------------*/
-    public void confirmUnsubscribe(){
-        AlertDialog alertDialog = new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.presence_busy)
-                .setTitle("Confirmation")
-                .setMessage(R.string.unsubscribe_confirm)
-                .setPositiveButton(R.string.unsubscribe_yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        unsubscribe();
-                    }
-                })
-                .setNegativeButton(R.string.unsubscribe_no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                })
-                .show();
-    }
-
-    /*---------------------- Log out function --------------------------*/
-    public  void unsubscribe(){
-        /*--------------get user from session --------------*/
-        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
-        String user_connected_login = sharedpreferences.getString(MainActivity.Login, null);
-
-        if(user_connected_id == null && user_connected_login == null) {
-            Toast.makeText(context, "You must fisrt connect!", Toast.LENGTH_LONG).show();
-        } else {
-            /*-------------- user unsubscribe ----------*/
-            String url = MainActivity.IP+"/unsubscribe/" + user_connected_id;
-            RequestQueue queue = Volley.newRequestQueue(context);
-            JSONObject jsonObject = new JSONObject();
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-
-                    Toast.makeText(context, R.string.unsubscribe_success, Toast.LENGTH_LONG).show();
-                    Intent intent=new Intent(PostActivity.this, LoginActivity.class);
-                    context.startActivity(intent);
-                    logout();
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    new AlertDialog.Builder(context)
-                            .setTitle("Error")
-                            .setMessage(R.string.server_restful_error)
-                            .show();
-                }
-            });
-
-            queue.add(request);
-        }
-
-    }
-
     /*---------------------- Log out function --------------------------*/
     public  void logout(){
         /*--------------get user from session --------------*/
@@ -327,6 +266,7 @@ public class PostActivity extends AppCompatActivity implements NavigationView.On
         if(user_connected_id == null && user_connected_login == null) {
             Toast.makeText(context, "You are already disconnected!", Toast.LENGTH_LONG).show();
         }
+
         /*---------------clear session ------*/
         SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -334,7 +274,7 @@ public class PostActivity extends AppCompatActivity implements NavigationView.On
         editor.commit();
         Toast.makeText(context, getString(R.string.logout_success), Toast.LENGTH_LONG).show();
 
-        Intent intent=new Intent(PostActivity.this, LoginActivity.class);
+        Intent intent=new Intent(this, LoginActivity.class);
         context.startActivity(intent);
 
     }
@@ -345,6 +285,7 @@ public class PostActivity extends AppCompatActivity implements NavigationView.On
         /*--------------get user from session --------------*/
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_profile = sharedpreferences.getString(MainActivity.Role, null);
+        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
 
         switch (menuItem.getItemId()) {
             case R.id.nav_profile:
@@ -353,7 +294,7 @@ public class PostActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_dashboard:
                 Intent intent_dashboard;
-                if(user_profile.equals("ROLE_PARENT")) {
+                if(user_profile.equals("ROLE_TUTOR")) {
                     intent_dashboard = new Intent(this, DashboardParentActivity.class);
                 } else {
                     intent_dashboard = new Intent(this, DashboardActivity.class);
@@ -372,57 +313,10 @@ public class PostActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent_forum = new Intent(this, ForumActivity.class);
                 startActivity(intent_forum);
                 break;
-            case R.id.nav_exercices:
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intent_exercices = new Intent(this, ListeCoursExerciceActivity.class);
-                    startActivity(intent_exercices);
-                } else {
-                    Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-                break;
-            case R.id.nav_recommendation:
-                Intent intent_recommendation = new Intent(this, RecommendationActivity.class);
-                startActivity(intent_recommendation);
-                break;
             case R.id.nav_chat:
                 if(MainActivity.MODE.equals("ONLINE")) {
                     Intent intent_chat = new Intent(this, ChatActivity.class);
                     startActivity(intent_chat);
-                } else {
-                    Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-                break;
-            case R.id.nav_payment:
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intent_payment = new Intent(this, PayementActivity.class);
-                    startActivity(intent_payment);
-                } else {
-                    Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-                break;
-            case R.id.nav_synchronisation:
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intent_synchronisation = new Intent(this, SynchronisationActivity.class);
-                    startActivity(intent_synchronisation);
-                } else {
-                    Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-                break;
-            case R.id.nav_unsubscribe:
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    confirmUnsubscribe();
                 } else {
                     Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
                     View view = toast.getView();
