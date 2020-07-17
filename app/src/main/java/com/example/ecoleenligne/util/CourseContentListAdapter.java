@@ -3,6 +3,7 @@ package com.example.ecoleenligne.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,10 +42,12 @@ public class CourseContentListAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.content_item, null);
         }
 
+        ImageView mainImage = view.findViewById(R.id.content_image);
         //Pdf content
         if(courseContent.type.equals("1")) {
-            ImageView mainImage = view.findViewById(R.id.content_image);
             mainImage.setBackgroundResource(R.drawable.image_pdf);
+        }else if(courseContent.type.equals("3")) {
+            mainImage.setBackgroundResource(R.drawable.image_logo);
         }
 
         TextView video_title = view.findViewById(R.id.video_title);
@@ -60,6 +63,12 @@ public class CourseContentListAdapter extends BaseAdapter {
                     intent.putExtra("lien", courseContent.getPath());
 
                     context.startActivity(intent);
+                } else if(courseContent.type.equals("3")) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.parse(courseContent.getPath()), "image/*");
+                    context.startActivity(intent);
+
                 } else {
                     //video content
                     Intent intent = new Intent(context, VideoContentActivity.class);

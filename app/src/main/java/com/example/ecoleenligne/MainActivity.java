@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     SharedPreferences sharedpreferences;
 
+    //public static final String IP="https://10.115.187.47:8000";
+    //public static final String IP_myspace="http://10.115.187.47";
     public static final String IP="https://10.115.187.47:8000";
     public static final String IP_myspace="http://10.115.187.47";
     //public static final String IP="https://onlineschool.cfapps.io";

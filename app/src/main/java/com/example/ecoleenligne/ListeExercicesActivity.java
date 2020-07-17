@@ -96,8 +96,6 @@ public class ListeExercicesActivity extends AppCompatActivity implements Navigat
 
             Intent intent = getIntent();
             String course_id = intent.getStringExtra("id");
-
-            /*-------------- call restful webservices ----------*/
             String url =  MainActivity.IP+"/api/exercice/"+ course_id;
             /*-------------------- get courses from server RESTful ------------------*/
             RequestQueue queueUserConnected = Volley.newRequestQueue(context);

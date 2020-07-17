@@ -92,7 +92,14 @@ public class MySpaceActivity extends AppCompatActivity {
                                 String id = item.getString("id");
                                 String title = item.getString("name");
                                 String path = MainActivity.IP_myspace +"/TER.git/public/"+ item.getString("file");
-                                String type = ""+1;
+                                String string = item.getString("file");
+                                String[] parts = string.split("\\.");
+                                String extension = parts[1];
+                                String type = "";
+                                if(extension.equals("pdf"))
+                                    type = ""+1;
+                                else if(extension.equals("jpg") || extension.equals("jpeg") || extension.equals("gif") || extension.equals("png"))
+                                    type = ""+3;
 
                                 myDocuements.add(new CourseContent(Integer.parseInt(id), title, path, type));
                             }

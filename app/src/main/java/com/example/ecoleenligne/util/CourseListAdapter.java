@@ -71,7 +71,7 @@ public class CourseListAdapter extends BaseAdapter {
         exercices_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent1 = new Intent(context, ListeExercicesActivity.class);
-                intent1.putExtra("id",course_id);
+                intent1.putExtra("id",""+course_id);
                 context.startActivity(intent1);
             }
         });

@@ -194,6 +194,10 @@ public class CorrectionActivity extends AppCompatActivity implements NavigationV
                 Intent intent_profile = new Intent(this, ProfileActivity.class);
                 startActivity(intent_profile);
                 break;
+            case R.id.nav_myspace:
+                Intent intent_myspace = new Intent(this, MySpaceActivity.class);
+                startActivity(intent_myspace);
+                break;
             case R.id.nav_dashboard:
                 Intent intent_dashboard;
                 if(user_profile.equals("ROLE_TUTOR")) {
