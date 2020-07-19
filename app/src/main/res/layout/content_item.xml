@@ -29,6 +29,7 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:background="#f6f6f6"
+            android:textColor="#000"
             android:padding="5dp"/>
 
 

@@ -50,36 +50,44 @@ android:scrollbarSize="0dp">
         android:gravity="center_horizontal|center_vertical"
         android:layout_marginTop="-80dp">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:id="@+id/video"
             android:layout_width="340dp"
             android:layout_height="70dp"
             android:orientation="horizontal"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:onClick="gotoNextInterface"
-            android:background="@drawable/bgfrenchquiz">
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorAccent"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="6dp">
+
+            <ImageView
+                android:id="@+id/photo1"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/icons8_video_96"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="VIDÉO"
+                android:text="@string/course_video_title"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="#252525"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginRight="170dp"
+                android:layout_marginLeft="80dp"
+                android:layout_toRightOf="@id/photo2"
+                android:layout_gravity="center_vertical"/>
+        </androidx.cardview.widget.CardView>
 
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_marginLeft="220dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/icons8_video_48"
-                app:srcCompat="@drawable/icons8_email" />
-        </LinearLayout>
-
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:id="@+id/courses"
             android:layout_width="340dp"
             android:layout_height="70dp"
@@ -88,26 +96,35 @@ android:scrollbarSize="0dp">
             android:layout_gravity="center"
             android:gravity="center"
             android:onClick="gotoNextInterface"
-            android:background="@drawable/bgfrenchquiz">
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorAccent"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="6dp">
+
+            <ImageView
+                android:id="@+id/photo2"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/icons8_pdf_96"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="COURS"
+                android:text="@string/navigation_menu_courses"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="#252525"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginRight="170dp"
+                android:layout_marginLeft="80dp"
+                android:layout_toRightOf="@id/photo2"
+                android:layout_gravity="center_vertical"/>
+        </androidx.cardview.widget.CardView>
 
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:src="@drawable/courses_icon"
-                android:layout_marginLeft="210dp"
-                android:layout_marginRight="10dp"/>
-        </LinearLayout>
-
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:id="@+id/quiz"
             android:layout_width="340dp"
             android:layout_height="70dp"
@@ -116,27 +133,36 @@ android:scrollbarSize="0dp">
             android:layout_gravity="center"
             android:gravity="center"
             android:onClick="gotoNextInterface"
-            android:background="@drawable/bgfrenchquiz">
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorAccent"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="6dp">
+
+            <ImageView
+                android:id="@+id/photo3"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/icon_quiz"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="QUIZ"
+                android:text="@string/navigation_menu_quiz"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="#252525"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginRight="170dp"
+                android:layout_marginLeft="80dp"
+                android:layout_toRightOf="@id/photo3"
+                android:layout_gravity="center_vertical"/>
 
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_marginLeft="230dp"
-                android:layout_marginRight="6dp"
-                android:src="@drawable/icon_quiz"
-                app:srcCompat="@drawable/icon_quiz" />
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:id="@+id/exercice"
             android:layout_width="340dp"
             android:layout_height="70dp"
@@ -145,24 +171,33 @@ android:scrollbarSize="0dp">
             android:layout_gravity="center"
             android:gravity="center"
             android:onClick="gotoNextInterface"
-            android:background="@drawable/bgfrenchquiz">
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorAccent"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="6dp">
+
+            <ImageView
+                android:id="@+id/photo"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/exercice_gif"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="EXERCICES"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="#252525"
                 android:layout_marginRight="170dp"
-                android:layout_marginLeft="20dp"/>
-
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:src="@drawable/exercice_gif"
-                android:layout_marginRight="0dp"/>
-        </LinearLayout>
+                android:layout_marginLeft="80dp"
+                android:layout_toRightOf="@id/photo"
+                android:layout_gravity="center_vertical"/>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
  </LinearLayout>
 
