@@ -73,7 +73,6 @@ public class ListVideoActivity extends AppCompatActivity {
         //put dyamic course's title
         TextView titleCourse = findViewById(R.id.titleCourse);
         titleCourse.setText(""+course_title);
-        //Toast.makeText(context, "cooooooooourse = "+ course_id + " "+ course_title, Toast.LENGTH_SHORT).show();
 
         this.courseContentListAdapter = new CourseContentListAdapter(this, courseContents);
         ListView studentsListView = findViewById(R.id.list_students);

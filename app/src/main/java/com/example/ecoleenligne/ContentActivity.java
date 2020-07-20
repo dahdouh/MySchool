@@ -1,9 +1,14 @@
 package com.example.ecoleenligne;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,15 +30,29 @@ public class ContentActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lecteur);
-        pdfView = (PDFView) findViewById(R.id.pdfview);
 
         final Intent intent = getIntent();
+        String course_name = intent.getStringExtra("course_name");
         String path = intent.getStringExtra("lien");
+        //Actionbar config
+        getSupportActionBar().setTitle(course_name);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.colorRedGo)));
+        //Transparent statusbar
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+
+        pdfView = (PDFView) findViewById(R.id.pdfview);
+
 
 
        // pdfView.fromAsset("cours1.pdf").load();
        new LecteurPDF().execute(path);
     }
+
+
 
 
     class  LecteurPDF extends AsyncTask<String,Void, InputStream>{
@@ -61,6 +80,9 @@ public class ContentActivity extends AppCompatActivity  {
             pdfView.fromStream(inputStream).load();
         }
     }
+
+
+
 
 
 

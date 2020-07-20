@@ -61,6 +61,7 @@ public class CourseContentListAdapter extends BaseAdapter {
                 if(courseContent.type.equals("1")) {
                     Intent intent = new Intent(context, ContentActivity.class);
                     intent.putExtra("lien", courseContent.getPath());
+                    intent.putExtra("course_name", courseContent.getTitle());
 
                     context.startActivity(intent);
                 } else if(courseContent.type.equals("3")) {
@@ -73,6 +74,7 @@ public class CourseContentListAdapter extends BaseAdapter {
                     //video content
                     Intent intent = new Intent(context, VideoContentActivity.class);
                     intent.putExtra("lien", courseContent.getPath());
+                    intent.putExtra("course_name", courseContent.getTitle());
                     context.startActivity(intent);
                 }
 

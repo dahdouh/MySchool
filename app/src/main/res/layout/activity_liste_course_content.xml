@@ -11,37 +11,6 @@ android:background="#fff"
 android:orientation="vertical"
 android:scrollbarSize="0dp">
 
-<LinearLayout
-    android:id="@+id/navBarLecon"
-    android:layout_width="match_parent"
-    android:layout_height="90dp"
-    android:orientation="horizontal"
-    android:layout_marginBottom="0dp"
-    android:background="@drawable/header_rectangle">
-
-    <ImageView
-        android:id="@+id/arrowBack"
-        android:layout_width="30dp"
-        android:layout_height="50dp"
-        android:src="@drawable/icons8_back_48"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="15dp"
-        android:clickable="true"
-        android:onClick="backStep"/>
-
-    <TextView
-        android:id="@+id/titleCourse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#FFF"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="20dp"
-        android:textSize="20dp"
-        android:text="@string/course"
-        android:textStyle="bold"/>
-</LinearLayout>
-
-
     <LinearLayout
         android:id="@+id/listeChapitre"
         android:layout_width="match_parent"

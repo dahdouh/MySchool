@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     android:id="@+id/videoListActivity"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,14 +9,8 @@
     tools:context=".ListVideoActivity"
     android:background="#fff"
     android:orientation="vertical"
-    android:scrollbarSize="0dp">
+    android:scrollbarSize="2dp">
 
-    <LinearLayout
-        android:id="@+id/scrolListVideo"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="vertical"
-        android:layout_marginBottom="20dp">
 
             <LinearLayout
             android:id="@+id/navBarLecon"
@@ -51,7 +45,7 @@
         <LinearLayout
                 android:id="@+id/listeVideo"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="0dp">
@@ -110,7 +104,7 @@
 
 
             </LinearLayout>
-
+        <!--
         <LinearLayout
             android:id="@+id/entrainement"
             android:layout_width="wrap_content"
@@ -206,6 +200,6 @@
                     android:layout_marginRight="0dp"/>
             </LinearLayout>
         </LinearLayout>
+        -->
 
-    </LinearLayout>
- </ScrollView>
+</LinearLayout>

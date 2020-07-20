@@ -3,6 +3,7 @@ package com.example.ecoleenligne;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -30,15 +31,15 @@ public class ListeCourseContentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_liste_course_content);
 
         Bundle bundle = getIntent().getExtras();
-
-
         Intent intent = getIntent();
         course_id = intent.getStringExtra("course_id");
         course_title = intent.getStringExtra("course_title");
-        //put dyamic course's title
-        TextView titleCourse = findViewById(R.id.titleCourse);
-        titleCourse.setText(""+course_title);
 
+        //Actionbar config
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(course_title);
+        getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.colorRedGo)));
+        //Transparent statusbar
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);

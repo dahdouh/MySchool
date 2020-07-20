@@ -97,7 +97,7 @@ public class ChatActivity extends AppCompatActivity implements RoomListener, Nav
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
         /*------------------- hide items from menu ---------------------*/
-        if(user_profile_data.equals("ROLE_PARENT")) {
+        if(user_profile_data.equals("ROLE_TUTOR")) {
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.nav_courses).setVisible(false);
         }
@@ -111,14 +111,14 @@ public class ChatActivity extends AppCompatActivity implements RoomListener, Nav
 
 
             /*------------------  retieve username of user connected   -----------------*/
-            String url = MainActivity.IP + "/profile/" + user_connected_id;
+            String url = MainActivity.IP + "/api/profile/" + user_connected_id;
             RequestQueue queue = Volley.newRequestQueue(context);
             JSONObject jsonObject = new JSONObject();
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
-                        String user_exist = response.getString("firstname");
+                        String user_exist = response.getString("firstName");
                         if (user_exist.equals("user not exist")) {
                             String[] adjs = {"autumn", "hidden", "bitter", "misty", "silent", "empty", "dry", "dark", "summer", "icy", "delicate", "quiet", "white", "cool", "spring", "winter", "patient", "twilight", "dawn", "crimson", "wispy", "weathered", "blue", "billowing", "broken", "cold", "damp", "falling", "frosty", "green", "long", "late", "lingering", "bold", "little", "morning", "muddy", "old", "red", "rough", "still", "small", "sparkling", "throbbing", "shy", "wandering", "withered", "wild", "black", "young", "holy", "solitary", "fragrant", "aged", "snowy", "proud", "floral", "restless", "divine", "polished", "ancient", "purple", "lively", "nameless"};
                             String[] nouns = {"waterfall", "river", "breeze", "moon", "rain", "wind", "sea", "morning", "snow", "lake", "sunset", "pine", "shadow", "leaf", "dawn", "glitter", "forest", "hill", "cloud", "meadow", "sun", "glade", "bird", "brook", "butterfly", "bush", "dew", "dust", "field", "fire", "flower", "firefly", "feather", "grass", "haze", "mountain", "night", "pond", "darkness", "snowflake", "silence", "sound", "sky", "shape", "surf", "thunder", "violet", "water", "wildflower", "wave", "water", "resonance", "sun", "wood", "dream", "cherry", "tree", "fog", "frost", "voice", "paper", "frog", "smoke", "star"};
@@ -126,7 +126,7 @@ public class ChatActivity extends AppCompatActivity implements RoomListener, Nav
                                     "_" +
                                     nouns[(int) Math.floor(Math.random() * nouns.length)];
                         } else {
-                            user_name = response.getString("firstname") + " " + response.getString("lastname");
+                            user_name = response.getString("firstName") + " " + response.getString("lastName");
                         }
                         connecSandrone();
                         //getHistory();

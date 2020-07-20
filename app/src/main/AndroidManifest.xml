@@ -9,7 +9,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/mlearning"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@drawable/mlearning"
         android:supportsRtl="true"
@@ -17,8 +17,21 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MySpaceActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:parentActivityName=".DashboardActivity">
         </activity>
+        <activity
+            android:name=".ContentActivity"
+            android:parentActivityName=".DashboardActivity">
+        </activity>
+        <activity
+            android:name=".VideoContentActivity"
+            android:parentActivityName=".ListeCoursActivity">
+        </activity>
+        <activity
+            android:name=".ListeCourseContentActivity"
+            android:parentActivityName=".ListeCoursActivity">
+        </activity>
+
         <activity
             android:name=".StartActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
@@ -27,9 +40,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ListVideoActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ListeCourseContentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ChildActivity"
@@ -67,9 +77,6 @@
         <activity
             android:name=".CoursActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ContentActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".test" />
         <activity
             android:name=".ListeCoursActivity"
@@ -79,9 +86,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".VideoCourseActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".VideoContentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CourseProgressActivity"

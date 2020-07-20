@@ -1,6 +1,7 @@
 package com.example.ecoleenligne;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -30,14 +31,20 @@ public class VideoContentActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lecteurvideo);
 
-        // Status Bar transparent
+        final Intent intent = getIntent();
+        String course_name = intent.getStringExtra("course_name");
+        String path = intent.getStringExtra("lien");
+
+        //Actionbar config
+        getSupportActionBar().setTitle(course_name);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.colorRedGo)));
+        //Transparent statusbar
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
-        Intent intent = getIntent();
-        String path = intent.getStringExtra("lien");
 
         VideoView videoView = (VideoView) findViewById(R.id.vidView);
 
