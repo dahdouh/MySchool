@@ -32,11 +32,11 @@ import java.util.regex.Pattern;
 public class RegisterActivity extends AppCompatActivity {
 
     final Context context = this;
-    TextInputLayout password, firstname, lastname, email;
-    String password_data, firstname_data, lastname_data, email_data, date_data;
+    TextInputLayout password, password_retype, firstname, lastname, email, tel;
+    String password_data, password_retype_data, firstname_data, lastname_data, email_data, tel_data;
     TextView msg_error;
     String userAlreadyExist ="";
-    DatePicker picker;
+    //DatePicker picker;
 
 
     @Override
@@ -51,23 +51,26 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         password = findViewById(R.id.login_password);
+        password_retype = findViewById(R.id.login_password_retype);
         firstname = findViewById(R.id.firstname);
         lastname = findViewById(R.id.lastname);
         email = findViewById(R.id.email);
-        picker=(DatePicker)findViewById(R.id.datePicker);
+        tel = findViewById(R.id.tel);
+        //picker=(DatePicker)findViewById(R.id.datePicker);
         msg_error = findViewById(R.id.msg_error);
 
         final String role = getIntent().getExtras().getString("role");
-        //Toast.makeText(context, "### Selected Date: "+ role, Toast.LENGTH_LONG).show();
 
         final Button save_btn = findViewById(R.id.save_btn);
         save_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                   if(!validateFirstname() || !validateLastname() || !validatePassword() || !validateEmail()){
+                   if(!validateFirstname() || !validateLastname() || !validatePassword() || !validatePasswordRetype() || !validateEmail()|| !validateTel()){
                     return;
+                }else if(!password_data.equals(password_retype_data)){
+                       password_retype.setError(getString(R.string.register_password_validat_match));
                 } else {
-                    date_data = picker.getYear()+"-"+ (picker.getMonth() + 1)+"-"+picker.getDayOfMonth();
-                    registeStudentRest(email_data, password_data, firstname_data, lastname_data, date_data, role);
+                    //date_data = picker.getYear()+"-"+ (picker.getMonth() + 1)+"-"+picker.getDayOfMonth();
+                       registeUserRest(email_data, password_data, firstname_data, lastname_data, tel_data, role);
                 }
             }
         });
@@ -75,8 +78,13 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     /*------------------ call restful service ----------------*/
-    public void registeStudentRest(String email, String password, String firstName, String lastName, String date, String role) {
-        String url = MainActivity.IP+"/api/register/"+ email+"/"+ password +"/"+ firstName +"/"+ lastName +"/"+ date +"/"+role;
+    public void registeUserRest(String email, String password, String firstName, String lastName, String tel, String role) {
+        String url = "";
+        if(tel_data.equals("")){
+            url = MainActivity.IP+"/api/register/"+ email+"/"+ password +"/"+ firstName +"/"+ lastName +"/"+role;
+        } else {
+            url = MainActivity.IP+"/api/register/"+ email+"/"+ password +"/"+ firstName +"/"+ lastName +"/"+ role +"/"+tel;
+        }
         //Toast.makeText(context, url, Toast.LENGTH_LONG).show();
         RequestQueue queue = Volley.newRequestQueue(context);
         JSONObject jsonObject = new JSONObject();
@@ -137,6 +145,26 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
     }
+    private Boolean validatePasswordRetype() {
+        password_retype_data = password_retype.getEditText().getText().toString();
+        if (password_retype_data.isEmpty()) {
+            password_retype.setError(getString(R.string.register_password_validat_empty));
+            return false;
+        } else {
+
+            Pattern pattern;
+            Matcher matcher;
+            final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+            pattern = Pattern.compile(PASSWORD_PATTERN);
+            matcher = pattern.matcher(password_retype_data);
+            if(!matcher.matches() && password_retype_data.length()<4) {
+                password_retype.setError(getString(R.string.register_password_validat_regex));
+                return false;
+            }else {
+                return true;
+            }
+        }
+    }
     private Boolean validateFirstname() {
         firstname_data = firstname.getEditText().getText().toString();
         if (firstname_data.isEmpty()) {
@@ -174,6 +202,12 @@ public class RegisterActivity extends AppCompatActivity {
             email.setErrorEnabled(false);
             return true;
         }
+    }
+
+    private Boolean validateTel() {
+        tel_data = tel.getEditText().getText().toString();
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        return true;
     }
 
 

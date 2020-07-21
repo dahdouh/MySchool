@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 public class WelcomeActivity extends AppCompatActivity {
 
     final Context context = this;
+    SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,24 +51,43 @@ public class WelcomeActivity extends AppCompatActivity {
         myWebView.getSettings().setLoadWithOverviewMode(true);
         myWebView.getSettings().setUseWideViewPort(true);
         myWebView.loadData(dataUrl, "text/html", "utf-8");
-
-
-        final Button letgo1_btn = findViewById(R.id.letgo1);
-        letgo1_btn.setOnClickListener(new View.OnClickListener() {
+        //button signin
+        final Button signin = findViewById(R.id.signin);
+        signin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent=new Intent(WelcomeActivity.this, LoginActivity.class);
                 context.startActivity(intent);
             }
         });
-
-        final Button letgo2_btn = findViewById(R.id.letgo2);
-        letgo2_btn.setOnClickListener(new View.OnClickListener() {
+        //button register
+        final Button register = findViewById(R.id.register);
+        register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent=new Intent(WelcomeActivity.this, LoginActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, RegisterActivity.class);
+                intent.putExtra("role", "ROLE_STUDENT");
                 context.startActivity(intent);
+
             }
         });
 
+        //button demo
+        final Button demo = findViewById(R.id.demo);
+        demo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString(MainActivity.Login, "karim.dahdouh.fr@gmail.com");
+                editor.putString(MainActivity.Password, "schoolax");
+                editor.putString(MainActivity.Email, "karim.dahdouh.fr@gmail.com");
+                editor.putString(MainActivity.Id, ""+17);
+                editor.putString(MainActivity.Role, "ROLE_STUDENT");
+                editor.commit();
+                Intent intent = new Intent(WelcomeActivity.this, DashboardActivity.class);
+                context.startActivity(intent);
+
+                context.startActivity(intent);
+            }
+        });
 
         LinearLayout student_card = (LinearLayout) findViewById(R.id.student);
         LinearLayout parent_card = (LinearLayout) findViewById(R.id.parent);

@@ -8,38 +8,7 @@ android:layout_height="match_parent"
 tools:context=".RegisterActivity"
 android:orientation="vertical"
 android:fitsSystemWindows="true"
-tools:openDrawer="start"
-android:background="@drawable/bg_header">
-    <!--
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_gravity="start"
-            android:layout_height="match_parent"
-            android:layout_width="wrap_content"
-            app:headerLayout="@layout/header"
-            app:menu="@menu/main_menu"/>
-            -->
-
-        <!--
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:padding="0dp">
-
-            <TextView
-                android:id="@+id/register_singup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/antic"
-                android:text="@string/login_singup"
-                android:textSize="22sp"
-                android:transitionName="logo_text"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/register_image"
-                android:paddingLeft="10dp"/>
-
-        </LinearLayout>
-        -->
+tools:openDrawer="start">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -51,9 +20,8 @@ android:background="@drawable/bg_header">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="11dp"
-                android:layout_marginLeft="15dp">
+                android:layout_height="100dp"
+                android:background="@drawable/bg_header_small">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/user_photo"
@@ -71,7 +39,7 @@ android:background="@drawable/bg_header">
                 <TextView
                     android:id="@+id/user_name"
                     android:textSize="25sp"
-                    android:text="@string/child_add_title"
+                    android:text="@string/parent_register_title"
                     android:textColor="#ffffff"
                     android:fontFamily="@font/antic"
                     android:layout_width="wrap_content"
@@ -88,7 +56,7 @@ android:background="@drawable/bg_header">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="40dp"
                 android:orientation="vertical"
                 android:layout_marginLeft="20dp"
@@ -150,6 +118,20 @@ android:background="@drawable/bg_header">
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/register_tel"
+                    android:id="@+id/tel">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/icons8_phone_32"
+                        android:inputType="textEmailAddress" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            <!--
                 <TextView
                     android:id="@+id/level"
                     android:layout_width="wrap_content"
@@ -169,12 +151,29 @@ android:background="@drawable/bg_header">
                     android:layout_marginTop="-10dp"
                     android:layout_marginBottom="-10dp"
                     android:layout_gravity="center"/>
+                -->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/login_password"
                     android:hint="@string/login_password"
+                    app:passwordToggleEnabled="true"
+                    android:layout_marginBottom="20dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/password_icon"
+                        android:inputType="textPassword"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/login_password_retype"
+                    android:hint="@string/login_password_retype"
                     app:passwordToggleEnabled="true"
                     android:layout_marginBottom="20dp">
 
@@ -194,7 +193,7 @@ android:background="@drawable/bg_header">
                     android:text="@string/register_go"
                     android:textColor="#fff"
                     android:transitionName="trans_btn_signup"
-                    android:background="@drawable/button_red"/>
+                    android:background="@drawable/button_orange_round"/>
 
 
             </LinearLayout>

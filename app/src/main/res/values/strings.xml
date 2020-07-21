@@ -2,6 +2,8 @@
     <string name="app_name" translatable="false">Schoolax</string>
     <string name="app_learn" translatable="false">Learn from home!</string>
     <string name="login_welcome" translatable="false">Hello there, Welcome Back</string>
+    <string name="welcome_demo" translatable="false">Demo video</string>
+    <string name="welcome_tester_app" translatable="false">Try</string>
 
     <string name="navigation_menu" translatable="false">Menu</string>
     <string name="navigation_menu_dashboard" translatable="false">Dashboard</string>
@@ -42,6 +44,7 @@
     <string name="login_signin">Sign in</string>
     <string name="login_username" translatable="false">Username</string>
     <string name="login_password">Password</string>
+    <string name="login_password_retype">Retype password</string>
     <string name="login_username_valid" translatable="false">Username cannot be empty</string>
     <string name="login_username_valid_toolong" translatable="false">Username too long</string>
     <string name="login_username_valid_space" translatable="false">White Spaces are not allowed</string>
@@ -70,6 +73,7 @@
     <string name="register_login_validat_empty">Login connot be empty</string>
     <string name="register_password_validat_empty">Password connot be empty</string>
     <string name="register_password_validat_regex"> Password must contain minimum 4 characters at least 1 Alphabet, 1 Number and 1 Special Character</string>
+    <string name="register_password_validat_match"> Passwords do not match</string>
     <string name="register_firstname">First Name</string>
     <string name="register_firstname_validat_empty">First name cannot be empty</string>
     <string name="register_lastname">Last Name</string>
@@ -120,6 +124,7 @@
     <string name="save">Save</string>
     <string name="pay">Pay</string>
 
+    <string name="parent_register_title">Parent account</string>
     <string name="parent_children">Children</string>
     <string name="parent_child_not_found">No kids! Please add your children.</string>
     <string name="parent_child_delete">Delete</string>

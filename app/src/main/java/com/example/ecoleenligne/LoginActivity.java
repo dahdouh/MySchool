@@ -83,20 +83,14 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         msg_error = findViewById(R.id.login_msg_error);
 
-
-
-       /* firstname = findViewById(R.id.firstname);
-        lastname = findViewById(R.id.lastname);
-        email = findViewById(R.id.email);
-        facebook = findViewById(R.id.facebook);
-        tweeter = findViewById(R.id.tweeter);
-        */
-
         final Button signin_btn = findViewById(R.id.signin_btn);
         signin_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 username_data = username.getEditText().getText().toString();
                 password_data = password.getEditText().getText().toString();
+                Intent intent = getIntent();
+                String test = intent.getStringExtra("test");
+                //test application without
                 if(!validateUsername() || !validatePassword()){
                     return;
                 } else {
@@ -106,24 +100,16 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         /********************* Registration *******************/
+        /*
         final Button signup_btn = findViewById(R.id.signup_btn);
         signup_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 Intent intent = new Intent(LoginActivity.this, ProfileChooseActivity.class);
                 context.startActivity(intent);
-
-
-                /*
-                Intent intent=new Intent(LoginActivity.this, RegisterActivity.class);
-
-                if(android.os.Build.VERSION.SDK_INT>=android.os.Build.VERSION_CODES.LOLLIPOP)
-                {
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this).toBundle());
-                }
-                 */
             }
         });
+        */
 
         /********************* Forget Password *******************/
         final Button password_btn = findViewById(R.id.password_btn);
@@ -171,14 +157,9 @@ public class LoginActivity extends AppCompatActivity {
                         String connected = response.getString("email");
                         if (!connected.equals("not found")) {
 
-                            //String login = compteJsonObject.getString("login");
-                            //String passwod = compteJsonObject.getString("password");
-                            //String email = response.getString("email");
-                            //Toast.makeText(context, "xxxxxxxxxxxxxxxxxx " + login + "????????????????"+passwod + ", ggggg "+email, Toast.LENGTH_LONG).show();
                             Toast.makeText(context, getString(R.string.login_success), Toast.LENGTH_LONG).show();
 
                             /********************* Profile of user connected *******************/
-
                             //String profile_role = profileJsonObject.getString("0");
 
                             String id = response.getString("id");
@@ -188,10 +169,6 @@ public class LoginActivity extends AppCompatActivity {
 
                             JSONArray userRolesArray = response.getJSONArray("roles");
                             String role = userRolesArray.getString(0);
-
-                            //Toast.makeText(context, "xxxxxxxxxxxxxxxxxx " + firstname + "????????????????"+lastname + ", ggggg "+email, Toast.LENGTH_SHORT).show();
-                            //Toast.makeText(context, "###### "+role, Toast.LENGTH_SHORT).show();
-
 
                             /*---------------save user connected in session ------*/
                             sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);

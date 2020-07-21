@@ -3,6 +3,8 @@
     <string name="app_name">EcoleEnLigne</string>
     <string name="app_learn" translatable="false">Apprendre depuis chez vous!</string>
     <string name="login_welcome" translatable="false">Bienvenue</string>
+    <string name="welcome_demo" translatable="false">Vidéo de démo</string>
+    <string name="welcome_tester_app" translatable="false">Essayer</string>
 
     <string name="navigation_menu" translatable="false">Menu</string>
     <string name="navigation_menu_dashboard" translatable="false">Dashboard</string>
@@ -41,6 +43,7 @@
     <string name="login_signin">Se connecter</string>
     <string name="login_username">Login</string>
     <string name="login_password">Password</string>
+    <string name="login_password_retype">Retaper le mot de passe</string>
     <string name="login_username_valid" translatable="false">Le login ne peut pas être vide</string>
     <string name="login_username_valid_toolong" translatable="false">Login trop long</string>
     <string name="login_username_valid_space" translatable="false">Les espaces ne sont pas autorisés</string>
@@ -81,6 +84,7 @@
     <string name="register_login_validat_empty">Login connot be empty</string>
     <string name="register_password_validat_empty">Password connot be empty</string>
     <string name="register_password_validat_regex"> Le mot de passe doit contenir au moins 4 caractères au moins 1 alphabet, 1 chiffre et 1 caractère spécial </string>
+    <string name="register_password_validat_match"> Les mots de passe ne correspondent pas </string>
     <string name="register_firstname">Prénom</string>
     <string name="register_firstname_validat_empty">Prénom ne peut pas être vide</string>
     <string name="register_lastname">Nom</string>
@@ -117,6 +121,7 @@
     <string name="save">Enregistrer</string>
     <string name="pay">Payer</string>
 
+    <string name="parent_register_title">Compte parent</string>
     <string name="parent_children">Enfants</string>
     <string name="parent_child_not_found">Pas d\'enfants! Veuillez ajouter vos enfants.</string>
     <string name="parent_child_delete">Dissocier</string>
