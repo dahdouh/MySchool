@@ -15,26 +15,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+        <activity android:name=".DashboardActivity"></activity>
         <activity
             android:name=".MySpaceActivity"
-            android:parentActivityName=".DashboardActivity">
-        </activity>
+            android:parentActivityName=".DashboardActivityS"></activity>
         <activity
             android:name=".ContentActivity"
-            android:parentActivityName=".DashboardActivity">
-        </activity>
+            android:parentActivityName=".DashboardActivityS"></activity>
         <activity
             android:name=".VideoContentActivity"
-            android:parentActivityName=".ListeCoursActivity">
-        </activity>
+            android:parentActivityName=".ListeCoursActivity"></activity>
         <activity
             android:name=".ListeCourseContentActivity"
-            android:parentActivityName=".ListeCoursActivity">
-        </activity>
-
+            android:parentActivityName=".ListeCoursActivity"></activity>
+        <activity
+            android:name=".StudentAddActivity"
+            android:parentActivityName=".ListeCoursActivity"></activity>
         <activity
             android:name=".StartActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ListPdfActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -55,9 +55,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ForumActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".SubscriptionListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SubscriptionActivity"
@@ -112,9 +109,6 @@
             android:name=".PassowordForgetActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".StudentAddActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".WelcomeActivationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -156,9 +150,6 @@
         <activity
             android:name=".RecommendationActivity"
             android:theme="@style/AppTheme.NoActionBar" /> <!-- webservice config -->
-        <activity
-            android:name=".DashboardActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DashboardPActivity"
             android:theme="@style/AppTheme.NoActionBar" />

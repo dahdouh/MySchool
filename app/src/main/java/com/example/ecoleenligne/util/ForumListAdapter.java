@@ -8,23 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.ecoleenligne.MainActivity;
 import com.example.ecoleenligne.PostActivity;
 import com.example.ecoleenligne.R;
-import com.example.ecoleenligne.SubscriptionListActivity;
 import com.example.ecoleenligne.model.Topic;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;

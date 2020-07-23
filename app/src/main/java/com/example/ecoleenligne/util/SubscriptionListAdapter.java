@@ -2,7 +2,6 @@ package com.example.ecoleenligne.util;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,25 +11,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.ecoleenligne.ListeExercicesActivity;
+import com.example.ecoleenligne.DashboardActivity;
+import com.example.ecoleenligne.FragmentSubscription;
 import com.example.ecoleenligne.MainActivity;
-import com.example.ecoleenligne.ProfileActivity;
 import com.example.ecoleenligne.R;
-import com.example.ecoleenligne.SubscriptionListActivity;
-import com.example.ecoleenligne.model.Course;
-import com.example.ecoleenligne.model.Level;
 import com.example.ecoleenligne.model.Subscription;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -67,10 +61,14 @@ public class SubscriptionListAdapter extends BaseAdapter {
         final Button subscription_delete_btn = view.findViewById(R.id.subscription_delete_btn);
         subscription_delete_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                /*-------------- call restful webservices ----------*/
+
+                Intent intent1 = new Intent(context, DashboardActivity.class);
+                intent1.putExtra("ToSubscription", "1");
+                context.startActivity(intent1);
+                /*
                 String url =  MainActivity.IP+"/api/subscription/delete/"+ subscription_id;
                 //Toast.makeText(context, "ddddddd "+ url, Toast.LENGTH_SHORT).show();
-                /*-------------------- get subscriptions from server RESTful ------------------*/
+                // get subscriptions from server RESTful
                 RequestQueue queueUserConnected = Volley.newRequestQueue(context);
                 JsonObjectRequest requestUserConnected = new JsonObjectRequest(Request.Method.GET, url, null,
                         new Response.Listener<JSONObject>() {
@@ -92,6 +90,7 @@ public class SubscriptionListAdapter extends BaseAdapter {
                         }
                 );
                 queueUserConnected.add(requestUserConnected);
+                */
             }
 
         });

@@ -9,7 +9,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -30,19 +29,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.ecoleenligne.model.Level;
 import com.example.ecoleenligne.model.Subject;
-import com.example.ecoleenligne.model.Subscription;
 import com.example.ecoleenligne.model.Topic;
 import com.example.ecoleenligne.model.User;
 import com.example.ecoleenligne.util.ForumListAdapter;
 import com.example.ecoleenligne.util.SQLiteHelper;
 import com.google.android.material.navigation.NavigationView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -229,8 +224,8 @@ public class ForumActivity extends AppCompatActivity  implements NavigationView.
                 startActivity(intent_courses);
                 break;
             case R.id.nav_subscriptions:
-                Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
-                startActivity(intent_subscription);
+                //Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
+                //startActivity(intent_subscription);
                 break;
             case R.id.nav_forum:
                 Intent intent_forum = new Intent(this, ForumActivity.class);

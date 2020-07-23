@@ -10,6 +10,7 @@
     <string name="navigation_menu_dashboard" translatable="false">Dashboard</string>
     <string name="navigation_menu_courses" translatable="false">Cours</string>
     <string name="navigation_menu_subscription" translatable="false">Abonnement</string>
+    <string name="navigation_menu_log" translatable="false">Historique</string>
     <string name="navigation_menu_exercices" translatable="false">Exercices</string>
     <string name="navigation_menu_quiz" translatable="false">Quiz</string>
     <string name="navigation_menu_recommendation" translatable="false">Recommandation</string>
@@ -124,7 +125,7 @@
     <string name="parent_register_title">Compte parent</string>
     <string name="parent_children">Enfants</string>
     <string name="parent_child_not_found">Pas d\'enfants! Veuillez ajouter vos enfants.</string>
-    <string name="parent_child_delete">Dissocier</string>
+    <string name="parent_child_delete">Delete</string>
     <string name="parent_child_unsubscribe">Se désabonner</string>
 
     <string name="connection_msg">Vous devriez être connecté pour profiter de ce service</string>

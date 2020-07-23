@@ -1,7 +1,6 @@
 package com.example.ecoleenligne;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,16 +28,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ecoleenligne.model.Historic;
-import com.example.ecoleenligne.model.Level;
-import com.example.ecoleenligne.model.Subject;
-import com.example.ecoleenligne.model.Subscription;
-import com.example.ecoleenligne.model.User;
 import com.example.ecoleenligne.util.HistoricListAdapter;
 import com.example.ecoleenligne.util.SQLiteHelper;
-import com.example.ecoleenligne.util.SubscriptionListAdapter;
 import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
@@ -48,8 +40,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HistoricListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -107,7 +97,7 @@ public class HistoricListActivity extends AppCompatActivity implements Navigatio
         ListView subscriptionsListView = findViewById(R.id.list_students);
         subscriptionsListView.setAdapter(historicListAdapter);
 
-        /*-------------- check if there is connection--------------*/
+        // check if there is connection
         if(MainActivity.MODE.equals("ONLINE")) {
             /*------------------------ ONLINE MODE  ---------------------*/
             /*------------------  get profile of user connected from server  -----------------*/
@@ -222,8 +212,8 @@ public class HistoricListActivity extends AppCompatActivity implements Navigatio
                 startActivity(intent_courses);
                 break;
             case R.id.nav_subscriptions:
-                Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
-                startActivity(intent_subscription);
+                //Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
+                //startActivity(intent_subscription);
                 break;
             case R.id.nav_forum:
                 Intent intent_forum = new Intent(this, ForumActivity.class);

@@ -3,7 +3,6 @@ package com.example.ecoleenligne;
 
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -34,22 +33,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.navigation.NavigationView;
-import com.scaledrone.lib.HistoryRoomListener;
 import com.scaledrone.lib.Listener;
-import com.scaledrone.lib.Member;
 import com.scaledrone.lib.Room;
 import com.scaledrone.lib.RoomListener;
 import com.scaledrone.lib.Scaledrone;
-import com.scaledrone.lib.SubscribeOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class ChatActivity extends AppCompatActivity implements RoomListener, NavigationView.OnNavigationItemSelectedListener {
@@ -356,8 +349,8 @@ public class ChatActivity extends AppCompatActivity implements RoomListener, Nav
                 startActivity(intent_courses);
                 break;
             case R.id.nav_subscriptions:
-                Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
-                startActivity(intent_subscription);
+                //Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
+                //startActivity(intent_subscription);
                 break;
             case R.id.nav_forum:
                 Intent intent_forum = new Intent(this, ForumActivity.class);

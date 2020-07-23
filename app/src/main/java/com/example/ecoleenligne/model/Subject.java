@@ -6,9 +6,17 @@ public class Subject {
 
     private String name;
 
+    private String icon;
+
     public Subject(int id, String name){
         this.id = id;
         this.name = name;
+    }
+
+    public Subject(int id, String name, String icon){
+        this.id = id;
+        this.name = name;
+        this.icon = icon;
     }
 
     public int getId() {
@@ -25,5 +33,13 @@ public class Subject {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

@@ -1,7 +1,6 @@
 package com.example.ecoleenligne;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -28,12 +27,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 
@@ -163,8 +160,8 @@ public class ListeCoursProgressActivity extends AppCompatActivity implements Res
                 startActivity(intent_courses);
                 break;
             case R.id.nav_subscriptions:
-                Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
-                startActivity(intent_subscription);
+                //Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
+                //startActivity(intent_subscription);
                 break;
             case R.id.nav_forum:
                 Intent intent_forum = new Intent(this, ForumActivity.class);

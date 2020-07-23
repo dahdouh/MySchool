@@ -9,6 +9,7 @@
     <string name="navigation_menu_dashboard" translatable="false">Dashboard</string>
     <string name="navigation_menu_courses" translatable="false">Courses</string>
     <string name="navigation_menu_subscription" translatable="false">Subscription</string>
+    <string name="navigation_menu_log" translatable="false">Log</string>
     <string name="navigation_menu_exercices" translatable="false">Exercices</string>
     <string name="navigation_menu_quiz" translatable="false">Quiz</string>
     <string name="navigation_menu_recommendation" translatable="false">Recommendation</string>
@@ -170,6 +171,12 @@
         <item>Terminale L</item>
         <item>Terminale S</item>
         <item>Terminale ES</item>
+    </string-array>
+
+    <string-array name="subscriptions_array">
+        <item>Trimestre</item>
+        <item>Semestre</item>
+        <item>Année</item>
     </string-array>
 
     <string-array name="matiere_array">

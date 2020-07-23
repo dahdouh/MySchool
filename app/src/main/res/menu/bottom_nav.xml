@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/course"
+        android:icon="@drawable/courses_icon"
+        android:title="@string/course" />
+
+    <item
+        android:id="@+id/subscription"
+        android:icon="@drawable/abonnement"
+        android:title="@string/navigation_menu_subscription" />
+
+    <item
+        android:id="@+id/log"
+        android:icon="@drawable/historique"
+        android:title="@string/navigation_menu_log" />
+
+    <item
+        android:id="@+id/forum"
+        android:icon="@drawable/icons8_dossier_100"
+        android:title="@string/navigation_menu_forum" />
+
+    <item
+        android:id="@+id/myspace"
+        android:icon="@drawable/icons8_dossier_100"
+        android:title="@string/navigation_menu_myspace" />
+
+</menu>

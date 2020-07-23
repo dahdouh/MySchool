@@ -10,7 +10,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -23,9 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -39,21 +36,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.ecoleenligne.model.Compte;
 import com.example.ecoleenligne.model.Kinship;
-import com.example.ecoleenligne.model.Level;
-import com.example.ecoleenligne.model.Post;
-import com.example.ecoleenligne.model.Profile;
-import com.example.ecoleenligne.model.Subject;
-import com.example.ecoleenligne.model.Subscription;
 import com.example.ecoleenligne.model.User;
 import com.example.ecoleenligne.util.KinshipListAdapter;
-import com.example.ecoleenligne.util.PostListAdapter;
-import com.example.ecoleenligne.util.StudentListAdapter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -202,18 +190,21 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
         //Add child dialog popup
         dialog_child_form = new Dialog(context);
         dialog_child_form.setContentView(R.layout.popup_positive_child_add);
-        ImageButton child_add_btn = findViewById(R.id.child_add_btn);
+        Button child_add_btn = findViewById(R.id.child_add_btn);
         child_add_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                dialog_child_form.findViewById(R.id.positive_close).setOnClickListener(vv -> dialog_child_form.dismiss());
+                /*dialog_child_form.findViewById(R.id.positive_close).setOnClickListener(vv -> dialog_child_form.dismiss());
                 Objects.requireNonNull(dialog_child_form.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog_child_form.show();
+                 */
+                Intent intent = new Intent(context, StudentAddActivity.class);
+                context.startActivity(intent);
             }
         });
 
         //Add child dialog form
         formChildError = dialog_child_form.findViewById(R.id.formChildError);
-        final ImageButton child_add_form_btn = findViewById(R.id.child_add_btn);
+        final Button child_add_form_btn = dialog_child_form.findViewById(R.id.add_form_button);
         child_add_form_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dialog_child_form.findViewById(R.id.positive_close).setOnClickListener(v2 -> dialog_child_form.dismiss());
@@ -375,8 +366,8 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
                 startActivity(intent_courses);
                 break;
             case R.id.nav_subscriptions:
-                Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
-                startActivity(intent_subscription);
+                //Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
+                //startActivity(intent_subscription);
                 break;
             case R.id.nav_forum:
                 Intent intent_forum = new Intent(this, ForumActivity.class);

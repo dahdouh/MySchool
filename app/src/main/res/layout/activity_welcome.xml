@@ -50,7 +50,7 @@ tools:context=".WelcomeActivity">
 
         <TextView
             android:id="@+id/user_profile"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:text="@string/app_learn"
             android:fontFamily="@font/antic"
             android:textColor="#ffffff"

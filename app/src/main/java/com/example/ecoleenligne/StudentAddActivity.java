@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -14,9 +15,11 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -38,11 +41,13 @@ import java.util.regex.Pattern;
 public class StudentAddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     final Context context = this;
-    TextInputLayout login, password, firstname, lastname;
-    RadioGroup radioGroup, radioGroupStudentSex;
-    RadioButton selectedRadioButton, selectedRadioButtonStudentSex;
-    Spinner student_level_spinner;
-    String login_data, password_data, firstname_data, lastname_data, parent_data, level_data, sex_data;
+    TextInputLayout login, password, firstname, lastname, email;
+    //RadioGroup radioGroup, radioGroupStudentSex;
+    //RadioButton selectedRadioButton, selectedRadioButtonStudentSex;
+    Spinner student_level_spinner, student_subscription_spinner;
+    String login_data, password_data, firstname_data, lastname_data, email_data, date_data, level_data, subscription_data;
+    TextView msg_error;
+    DatePicker picker;
 
     SharedPreferences sharedpreferences;
 
@@ -51,7 +56,11 @@ public class StudentAddActivity extends AppCompatActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_add);
 
-        /*------------------  make transparent Status Bar  -----------------*/
+        //Actionbar config
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.child_add_title);
+        getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.colorRedGo)));
+        //Transparent statusbar
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -61,10 +70,13 @@ public class StudentAddActivity extends AppCompatActivity implements AdapterView
         password = findViewById(R.id.password);
         firstname = findViewById(R.id.firstname);
         lastname = findViewById(R.id.lastname);
-        radioGroup = findViewById(R.id.radioGroup);
-        radioGroupStudentSex = findViewById(R.id.radioGroupStudentSex);
+        email = findViewById(R.id.email);
+        picker=(DatePicker)findViewById(R.id.datePicker);
+        msg_error = findViewById(R.id.msg_error);
+        //radioGroup = findViewById(R.id.radioGroup);
+        //radioGroupStudentSex = findViewById(R.id.radioGroupStudentSex);
 
-        /*-------------------- Spinner for student's level -----------------*/
+        // Spinner for student's level
         student_level_spinner = (Spinner) findViewById(R.id.student_level_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.levels_array, android.R.layout.simple_spinner_item);
@@ -73,28 +85,43 @@ public class StudentAddActivity extends AppCompatActivity implements AdapterView
         student_level_spinner.setAdapter(adapter);
         student_level_spinner.setOnItemSelectedListener(this);
 
+        // Spinner for student's susbscriptions
+        student_subscription_spinner = (Spinner) findViewById(R.id.student_subscription_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapterSubscription = ArrayAdapter.createFromResource(this, R.array.subscriptions_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        student_subscription_spinner.setAdapter(adapterSubscription);
+        student_subscription_spinner.setOnItemSelectedListener(this);
+        student_subscription_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subscription_data = parent.getItemAtPosition(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
         final Button save_btn = findViewById(R.id.save_btn);
         save_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-               int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
-               int selectedRadioButtonStudentSexId = radioGroupStudentSex.getCheckedRadioButtonId();
-               if(selectedRadioButtonId == -1 || !validateLogin() || !validatePassword() || !validateFirstname() || !validateLastname()){
+               //int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+               //int selectedRadioButtonStudentSexId = radioGroupStudentSex.getCheckedRadioButtonId();
+               if(!validateLogin() || !validatePassword() || !validateFirstname() || !validateLastname()){
                     return;
                 } else {
-                   selectedRadioButton = findViewById(selectedRadioButtonId);
-                   parent_data = selectedRadioButton.getText().toString();
-                   selectedRadioButtonStudentSex = findViewById(selectedRadioButtonStudentSexId);
-                   sex_data = selectedRadioButtonStudentSex.getText().toString();
-
-                   /*--------------get user from session --------------*/
+                   email_data = email.getEditText().getText().toString();
+                   date_data = picker.getYear()+"-"+ (picker.getMonth() + 1)+"-"+picker.getDayOfMonth();
+                   //Toast.makeText(StudentAddActivity.this, "###### "+date_data + "email= "+email_data, Toast.LENGTH_SHORT).show();
+                   // get user from session
                    sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-                   String user_connected = sharedpreferences.getString(MainActivity.Email, null);
+                   String user_connected = sharedpreferences.getString(MainActivity.Id, null);
 
-                   registeStudentRest(user_connected, login_data, password_data, firstname_data, lastname_data, parent_data, level_data, sex_data);
+                   registeStudentRest(user_connected, login_data, password_data, firstname_data, lastname_data, email_data, date_data, level_data, subscription_data);
                    //Toast.makeText(StudentAddActivity.this, parent_data + " is Selected", Toast.LENGTH_SHORT).show();
-                   Intent intent=new Intent(StudentAddActivity.this, DashboardParentActivity.class);
-                   context.startActivity(intent);
+                   //Intent intent=new Intent(StudentAddActivity.this, DashboardParentActivity.class);
+                   //context.startActivity(intent);
 
 
                 }
@@ -106,25 +133,47 @@ public class StudentAddActivity extends AppCompatActivity implements AdapterView
     }
 
 
-    /*------------------ save data in server database ----------------*/
-    public void registeStudentRest(String user_connected, String login, String password, String firstName, String lastName, String parent, String level, String sex) {
-        String url = MainActivity.IP+"/student/"+user_connected+"/"+ login+"/"+ password +"/"+ firstName +"/"+ lastName +"/"+ parent +"/"+ level+"/"+sex;
+    // save data through rest webservice
+    public void registeStudentRest(String user_connected, String login, String password, String firstName, String lastName, String email, String birthday, String level, String subscription) {
+        //String url = MainActivity.IP+"/api/student/"+user_connected+"/"+ login+"/"+ password +"/"+ firstName +"/"+ lastName +"/"+ parent +"/"+ level+"/"+email;
+        String url = "";
+        if(email_data.equals("")){
+            url = MainActivity.IP+"/api/register/child/"+ user_connected +"/"+ login +"/"+ password +"/"+ firstName +"/"+ lastName +"/"+ birthday +"/"+ level +"/"+ subscription +"/"+ email;
+        } else {
+            url = MainActivity.IP+"/api/register/child/"+ user_connected +"/"+ login +"/"+ password +"/"+ firstName +"/"+ lastName +"/"+ birthday +"/"+ level +"/"+ subscription;
+        }
+        //Toast.makeText(context, url, Toast.LENGTH_LONG).show();
         RequestQueue queue = Volley.newRequestQueue(context);
-        //Toast.makeText(context, "s###################."+login_data+"??????????"+password_data, Toast.LENGTH_LONG).show();
         JSONObject jsonObject = new JSONObject();
-        JsonObjectRequest request=new JsonObjectRequest(Request.Method.GET, url,jsonObject, new Response.Listener<JSONObject>() {
+        /*--------------- allow connection with https and ssl-------------*/
+        HttpsTrustManager.allowAllSSL();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
-                Toast.makeText(context, "student hase been successfully registred.", Toast.LENGTH_LONG).show();
+                try {
+                    String userAlreadyExist = response.getString("email");
+                    if(userAlreadyExist.equals("already exist")) {
+                        msg_error.setText(getString(R.string.register_user_alreadyexist));
+                        Toast.makeText(context, getString(R.string.register_user_alreadyexist), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent=new Intent(context, ChildActivity.class);
+                        context.startActivity(intent);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    new AlertDialog.Builder(context)
+                            .setTitle("Error")
+                            .setMessage(e.toString())
+                            .show();
+                }
 
             }
         }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onErrorResponse(VolleyError e) {
                 new AlertDialog.Builder(context)
-                        .setTitle("Error")
-                        .setMessage(R.string.server_restful_error)
+                        .setTitle("###Error")
+                        .setMessage(e.toString())
                         .show();
             }
         });

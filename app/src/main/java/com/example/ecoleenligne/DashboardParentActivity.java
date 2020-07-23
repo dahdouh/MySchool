@@ -9,7 +9,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -30,7 +29,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ecoleenligne.model.Compte;
@@ -119,7 +117,8 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
             @Override
             public void onClick(View v) {
                 if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intent = new Intent(context, SubscriptionListActivity.class);
+                    Intent intent = new Intent(context, DashboardActivity.class);
+                    intent.putExtra("ToSubscription", "1");
                     intent.putExtra("parent_id", ""+user_connected_id);
                     context.startActivity(intent);
                 } else {
@@ -307,8 +306,8 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
                 startActivity(intent_courses);
                 break;
             case R.id.nav_subscriptions:
-                Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
-                startActivity(intent_subscription);
+                //Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
+                //startActivity(intent_subscription);
                 break;
             case R.id.nav_forum:
                 Intent intent_forum = new Intent(this, ForumActivity.class);
