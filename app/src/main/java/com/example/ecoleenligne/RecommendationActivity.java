@@ -180,7 +180,7 @@ public class RecommendationActivity extends AppCompatActivity implements Navigat
                                     String path = item.getString("image");
                                     String iden = item.getString("id");
                                     String description = item.getString("description");
-                                    courses.add(new Course(Integer.parseInt(iden), libelle, description,  path));
+                                    //courses.add(new Course(Integer.parseInt(iden), libelle, description,  path));
                                 }
                                 recommendationListAdapter.setCourses(courses);
                             } catch (JSONException error) {
@@ -215,7 +215,7 @@ public class RecommendationActivity extends AppCompatActivity implements Navigat
             List<Course> list_courses_recom_sqlite= sqLiteHelper.getCoursesRecommendationFromDb();
             courses = new ArrayList<>(list_courses_recom_sqlite.size());
             for(Course course : list_courses_recom_sqlite){
-                courses.add(new Course(course.getId(), course.getLibelle(), course.getDescription(), course.getImage()));
+                //courses.add(new Course(course.getId(), course.getLibelle(), course.getDescription(), course.getImage()));
             }
             recommendationListAdapter.setCourses(courses);
 

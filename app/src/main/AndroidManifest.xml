@@ -19,10 +19,17 @@
         <activity android:name=".DashboardActivity"></activity>
         <activity
             android:name=".MySpaceActivity"
-            android:parentActivityName=".DashboardActivityS"></activity>
+            android:parentActivityName=".DashboardActivity"></activity>
+        <activity android:name=".ListeCoursActivity"
+                  android:parentActivityName=".DashboardActivity">
+        </activity>
         <activity
             android:name=".ContentActivity"
-            android:parentActivityName=".DashboardActivityS"></activity>
+            android:parentActivityName=".DashboardActivity"></activity>
+
+        <activity android:name=".SubscriptionListActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name=".VideoContentActivity"
             android:parentActivityName=".ListeCoursActivity"></activity>
@@ -75,9 +82,7 @@
             android:name=".CoursActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".test" />
-        <activity
-            android:name=".ListeCoursActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".TypeCoursActivity"
             android:theme="@style/AppTheme.NoActionBar" />

@@ -37,7 +37,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         if (data != null && data.contentEquals("1")) {
             toolbar.setTitle(R.string.navigation_menu_subscription);
-            loadFragment(new FragmentSubscription());
+            loadFragment(new FragmentProfile());
             navigation.setSelectedItemId(R.id.subscription);
 
         } else {
@@ -56,8 +56,8 @@ public class DashboardActivity extends AppCompatActivity {
                     loadFragment(new FragmentCourse());
                     return true;
                 case R.id.subscription:
-                    toolbar.setTitle(R.string.navigation_menu_subscription);
-                    loadFragment(new FragmentSubscription());
+                    toolbar.setTitle(R.string.navigation_menu_profile);
+                    loadFragment(new FragmentProfile());
                     return true;
                 case R.id.log:
                     toolbar.setTitle(R.string.navigation_menu_log);

@@ -92,7 +92,7 @@
     <string name="register_welcome" translatable="false">Welcome you!</string>
 
 
-    <string name="subscribe_title"> Subscriptions</string>
+    <string name="subscribe_title"> Subscription</string>
     <string name="subscribe_msg"> Subscribe to a new subscription</string>
     <string name="subscribe_done"> your subscription has been successfully completed </string>
     <string name="subscribtion_empty"> No subscription for the moment </string>

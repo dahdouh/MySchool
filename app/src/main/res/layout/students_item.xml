@@ -110,7 +110,7 @@
 
 
             <ImageView
-                android:id="@+id/user_photo"
+                android:id="@+id/course_photo"
                 android:layout_width="185dp"
                 android:layout_height="80dp"
                 android:layout_marginLeft="10dp"

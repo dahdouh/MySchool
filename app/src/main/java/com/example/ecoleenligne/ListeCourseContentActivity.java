@@ -3,6 +3,7 @@ package com.example.ecoleenligne;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,7 +31,6 @@ public class ListeCourseContentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_course_content);
 
-        Bundle bundle = getIntent().getExtras();
         Intent intent = getIntent();
         course_id = intent.getStringExtra("course_id");
         course_title = intent.getStringExtra("course_title");
@@ -38,6 +38,7 @@ public class ListeCourseContentActivity extends AppCompatActivity {
         //Actionbar config
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(course_title);
+
         getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.colorRedGo)));
         //Transparent statusbar
         if (Build.VERSION.SDK_INT >= 21) {

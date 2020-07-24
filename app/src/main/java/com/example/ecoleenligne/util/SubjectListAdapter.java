@@ -37,8 +37,8 @@ public class SubjectListAdapter extends BaseAdapter {
 
         //String name_data = course.getName();
         //name_data = name_data.substring(0, 20);
-        //TextView subjectText = view.findViewById(R.id.user_id);
-        //subjectText.setText(""+ subject.getName());
+        TextView subjectId = view.findViewById(R.id.subject_id);
+        subjectId.setText(""+ subject.getId());
         TextView name = view.findViewById(R.id.name);
         name.setText(subject.getName());
 

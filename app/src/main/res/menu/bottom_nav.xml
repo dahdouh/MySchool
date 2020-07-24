@@ -8,17 +8,17 @@
 
     <item
         android:id="@+id/subscription"
-        android:icon="@drawable/abonnement"
-        android:title="@string/navigation_menu_subscription" />
+        android:icon="@drawable/profile_icon"
+        android:title="@string/navigation_menu_profile" />
 
     <item
         android:id="@+id/log"
-        android:icon="@drawable/historique"
+        android:icon="@drawable/icons8_historic_48"
         android:title="@string/navigation_menu_log" />
 
     <item
         android:id="@+id/forum"
-        android:icon="@drawable/icons8_dossier_100"
+        android:icon="@drawable/icons8_chat_48"
         android:title="@string/navigation_menu_forum" />
 
     <item

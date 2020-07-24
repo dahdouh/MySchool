@@ -3,17 +3,20 @@ package com.example.ecoleenligne.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ecoleenligne.ListeCourseContentActivity;
 import com.example.ecoleenligne.ListeExercicesActivity;
 import com.example.ecoleenligne.LoginActivity;
+import com.example.ecoleenligne.MainActivity;
 import com.example.ecoleenligne.ProfileActivity;
 import com.example.ecoleenligne.QuizActivity;
 import com.example.ecoleenligne.R;
@@ -21,6 +24,7 @@ import com.example.ecoleenligne.TypeCoursActivity;
 import com.example.ecoleenligne.model.Course;
 import com.example.ecoleenligne.model.Profile;
 import com.example.ecoleenligne.model.User;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,12 +58,23 @@ public class CourseListAdapter extends BaseAdapter {
         else
             name.setText(course.getDescription()+ " ...");
 
+        String path_img = MainActivity.IP_myspace +"/TER.git/public/upload/course/"+ course.getId() +"/"+ course.getImage();
+        ImageView course_image = (ImageView)view.findViewById(R.id.course_photo);
+        Picasso.get().load(path_img).into(course_image);
+
 
         final int course_id = course.getId();
 
         final Button details_btn = view.findViewById(R.id.details);
         details_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                // save id course in session
+                SharedPreferences sharedpreferences = context.getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("course_id", ""+ course_id);
+                editor.putString("course_title", ""+ course.getName());
+                editor.commit();
+
                 Intent intent = new Intent(context, ListeCourseContentActivity.class);
                 intent.putExtra("course_id", ""+course_id);
                 intent.putExtra("course_title", ""+course.getName());

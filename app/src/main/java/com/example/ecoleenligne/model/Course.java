@@ -31,12 +31,21 @@ public class Course {
 		this.name = name;
 		this.description = description;
 	}
+
+	public Course(int id, String name, String description, String image){
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.image = image;
+	}
+	/*
 	public Course(int id, String name, String description, String subject){
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.subject = subject;
 	}
+	*/
 	/*
 	public Course(int id, String libelle, String description, String image){
 		this.id = id;

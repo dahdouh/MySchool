@@ -2,13 +2,16 @@ package com.example.ecoleenligne;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +29,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.ecoleenligne.model.Profile;
 import com.example.ecoleenligne.model.Subject;
 import com.example.ecoleenligne.util.SQLiteHelper;
 import com.example.ecoleenligne.util.SubjectListAdapter;
@@ -77,7 +81,6 @@ public class FragmentCourse extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_course, container, false);
 
         user_name = view.findViewById(R.id.user_name);
@@ -86,11 +89,24 @@ public class FragmentCourse extends Fragment {
         sharedpreferences = getActivity().getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
 
-        //UnoFragment.bind(this, view);
-
         this.subjectListAdapter = new SubjectListAdapter(getActivity(), subjects);
         ListView subjectsListView = view.findViewById(R.id.list_subjects);
         subjectsListView.setAdapter(subjectListAdapter);
+
+        //get list of courses for each selected subject
+        subjectsListView.setOnItemClickListener((parent, view1, position, id) -> {
+            String subject_id = ((TextView) view1.findViewById(R.id.subject_id)).getText().toString();
+            String subject_name = ((TextView) view1.findViewById(R.id.name)).getText().toString();
+
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("subject_id", ""+ subject_id);
+            editor.putString("subject_name", ""+ subject_name);
+            editor.commit();
+
+            Intent intent = new Intent(context, ListeCoursActivity.class);
+            context.startActivity(intent);
+        });
+
 
 
 
@@ -120,9 +136,6 @@ public class FragmentCourse extends Fragment {
                                         String icon = item.getString("icon");
                                         //String content = item.getString("content");
                                         subjects.add(new Subject(Integer.parseInt(id), name, icon));
-                                        //for(Course c: courses)
-                                        //Toast.makeText(context, "ddddddd "+ c.getName(), Toast.LENGTH_SHORT).show();
-
                                     }
                                     subjectListAdapter.setSubjects(subjects);
                                 }

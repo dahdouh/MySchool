@@ -63,7 +63,7 @@
     <string name="login_never_connected">Etudiant n\'est pas encore connecté à l\'applciation</string>
 
 
-    <string name="subscribe_title"> Subscriptions</string>
+    <string name="subscribe_title"> Abonnement</string>
     <string name="subscribe_msg">Souscrire à un nouvel abonnement </string>
     <string name="subscribe_done"> Votre abonnement a été bien effectué </string>
     <string name="subscribtion_empty"> Pas d\'abonnenement pour le moment </string>

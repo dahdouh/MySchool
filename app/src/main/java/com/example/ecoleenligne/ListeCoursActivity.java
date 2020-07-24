@@ -1,15 +1,20 @@
 package com.example.ecoleenligne;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,8 +43,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class ListeCoursActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ListeCoursActivity extends AppCompatActivity {
 
     final Context context = this;
     List<String> cours = new ArrayList<String>();
@@ -48,14 +54,18 @@ public class ListeCoursActivity extends AppCompatActivity implements NavigationV
     /*------ offline mode -------*/
     SQLiteHelper sqLiteHelper;
 
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    Toolbar toolbar;
     SharedPreferences sharedpreferences;
 
+    // list adapter
     private CourseListAdapter courseListAdapter;
     ListView listview;
     List<Course> courses = new ArrayList<Course>();
+
+    //dialog
+    Dialog dialog;
+    ImageView closePoppupNegativeImg;
+    TextView negative_title, negative_content;
+    Button negative_button;
 
     int[] img ={R.drawable.pdf,R.drawable.pdf,R.drawable.pdf};
     @Override
@@ -64,204 +74,92 @@ public class ListeCoursActivity extends AppCompatActivity implements NavigationV
         setContentView(R.layout.activity_list_course);
         sqLiteHelper= new SQLiteHelper(this);
 
-
-        /*------------------------ Menu ---------------------*/
-        drawerLayout=findViewById(R.id.drawer_layout);
-        navigationView=findViewById(R.id.nav_view);
-        navigationView.bringToFront();
-        toolbar=findViewById(R.id.toolbar);
-        toolbar.bringToFront();
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_darawer_open, R.string.navigation_darawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.getDrawerArrowDrawable().setColor(Color.parseColor("#FF4500"));
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.nav_dashboard);
-
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
-        /*------------------- hide items from menu ---------------------*/
-        if(user_profile_data.equals("ROLE_PARENT")) {
-            Menu menu = navigationView.getMenu();
-            menu.findItem(R.id.nav_courses).setVisible(false);
-        }
 
+        Intent intent = getIntent();
+        final String subject_name = intent.getStringExtra("subject_name");
+        //Actionbar config
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(sharedpreferences.getString("subject_name", null));
+        getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.colorRedGo)));
 
-        String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
-
-        /*------------------------ List of courses  ---------------------*/
+        final String subject_id = sharedpreferences.getString("subject_id", null);
+        // List of courses adapter
         this.courseListAdapter = new CourseListAdapter(this, courses);
         ListView studentsListView = findViewById(R.id.list_students);
         studentsListView.setAdapter(courseListAdapter);
 
-        /*-------------- check if there is connection--------------*/
+
+
+
+
+        // check if there is connection-
         if(MainActivity.MODE.equals("ONLINE")) {
-            /*------------------------ ONLINE MODE  ---------------------*/
-            /*------------------  get profile of user connected from server  -----------------*/
-
-            /*--------------get user from session --------------*/
-            sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+            // get user from session
             String user_connected = sharedpreferences.getString(MainActivity.Id, null);
-
-            /*-------------- call restful webservices ----------*/
-            String url =  MainActivity.IP+"/api/cours/"+ user_connected;
-            /*-------------------- get courses from server RESTful ------------------*/
+            // get courses from server RESTful
+            //String url =  MainActivity.IP+"/api/cours/"+ user_connected;
+            String url =  MainActivity.IP+"/api/subject/cours/"+ user_connected +"/"+ sharedpreferences.getString("subject_id", null);
             RequestQueue queueUserConnected = Volley.newRequestQueue(context);
             JsonArrayRequest requestUserConnected = new JsonArrayRequest(Request.Method.GET, url, null,
-                    new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray response) {
-                            try {
-                                if (response.length() != 0) {
-                                    courses = new ArrayList<>(response.length());
-                                    for (int i = 0; i < response.length(); i++) {
-                                        JSONObject item = response.getJSONObject(i);
-                                        String id = item.getString("id");
-                                        JSONObject SubjectJsonObject = item.getJSONObject("subject");
-                                        String name = SubjectJsonObject.getString("name");
-                                        String description = item.getString("description");
-                                        //String content = item.getString("content");
-                                        courses.add(new Course(Integer.parseInt(id), name, description));
-                                        //for(Course c: courses)
-                                        //Toast.makeText(context, "ddddddd "+ c.getName(), Toast.LENGTH_SHORT).show();
-
-                                    }
-                                    courseListAdapter.setCourses(courses);
+                    response -> {
+                        try {
+                            if (response.length() != 0) {
+                                courses = new ArrayList<>(response.length());
+                                for (int i = 0; i < response.length(); i++) {
+                                    JSONObject item = response.getJSONObject(i);
+                                    String id = item.getString("id");
+                                    String image = item.getString("image");
+                                    JSONObject SubjectJsonObject = item.getJSONObject("subject");
+                                    String name = SubjectJsonObject.getString("name");
+                                    String description = item.getString("description");
+                                    courses.add(new Course(Integer.parseInt(id), name, description, image));
                                 }
-
-                            } catch (JSONException error) {
-                                new AlertDialog.Builder(context)
-                                        .setTitle("Error")
-                                        .setMessage(error.toString())
-                                        .show();
+                                courseListAdapter.setCourses(courses);
+                            } else {
+                                if(courses.isEmpty()){
+                                    dialog = new Dialog(context);
+                                    actionNegative();
+                                    negative_title = dialog.findViewById(R.id.negative_title);
+                                    negative_content = dialog.findViewById(R.id.negative_content);
+                                    negative_button = dialog.findViewById(R.id.negative_button);
+                                    negative_button.setOnClickListener(v -> {
+                                        finish();
+                                    });
+                                    negative_title.setText(R.string.subscribe_title);
+                                    negative_content.setText(R.string.subscribtion_empty);
+                                    negative_button.setText(R.string.button_ok);
+                                }
                             }
-                        }
-                    },
-                    new Response.ErrorListener(){
-                        @Override
-                        public void onErrorResponse(VolleyError error){
+
+                        } catch (JSONException error) {
                             new AlertDialog.Builder(context)
                                     .setTitle("Error")
-                                    .setMessage(error.getMessage())
+                                    .setMessage(error.toString())
                                     .show();
                         }
-                    }
+                    },
+                    error -> new AlertDialog.Builder(context)
+                            .setTitle("Error")
+                            .setMessage(error.getMessage())
+                            .show()
             );
             queueUserConnected.add(requestUserConnected);
 
-        } else  {
-
-            User useConnected= sqLiteHelper.getUserByIdFromDb(Integer.parseInt(user_connected_id));
-            String fullname_data = useConnected.getFirstname()+" "+useConnected.getLastname();
-            int compte_id = useConnected.getCompte_id();
-            //Compte compte = sqLiteHelper.getCompteByIdFromDb(compte_id);
-            //int profile_id = compte.getProfile_id();
-            //Profile profile = sqLiteHelper.getProfileByIdFromDb(profile_id);
-            //String profile_role_data = profile.getLibelle();
-
-            //user_name.setText(fullname_data);
-            //user_profile.setText(profile_role_data);
-
-
-            /*--------------get user from session --------------*/
-            sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-            String user_connected = sharedpreferences.getString(MainActivity.Id, null);
-
-        }
+        } else  {}
 
     }
 
-    /*---------------------- Log out function --------------------------*/
-    public  void logout(){
-        /*--------------get user from session --------------*/
-        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
-        String user_connected_login = sharedpreferences.getString(MainActivity.Login, null);
-
-        if(user_connected_id == null && user_connected_login == null) {
-            Toast.makeText(context, "You are already disconnected!", Toast.LENGTH_LONG).show();
-        }
-
-        /*---------------clear session ------*/
-        SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.clear();
-        editor.commit();
-        Toast.makeText(context, getString(R.string.logout_success), Toast.LENGTH_LONG).show();
-
-        Intent intent=new Intent(this, LoginActivity.class);
-        context.startActivity(intent);
-
+    public void backStep(View view) {
+        finish();
     }
 
-    /*---------------------- Menu actions ---------------------*/
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        /*--------------get user from session --------------*/
-        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String user_profile = sharedpreferences.getString(MainActivity.Role, null);
-        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
-
-        switch (menuItem.getItemId()) {
-            case R.id.nav_profile:
-                Intent intent_profile = new Intent(this, ProfileActivity.class);
-                startActivity(intent_profile);
-                break;
-            case R.id.nav_myspace:
-                Intent intent_myspace = new Intent(this, MySpaceActivity.class);
-                startActivity(intent_myspace);
-                break;
-            case R.id.nav_dashboard:
-                Intent intent_dashboard;
-                if(user_profile.equals("ROLE_TUTOR")) {
-                    intent_dashboard = new Intent(this, DashboardParentActivity.class);
-                } else {
-                    intent_dashboard = new Intent(this, DashboardActivity.class);
-                }
-                startActivity(intent_dashboard);
-                break;
-            case R.id.nav_courses:
-                Intent intent_courses = new Intent(this, ListeCoursActivity.class);
-                startActivity(intent_courses);
-                break;
-            case R.id.nav_subscriptions:
-                //Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
-                //startActivity(intent_subscription);
-                break;
-            case R.id.nav_forum:
-                Intent intent_forum = new Intent(this, ForumActivity.class);
-                startActivity(intent_forum);
-                break;
-            case R.id.nav_chat:
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intent_chat = new Intent(this, ChatActivity.class);
-                    startActivity(intent_chat);
-                } else {
-                    Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-                break;
-            case R.id.nav_logout:
-                logout();
-                break;
-            case R.id.nav_share:
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intentShare = new Intent(Intent.ACTION_SEND);
-                    intentShare.setType("text/plain");
-                    intentShare.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_msg));
-                    intentShare.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.app_name));
-                    startActivity(Intent.createChooser(intentShare, ""+R.string.share_title));
-                } else {
-                    Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-                break;
-        }
-        drawerLayout.closeDrawer(GravityCompat.START); return true;
+    private void actionNegative() {
+        dialog.setContentView(R.layout.popup_negative);
+        closePoppupNegativeImg = dialog.findViewById(R.id.negative_close);
+        closePoppupNegativeImg.setOnClickListener(v -> dialog.dismiss());
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
     }
 
 

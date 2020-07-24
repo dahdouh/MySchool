@@ -106,7 +106,9 @@ public class ResultatQuizActivity extends AppCompatActivity {
     }
 
     public void backStep(View view) {
-        finish();
+        Intent intent = new Intent(context, ListeCoursActivity.class);
+        context.startActivity(intent);
+        //finish();
     }
     public void recommence(View view) {
         Intent intent = new Intent(context, QuizActivity.class);
