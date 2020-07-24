@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +66,19 @@ public class FragmentProfile extends Fragment {
         birthday = view.findViewById(R.id.birthday);
         level = view.findViewById(R.id.level);
 
+
+        final Button logout_btn = view.findViewById(R.id.logout_btn);
+        logout_btn.setOnClickListener(v -> {
+            SharedPreferences sharedpreferences = getActivity().getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.clear();
+            editor.commit();
+            Toast.makeText(context, getString(R.string.logout_success), Toast.LENGTH_LONG).show();
+
+            Intent intent=new Intent(context, WelcomeActivity.class);
+            context.startActivity(intent);
+        });
+
         /*--------------get user from session --------------*/
         sharedpreferences = getActivity().getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
@@ -88,8 +102,6 @@ public class FragmentProfile extends Fragment {
                 public void onResponse(JSONObject response) {
                     try {
                         String user_exist = response.getString("email");
-
-
                         if (user_exist.equals("not found")) {
                             Toast.makeText(context, "=====>  User not exist", Toast.LENGTH_LONG).show();
                         } else {
