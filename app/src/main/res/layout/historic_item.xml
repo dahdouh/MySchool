@@ -15,7 +15,7 @@ android:orientation="horizontal">
     android:layout_marginBottom="16dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="6dp"
-    app:cardBackgroundColor="#FFF4DF">
+    app:cardBackgroundColor="#f6f6f6">
 
     <RelativeLayout
         android:layout_width="match_parent"

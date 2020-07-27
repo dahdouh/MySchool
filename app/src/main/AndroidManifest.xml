@@ -15,30 +15,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".DashboardActivity"></activity>
+        <activity android:name=".ProfilePictureActivity"></activity>
+        <activity android:name=".DashboardActivity" />
         <activity
             android:name=".MySpaceActivity"
+            android:parentActivityName=".DashboardActivity" />
+        <activity
+            android:name=".ListeCoursActivity"
             android:parentActivityName=".DashboardActivity"></activity>
-        <activity android:name=".ListeCoursActivity"
-                  android:parentActivityName=".DashboardActivity">
-        </activity>
         <activity
             android:name=".ContentActivity"
-            android:parentActivityName=".DashboardActivity"></activity>
-
-        <activity android:name=".SubscriptionListActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:parentActivityName=".DashboardActivity" />
+        <activity
+            android:name=".SubscriptionListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".VideoContentActivity"
-            android:parentActivityName=".ListeCoursActivity"></activity>
+            android:parentActivityName=".ListeCoursActivity" />
         <activity
             android:name=".ListeCourseContentActivity"
-            android:parentActivityName=".ListeCoursActivity"></activity>
+            android:parentActivityName=".ListeCoursActivity" />
         <activity
             android:name=".StudentAddActivity"
-            android:parentActivityName=".ListeCoursActivity"></activity>
+            android:parentActivityName=".ListeCoursActivity" />
         <activity
             android:name=".StartActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -82,7 +81,6 @@
             android:name=".CoursActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".test" />
-
         <activity
             android:name=".TypeCoursActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -133,8 +131,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProfileUpdateActivity"
-            android:parentActivityName=".DashboardActivity">
-        </activity>
+            android:parentActivityName=".DashboardActivity"></activity>
         <activity
             android:name=".ProfileChooseActivity"
             android:theme="@style/AppTheme.NoActionBar" />

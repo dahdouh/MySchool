@@ -55,7 +55,7 @@ public class FragmentProfile extends Fragment {
         ImageView img = (ImageView) view.findViewById(R.id.edit);
         img.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent=new Intent(context, ProfileUpdateActivity.class);
+                Intent intent=new Intent(context, ProfilePictureActivity.class);
                 context.startActivity(intent);
             }
         });

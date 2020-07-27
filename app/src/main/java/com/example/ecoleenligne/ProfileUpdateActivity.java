@@ -3,27 +3,33 @@ package com.example.ecoleenligne;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ecoleenligne.model.Compte;
 import com.example.ecoleenligne.model.Profile;
@@ -35,6 +41,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,10 +56,85 @@ public class ProfileUpdateActivity extends AppCompatActivity {
     TextView msg_error;
     DatePicker picker;
 
+    ImageView image;
+    Button choose, upload;
+    int PICK_IMAGE_REQUEST = 111;
+    //String URL ="http://192.168.1.101/JavaRESTfullWS/DemoService/upload";
+    Bitmap bitmap;
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_update);
+
+        image = (ImageView)findViewById(R.id.image);
+        choose = (Button)findViewById(R.id.choose);
+        upload = (Button)findViewById(R.id.upload);
+
+        //opening image chooser option
+        choose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_PICK);
+                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
+            }
+        });
+
+        upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressDialog = new ProgressDialog(ProfileUpdateActivity.this);
+                progressDialog.setMessage("Uploading, please wait...");
+                progressDialog.show();
+
+                //converting image to base64 string
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] imageBytes = baos.toByteArray();
+                final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+                SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+                String user_connected = sharedpreferences.getString(MainActivity.Id, null);
+                String URL = MainActivity.IP + "/api/profile/picture/new/"+user_connected;
+                //sending image to server
+                StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(String s) {
+                        progressDialog.dismiss();
+                        if(s.equals("true")){
+                            Toast.makeText(context, "Uploaded Successful", Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            Toast.makeText(context, "Some error occurred!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                },new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(context, "Some error occurred -> "+volleyError.getMessage(), Toast.LENGTH_LONG).show();;
+                    }
+                }) {
+                    //adding parameters to send
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> parameters = new HashMap<>();
+                        parameters.put("image", imageString);
+                        return parameters;
+                    }
+                };
+
+                RequestQueue rQueue = Volley.newRequestQueue(context);
+                rQueue.add(request);
+            }
+        });
+
+
+
+
+
 
         //Actionbar config
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -89,57 +173,6 @@ public class ProfileUpdateActivity extends AppCompatActivity {
 
         //online mode
         if(MainActivity.MODE.equals("ONLINE")) {
-            /*String url = MainActivity.IP + "/api/profile/" + user_connected_id;
-            RequestQueue queue = Volley.newRequestQueue(context);
-            JSONObject jsonObject = new JSONObject();
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        String user_exist = response.getString("firstname");
-
-
-                        if (user_exist.equals("user not exist")) {
-                            Toast.makeText(context, "=====>  User not exist", Toast.LENGTH_LONG).show();
-                        } else {
-                            firstname_data = response.getString("firstname");
-                            lastname_data = response.getString("lastname");
-                            email_data = response.getString("email");
-                            //tel_data = response.getString("tel");
-                            //ville_data = response.getString("ville");
-                            //JSONObject compteJsonObject = response.getJSONObject("compte");
-                            //login_data = compteJsonObject.getString("login");
-
-                            firstname.getEditText().setText(firstname_data);
-                            lastname.getEditText().setText(lastname_data);
-                            email.getEditText().setText(email_data);
-                            //tel.setText(tel_data);
-                            //ville.setText(ville_data);
-                            //login.setText(login_data);
-                        }
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        new AlertDialog.Builder(context)
-                                .setTitle("Error")
-                                .setMessage(e.toString())
-                                .show();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    new AlertDialog.Builder(context)
-                            .setTitle("Error")
-                            .setMessage(R.string.server_restful_error)
-                            .show();
-                }
-            });
-
-            queue.add(request);
-             */
-
             String url = MainActivity.IP + "/api/profile/" + user_connected_id;
             RequestQueue queue = Volley.newRequestQueue(context);
 
