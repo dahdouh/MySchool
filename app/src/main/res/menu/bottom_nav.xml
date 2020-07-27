@@ -7,7 +7,7 @@
         android:title="@string/course" />
 
     <item
-        android:id="@+id/subscription"
+        android:id="@+id/profile"
         android:icon="@drawable/profile_icon"
         android:title="@string/navigation_menu_profile" />
 

@@ -44,9 +44,9 @@
             <RelativeLayout
                 android:id="@+id/profile_layout"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="160dp"
                 android:layout_below="@+id/header_cover_image"
-                android:background="@drawable/bg_profile_blue"
+                android:background="@color/accent"
                 android:elevation="4dp"
                 android:paddingBottom="24dp">
 
@@ -91,7 +91,7 @@
             <LinearLayout
                 android:id="@+id/data_profile"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="250dp"
                 android:layout_below="@+id/profile_layout"
                 android:layout_margin="5dp"
                 android:layout_marginTop="5dp"
