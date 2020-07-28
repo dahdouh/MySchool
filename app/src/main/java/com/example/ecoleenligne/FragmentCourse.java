@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,8 @@ import com.example.ecoleenligne.model.Subject;
 import com.example.ecoleenligne.util.SQLiteHelper;
 import com.example.ecoleenligne.util.SubjectListAdapter;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,8 +59,9 @@ public class FragmentCourse extends Fragment {
     TextView textView;
     GridLayout mainGrid;
     TextView user_name, user_profile;
+    //student avatar
+    ImageView image;
     SharedPreferences sharedpreferences;
-
     private SubjectListAdapter subjectListAdapter;
     ListView listview;
     List<Subject> subjects = new ArrayList<Subject>();
@@ -85,6 +89,8 @@ public class FragmentCourse extends Fragment {
 
         user_name = view.findViewById(R.id.user_name);
         user_profile = view.findViewById(R.id.user_profile);
+        //image upload
+        image = (ImageView)view.findViewById(R.id.image);
 
         sharedpreferences = getActivity().getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
@@ -164,13 +170,8 @@ public class FragmentCourse extends Fragment {
 
         }
 
-
-
         sharedpreferences = this.getActivity().getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
-
-
-
         if(MainActivity.MODE.equals("ONLINE")) {
             //  get profile of user connected from server
             String url = MainActivity.IP+"/api/user/"+user_connected_id;
@@ -186,6 +187,11 @@ public class FragmentCourse extends Fragment {
                         if(user_exist.equals("not found")) {
                             Toast.makeText(context, "=====>  User not found", Toast.LENGTH_LONG).show();
                         } else {
+                            //set user avatar
+                            String path_img = MainActivity.IP_myspace +"/TER.git/public/upload/picture/"+ response.getString("image");
+                            Picasso.get().load(path_img)
+                                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                                    .into(image);
                             String fullname_data = response.getString("firstName")+" "+response.getString("lastName");
                             String role = sharedpreferences.getString(MainActivity.Role, null);
                             user_name.setText(fullname_data);

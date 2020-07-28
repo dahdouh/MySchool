@@ -44,6 +44,10 @@
     <string name="login_signin">Se connecter</string>
     <string name="login_username">Login</string>
     <string name="login_password">Password</string>
+    <string name="login_avatar_modify">Modifier l\'Avatar</string>
+    <string name="login_avatar_upload_wait">Téléchargement, veuillez patienter ...</string>
+    <string name="login_avatar_upload_succes">Téléchargement réussi</string>
+    <string name="login_avatar_upload_error">Une erreur s\'est produite!</string>
     <string name="login_password_retype">Retaper le mot de passe</string>
     <string name="login_username_valid" translatable="false">Le login ne peut pas être vide</string>
     <string name="login_username_valid_toolong" translatable="false">Login trop long</string>

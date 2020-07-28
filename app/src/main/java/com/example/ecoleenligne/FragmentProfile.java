@@ -22,9 +22,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import okhttp3.CacheControl;
 
 
 /**
@@ -36,6 +40,8 @@ public class FragmentProfile extends Fragment {
     SharedPreferences sharedpreferences;
 
     TextView fullname, role, email, birthday, level;
+    //student avatar
+    ImageView image;
 
     public FragmentProfile() {}
 
@@ -55,11 +61,13 @@ public class FragmentProfile extends Fragment {
         ImageView img = (ImageView) view.findViewById(R.id.edit);
         img.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent=new Intent(context, ProfilePictureActivity.class);
+                Intent intent=new Intent(context, ProfileUpdateActivity.class);
                 context.startActivity(intent);
             }
         });
 
+        //image upload
+        image = (ImageView)view.findViewById(R.id.image);
         fullname = view.findViewById(R.id.fullname);
         role = view.findViewById(R.id.role);
         email = view.findViewById(R.id.email);
@@ -105,6 +113,11 @@ public class FragmentProfile extends Fragment {
                         if (user_exist.equals("not found")) {
                             Toast.makeText(context, "=====>  User not exist", Toast.LENGTH_LONG).show();
                         } else {
+                            //uplaod user avatar
+                            String path_img = MainActivity.IP_myspace +"/TER.git/public/upload/picture/"+ response.getString("image");
+                            Picasso.get().load(path_img)
+                                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                                    .into(image);
                             String fullname_data = response.getString("firstName")+" "+response.getString("lastName");
                             String birthday_data = response.getString("date_birth");
                             String[] parts = birthday_data.split("T");

@@ -5,13 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,11 +42,17 @@ import com.example.ecoleenligne.model.User;
 import com.example.ecoleenligne.util.SQLiteHelper;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -56,11 +67,13 @@ public class ProfileUpdateActivity extends AppCompatActivity {
     TextView msg_error;
     DatePicker picker;
 
+    // image upload
     ImageView image;
-    Button choose, upload;
+    TextView choose;
     int PICK_IMAGE_REQUEST = 111;
-    //String URL ="http://192.168.1.101/JavaRESTfullWS/DemoService/upload";
+    int PICK_CAMERA_REQUEST = 222;
     Bitmap bitmap;
+    String imageString = "";
     ProgressDialog progressDialog;
 
     @Override
@@ -68,78 +81,11 @@ public class ProfileUpdateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_update);
 
-        image = (ImageView)findViewById(R.id.image);
-        choose = (Button)findViewById(R.id.choose);
-        upload = (Button)findViewById(R.id.upload);
-
-        //opening image chooser option
-        choose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_PICK);
-                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
-            }
-        });
-
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressDialog = new ProgressDialog(ProfileUpdateActivity.this);
-                progressDialog.setMessage("Uploading, please wait...");
-                progressDialog.show();
-
-                //converting image to base64 string
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] imageBytes = baos.toByteArray();
-                final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-
-                SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-                String user_connected = sharedpreferences.getString(MainActivity.Id, null);
-                String URL = MainActivity.IP + "/api/profile/picture/new/"+user_connected;
-                //sending image to server
-                StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>(){
-                    @Override
-                    public void onResponse(String s) {
-                        progressDialog.dismiss();
-                        if(s.equals("true")){
-                            Toast.makeText(context, "Uploaded Successful", Toast.LENGTH_LONG).show();
-                        }
-                        else{
-                            Toast.makeText(context, "Some error occurred!", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                },new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(context, "Some error occurred -> "+volleyError.getMessage(), Toast.LENGTH_LONG).show();;
-                    }
-                }) {
-                    //adding parameters to send
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> parameters = new HashMap<>();
-                        parameters.put("image", imageString);
-                        return parameters;
-                    }
-                };
-
-                RequestQueue rQueue = Volley.newRequestQueue(context);
-                rQueue.add(request);
-            }
-        });
-
-
-
-
-
-
         //Actionbar config
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.navigation_menu_profile);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1976D2")));
+        getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.primary)));
         //getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.colorRedGo)));
         //Transparent statusbar
         if (Build.VERSION.SDK_INT >= 21) {
@@ -155,6 +101,51 @@ public class ProfileUpdateActivity extends AppCompatActivity {
         picker=(DatePicker)findViewById(R.id.datePicker);
         msg_error = findViewById(R.id.msg_error);
 
+        //image upload
+        image = (ImageView)findViewById(R.id.image);
+        choose = (TextView)findViewById(R.id.choose);
+
+        //opening image chooser option
+        choose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_PICK);
+                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
+                 */
+
+                final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+                builder.setTitle("Add Photo!");
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options[item].equals("Take Photo"))
+                        {
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            //File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
+                            //intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                            startActivityForResult(intent, PICK_CAMERA_REQUEST);
+                        }
+                        else if (options[item].equals("Choose from Gallery"))
+                        {
+                            Intent intent = new   Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            intent.setType("image/*");
+                            startActivityForResult(intent, PICK_IMAGE_REQUEST);
+                        }
+                        else if (options[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
+        //button save
         final Button save_btn = findViewById(R.id.save_btn);
         save_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -188,6 +179,11 @@ public class ProfileUpdateActivity extends AppCompatActivity {
                         firstname.getEditText().setText(response.getString("firstName"));
                         lastname.getEditText().setText(response.getString("lastName"));
                         email.getEditText().setText(response.getString("email"));
+                        //uplaod user avatar
+                        String path_img = MainActivity.IP_myspace +"/TER.git/public/upload/picture/"+ response.getString("image");
+                        Picasso.get().load(path_img)
+                                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                                .into(image);
                     }
 
 
@@ -211,6 +207,88 @@ public class ProfileUpdateActivity extends AppCompatActivity {
 
     }
 
+    public void uploadImageRest(){
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage(getString(R.string.login_avatar_upload_wait));
+        progressDialog.show();
+
+        SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        String user_connected = sharedpreferences.getString(MainActivity.Id, null);
+        String URL =  MainActivity.IP+"/api/profile/picture/new/"+ user_connected;
+        //sending image to server
+        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>(){
+            @Override
+            public void onResponse(String s) {
+                progressDialog.dismiss();
+                if(s.equals("true")){
+                    Toast.makeText(context, getString(R.string.login_avatar_upload_succes), Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(context, getString(R.string.login_avatar_upload_error), Toast.LENGTH_LONG).show();
+                }
+            }
+        },new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(context, getString(R.string.login_avatar_upload_error), Toast.LENGTH_LONG).show();;
+            }
+        }) {
+            //adding parameters to send
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("image", imageString);
+                return parameters;
+            }
+        };
+
+        RequestQueue rQueue = Volley.newRequestQueue(context);
+        rQueue.add(request);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_CAMERA_REQUEST) {
+            try {
+                bitmap = (Bitmap) data.getExtras().get("data");
+                image.setImageBitmap(bitmap);
+                BitMapToString(bitmap);
+                //set image extention
+                //imageEextension = "jpg";
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri fileUri = data.getData();
+
+            try {
+                //getting image from gallery
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), fileUri);
+                BitMapToString(bitmap);
+                image.setImageBitmap(bitmap);
+                //get image extention
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                String filePath = null;
+                if (cursor.moveToFirst()) {
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    filePath = cursor.getString(columnIndex);
+                    Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+                }
+                cursor.close();
+                //imageEextension = filePath.substring(filePath.lastIndexOf(".")+1); // Extension with dot .jpg, .png
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        //update image in the server
+        uploadImageRest();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -231,6 +309,16 @@ public class ProfileUpdateActivity extends AppCompatActivity {
         Intent intent = new Intent(context, DashboardActivity.class);
         intent.putExtra("ToProfile", "1");
         context.startActivity(intent);
+    }
+
+    // convert image to string for restful service
+    public String BitMapToString(Bitmap userImage1) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+        return imageString;
     }
 
     /*------------------ call restful service ----------------*/

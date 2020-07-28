@@ -29,6 +29,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ecoleenligne.util.SQLiteHelper;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +47,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     Menu menu;
     /*------ offline mode -------*/
     SQLiteHelper sqLiteHelper;
+
+    // user avatar
+    ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +91,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
             }
         });
 
+        image = (ImageView)findViewById(R.id.image);
         fullname = findViewById(R.id.fullname);
         role = findViewById(R.id.role);
         email = findViewById(R.id.email);
@@ -121,6 +127,11 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                         if (user_exist.equals("not found")) {
                             Toast.makeText(context, "=====>  User not exist", Toast.LENGTH_LONG).show();
                         } else {
+                            //user avatar
+                            String path_img = MainActivity.IP_myspace +"/TER.git/public/upload/picture/"+ response.getString("image");
+                            Picasso.get().load(path_img)
+                                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                                    .into(image);
                             String fullname_data = response.getString("firstName")+" "+response.getString("lastName");
                             String birthday_data = response.getString("date_birth");
                             String[] parts = birthday_data.split("T");

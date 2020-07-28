@@ -38,7 +38,6 @@ public class ListeCourseContentActivity extends AppCompatActivity {
         //Actionbar config
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(course_title);
-
         getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.colorRedGo)));
         //Transparent statusbar
         if (Build.VERSION.SDK_INT >= 21) {

@@ -35,7 +35,7 @@
 
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/user_photo"
+            android:id="@+id/image"
             android:layout_width="115dp"
             android:layout_height="115dp"
             android:layout_marginLeft="15dp"
@@ -55,9 +55,9 @@
             android:fontFamily="@font/antic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/user_photo"
+            app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_toRightOf="@id/user_photo"
+            android:layout_toRightOf="@id/image"
             android:layout_marginTop="35dp"
             android:textStyle="bold"/>
 
@@ -69,9 +69,9 @@
             android:textColor="#ffffff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/user_photo"
+            app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toTopOf="@id/user_name"
-            android:layout_toRightOf="@id/user_photo"
+            android:layout_toRightOf="@id/image"
             android:layout_below="@id/user_name"/>
     </RelativeLayout>
 

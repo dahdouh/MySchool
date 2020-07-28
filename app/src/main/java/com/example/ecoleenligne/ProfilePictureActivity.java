@@ -2,8 +2,13 @@ package com.example.ecoleenligne;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 
@@ -12,9 +17,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -28,16 +36,25 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class ProfilePictureActivity extends AppCompatActivity {
 
+    final Context context = this;
     ImageView image;
     Button choose, upload;
     int PICK_IMAGE_REQUEST = 111;
+    int PICK_CAMERA_REQUEST = 222;
     Bitmap bitmap;
+    String imageString = "";
+    //String imageEextension = "";
     ProgressDialog progressDialog;
 
     @Override
@@ -53,10 +70,39 @@ public class ProfilePictureActivity extends AppCompatActivity {
         choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_PICK);
                 startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
+                 */
+
+                final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Add Photo!");
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options[item].equals("Take Photo"))
+                        {
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            //File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
+                            //intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                            startActivityForResult(intent, PICK_CAMERA_REQUEST);
+                        }
+                        else if (options[item].equals("Choose from Gallery"))
+                        {
+                            Intent intent = new   Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            intent.setType("image/*");
+                            startActivityForResult(intent, PICK_IMAGE_REQUEST);
+                        }
+                        else if (options[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
             }
         });
 
@@ -68,11 +114,12 @@ public class ProfilePictureActivity extends AppCompatActivity {
                 progressDialog.show();
 
                 //converting image to base64 string
+                /*
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 byte[] imageBytes = baos.toByteArray();
-                final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-
+                imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                 */
                 SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
                 String user_connected = sharedpreferences.getString(MainActivity.Id, null);
                 String URL =  MainActivity.IP+"/api/profile/picture/new/"+ user_connected;
@@ -113,15 +160,37 @@ public class ProfilePictureActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri filePath = data.getData();
+        if (requestCode == PICK_CAMERA_REQUEST) {
+            try {
+                bitmap = (Bitmap) data.getExtras().get("data");
+                image.setImageBitmap(bitmap);
+                BitMapToString(bitmap);
+                //set image extention
+                //imageEextension = "jpg";
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri fileUri = data.getData();
 
             try {
                 //getting image from gallery
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-
-                //Setting image to ImageView
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), fileUri);
+                BitMapToString(bitmap);
                 image.setImageBitmap(bitmap);
+                //get image extention
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                String filePath = null;
+                if (cursor.moveToFirst()) {
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    filePath = cursor.getString(columnIndex);
+                    Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+                }
+                cursor.close();
+                //imageEextension = filePath.substring(filePath.lastIndexOf(".")+1); // Extension with dot .jpg, .png
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -129,153 +198,47 @@ public class ProfilePictureActivity extends AppCompatActivity {
     }
 
 /*
-    public int uploadFile(String sourceFileUri) {
+    public static String getMimeType(Context context, Uri uri) {
+        String extension;
 
-        String fileName = sourceFileUri;
-
-        HttpURLConnection connection = null;
-        DataOutputStream dos = null;
-        String lineEnd = "\r\n";
-        String twoHyphens = "--";
-        String boundary = "*****";
-        int bytesRead, bytesAvailable, bufferSize;
-        byte[] buffer;
-        int maxBufferSize = 1 * 1024 * 1024;
-        File sourceFile = new File(sourceFileUri);
-
-        if (!sourceFile.isFile()) {
-
-            dialog.dismiss();
-
-            Log.e("uploadFile", "Source File not exist :" + uploadFilePath + ""
-                    + uploadFileName);
-
-            runOnUiThread(new Runnable() {
-                public void run() {
-                    messageText.setText("Source File not exist :"
-                            + uploadFilePath + "" + uploadFileName);
-                }
-            });
-
-            return 0;
-
+        //Check uri format to avoid null
+        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            //If scheme is a content
+            final MimeTypeMap mime = MimeTypeMap.getSingleton();
+            extension = mime.getExtensionFromMimeType(context.getContentResolver().getType(uri));
         } else {
-            try {
-
-                // open a URL connection to the Servlet
-                FileInputStream fileInputStream = new FileInputStream(
-                        sourceFile);
-                URL url = new URL(upLoadServerUri);
-
-                // Open a HTTP connection to the URL
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setDoInput(true); // Allow Inputs
-                connection.setDoOutput(true); // Allow Outputs
-                connection.setUseCaches(false); // Don't use a Cached Copy
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("Connection", "Keep-Alive");
-                connection.setRequestProperty("ENCTYPE", "multipart/form-data");
-                connection.setRequestProperty("Content-Type",
-                        "multipart/form-data;boundary=" + boundary);
-                connection.setRequestProperty("uploaded_file", fileName);
-
-                dos = new DataOutputStream(connection.getOutputStream());
-
-                dos.writeBytes(twoHyphens + boundary + lineEnd);
-                // dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
-                // + fileName + "\"" + lineEnd);
-                dos.writeBytes("Content-Disposition: post-data; name=uploadedfile;filename="
-                        + URLEncoder.encode(fileName, "UTF-8") + lineEnd);
-
-                dos.writeBytes(lineEnd);
-
-                // create a buffer of maximum size
-                bytesAvailable = fileInputStream.available();
-
-                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                buffer = new byte[bufferSize];
-
-                // read file and write it into form...
-                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-
-                while (bytesRead > 0) {
-
-                    dos.write(buffer, 0, bufferSize);
-                    bytesAvailable = fileInputStream.available();
-                    bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                    bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-
-                }
-
-                // send multipart form data necesssary after file data...
-                dos.writeBytes(lineEnd);
-                dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-                // Responses from the server (code and message)
-                int serverResponseCode = connection.getResponseCode();
-                String serverResponseMessage = connection.getResponseMessage();
-
-                Log.i("uploadFile", "HTTP Response is : "
-                        + serverResponseMessage + ": " + serverResponseCode);
-
-                if (serverResponseCode == 200) {
-
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-
-                            String msg = "File Upload Completed.\n\n See uploaded file here : \n\n"
-                                    + " http://www.androidexample.com/media/uploads/"
-                                    + uploadFileName;
-
-                            messageText.setText(msg);
-                            Toast.makeText(UploadToServer.this,
-                                    "File Upload Complete.", Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                    });
-                }
-
-                // close the streams //
-                fileInputStream.close();
-                dos.flush();
-                dos.close();
-
-            } catch (MalformedURLException ex) {
-
-                dialog.dismiss();
-                ex.printStackTrace();
-
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        messageText
-                                .setText("MalformedURLException Exception : check script url.");
-                        Toast.makeText(UploadToServer.this,
-                                "MalformedURLException", Toast.LENGTH_SHORT)
-                                .show();
-                    }
-                });
-
-                Log.e("Upload file to server", "error: " + ex.getMessage(), ex);
-            } catch (Exception e) {
-
-                dialog.dismiss();
-                e.printStackTrace();
-
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        messageText.setText("Got Exception : see logcat ");
-                        Toast.makeText(UploadToServer.this,
-                                "Got Exception : see logcat ",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-                Log.e("Upload file to server Exception",
-                        "Exception : " + e.getMessage(), e);
-            }
-            dialog.dismiss();
-            return serverResponseCode;
+            //If scheme is a File
+            //This will replace white spaces with %20 and also other special characters. This will avoid returning null values on file name with spaces and special characters.
+            extension = MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(new File(uri.getPath())).toString());
 
         }
 
- */
+        return extension;
+    }
+
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float)width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
+    }
+    */
+
+    public String BitMapToString(Bitmap userImage1) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+        return imageString;
+    }
+
 }

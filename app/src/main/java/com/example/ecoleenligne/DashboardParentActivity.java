@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,6 +37,8 @@ import com.example.ecoleenligne.model.Profile;
 import com.example.ecoleenligne.model.User;
 import com.example.ecoleenligne.util.SQLiteHelper;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,8 +54,9 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
     Toolbar toolbar;
     Menu menu;
     TextView user_name, user_profile;
-
     ListView listview;
+    //avatar
+    ImageView image;
 
     /*------ offline mode -------*/
     SQLiteHelper sqLiteHelper;
@@ -84,6 +88,8 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_dashboard);
+
+        image = (ImageView)findViewById(R.id.image);
 
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
@@ -186,6 +192,11 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
                         if(user_exist.equals("not found")) {
                             Toast.makeText(context, "=====>  User not found", Toast.LENGTH_LONG).show();
                         } else {
+                            //set user avatar
+                            String path_img = MainActivity.IP_myspace +"/TER.git/public/upload/picture/"+ response.getString("image");
+                            Picasso.get().load(path_img)
+                                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                                    .into(image);
                             String fullname_data = response.getString("firstName")+" "+response.getString("lastName");
                             String role = sharedpreferences.getString(MainActivity.Role, null);
                             user_name.setText(fullname_data);
