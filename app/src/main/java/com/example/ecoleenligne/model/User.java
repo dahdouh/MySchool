@@ -8,6 +8,7 @@ public class User {
 	public int id;
 	public String firstname;
 	public String lastname;
+	public String image;
 	public String email;
 	public String tel;
 	public String ville;
@@ -42,12 +43,13 @@ public class User {
 		this.email = email;
 	}
 
-	public User(int id, String firstname, String lastname, String email, String level) {
+	public User(int id, String firstname, String lastname, String email, String level, String image) {
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
 		this.level = level;
+		this.image = image;
 	}
 
 
@@ -95,6 +97,12 @@ public class User {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) { this.image = image; }
 
 	public String getEmail() {
 		return email;

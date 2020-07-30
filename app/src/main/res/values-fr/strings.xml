@@ -232,7 +232,7 @@
     <string name="button_details">Details</string>
     <string name="button_next">Suivant</string>
     <string name="button_letsgo">Commencer</string>
-
+    <string name="button_subscribe">S\'abonner</string>
 
     <string name="msg_delete"> Êtes-vous sûr de bien vouloir supprimer cet élément? </string>
     <string name="msg_result_title"> Résultats</string>

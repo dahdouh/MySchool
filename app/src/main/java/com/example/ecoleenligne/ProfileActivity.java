@@ -30,6 +30,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.ecoleenligne.util.SQLiteHelper;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -76,6 +77,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         navigationView.setCheckedItem(R.id.nav_dashboard);
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
+
         /*------------------- hide items from menu ---------------------*/
         if(user_profile_data.equals("ROLE_PARENT")) {
             Menu menu = navigationView.getMenu();
@@ -130,7 +132,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                             //user avatar
                             String path_img = MainActivity.IP_myspace +"/TER.git/public/upload/picture/"+ response.getString("image");
                             Picasso.get().load(path_img)
-                                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                                    .networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE)
                                     .into(image);
                             String fullname_data = response.getString("firstName")+" "+response.getString("lastName");
                             String birthday_data = response.getString("date_birth");

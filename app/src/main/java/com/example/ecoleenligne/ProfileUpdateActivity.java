@@ -43,6 +43,7 @@ import com.example.ecoleenligne.util.SQLiteHelper;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -182,7 +183,7 @@ public class ProfileUpdateActivity extends AppCompatActivity {
                         //uplaod user avatar
                         String path_img = MainActivity.IP_myspace +"/TER.git/public/upload/picture/"+ response.getString("image");
                         Picasso.get().load(path_img)
-                                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                                .networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE)
                                 .into(image);
                     }
 
@@ -293,10 +294,17 @@ public class ProfileUpdateActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(context, DashboardActivity.class);
-                intent.putExtra("ToProfile", "1");
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+                String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
+                if(user_profile_data.equals("ROLE_TUTOR")) {
+                    Intent intent = new Intent(context, ProfileActivity.class);
+                    context.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(context, DashboardActivity.class);
+                    intent.putExtra("ToProfile", "1");
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

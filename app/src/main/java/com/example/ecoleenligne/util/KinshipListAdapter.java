@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,10 +22,16 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ecoleenligne.ChildActivity;
+import com.example.ecoleenligne.EvaluationActivity;
+import com.example.ecoleenligne.ListeQuestionsActivity;
 import com.example.ecoleenligne.MainActivity;
 import com.example.ecoleenligne.ProfileActivity;
 import com.example.ecoleenligne.R;
+import com.example.ecoleenligne.SubscriptionActivity;
 import com.example.ecoleenligne.model.Kinship;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +63,12 @@ public class KinshipListAdapter extends BaseAdapter {
         email.setText(kinship.getStudent().getEmail());
         TextView level = view.findViewById(R.id.level);
         level.setText(kinship.getStudent().getLevel());
+        ImageView image = (ImageView)view.findViewById(R.id.image);
+        //set avatar for each student
+        String path_img = MainActivity.IP_myspace +"/TER.git/public/upload/picture/"+ kinship.getStudent().getImage();
+        Picasso.get().load(path_img)
+                .networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE)
+                .into(image);
 
         Dialog dialog_delete = new Dialog(context);
         dialog_delete.setContentView(R.layout.popup_negative_child_popup);
@@ -68,6 +81,14 @@ public class KinshipListAdapter extends BaseAdapter {
                 Objects.requireNonNull(dialog_delete.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog_delete.show();
             }
+        });
+
+        // button subscribe child
+        Button child_subscribe_btn = view.findViewById(R.id.child_subscribe_btn);
+        child_subscribe_btn.setOnClickListener(v -> {
+            Intent intent = new Intent(context, SubscriptionActivity.class);
+            intent.putExtra("user_id",kinship.getStudent().getId());
+            context.startActivity(intent);
         });
 
         // button delete child

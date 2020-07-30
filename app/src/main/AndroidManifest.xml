@@ -30,6 +30,9 @@
             android:name=".SubscriptionListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".SubscriptionActivity"
+            android:parentActivityName=".SubscriptionListActivity"  />
+        <activity
             android:name=".VideoContentActivity"
             android:parentActivityName=".ListeCoursActivity" />
         <activity
@@ -61,9 +64,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ForumActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".SubscriptionActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CorrectionActivity"

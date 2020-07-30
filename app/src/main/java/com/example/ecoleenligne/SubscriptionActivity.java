@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -22,44 +23,153 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.ecoleenligne.model.Subject;
+import com.example.ecoleenligne.util.SubjectListAdapter;
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SubscriptionActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class SubscriptionActivity extends AppCompatActivity {
 
     final Context context = this;
-    Spinner student_level_spinner, student_matiere_spinner, student_duration_spinner;
-    String level_data, matiere_data, duration_data;
     SharedPreferences sharedpreferences;
 
+    TextView user_name, user_profile;
+    //student avatar
+    ImageView image;
+    private SubjectListAdapter subjectListAdapter;
+    ListView listview;
+    List<Subject> subjects = new ArrayList<Subject>();
+
+    /*
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    Spinner student_level_spinner, student_matiere_spinner, student_duration_spinner;
+    String level_data, matiere_data, duration_data;
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscription);
 
-        /*------------------  make transparent Status Bar  -----------------*/
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = getWindow();
-            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        //Actionbar config
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.subscribe_title);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1976D2")));
+        getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.colorRedGo)));
+        //getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.colorRedGo)));
+        //Transparent statusbar
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+
+        user_name = findViewById(R.id.user_name);
+        user_profile = findViewById(R.id.user_profile);
+        //image upload
+        image = (ImageView)findViewById(R.id.image);
+
+        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
+
+        this.subjectListAdapter = new SubjectListAdapter(context, subjects);
+        ListView subjectsListView = findViewById(R.id.list_subjects);
+        subjectsListView.setAdapter(subjectListAdapter);
+
+        //get list of courses for each selected subject
+        subjectsListView.setOnItemClickListener((parent, view1, position, id) -> {
+            String subject_id = ((TextView) view1.findViewById(R.id.subject_id)).getText().toString();
+            String subject_name = ((TextView) view1.findViewById(R.id.name)).getText().toString();
+
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("subject_id", ""+ subject_id);
+            editor.putString("subject_name", ""+ subject_name);
+            editor.commit();
+
+            Intent intent = new Intent(context, ListeCoursActivity.class);
+            context.startActivity(intent);
+        });
+
+
+
+
+        //check if there is connection
+        if(MainActivity.MODE.equals("ONLINE")) {
+            // get user from session
+            sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+            String user_connected = sharedpreferences.getString(MainActivity.Id, null);
+
+            // call restful webservices
+            String url =  MainActivity.IP+"/api/subject/list";
+            //get list of subject
+            RequestQueue queueUserConnected = Volley.newRequestQueue(context);
+            // allow connection with https and ssl
+            HttpsTrustManager.allowAllSSL();
+            JsonArrayRequest requestUserConnected = new JsonArrayRequest(Request.Method.GET, url, null,
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            try {
+                                if (response.length() != 0) {
+                                    subjects = new ArrayList<>(response.length());
+                                    for (int i = 0; i < response.length(); i++) {
+                                        JSONObject item = response.getJSONObject(i);
+                                        String id = item.getString("id");
+                                        String name = item.getString("name");
+                                        String icon = item.getString("icon");
+                                        //String content = item.getString("content");
+                                        subjects.add(new Subject(Integer.parseInt(id), name, icon));
+                                    }
+                                    subjectListAdapter.setSubjects(subjects);
+                                }
+
+                            } catch (JSONException error) {
+                                new AlertDialog.Builder(context)
+                                        .setTitle("Error")
+                                        .setMessage(error.toString())
+                                        .show();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener(){
+                        @Override
+                        public void onErrorResponse(VolleyError error){
+                            new AlertDialog.Builder(context)
+                                    .setTitle("Error")
+                                    .setMessage(error.getMessage())
+                                    .show();
+                        }
+                    }
+            );
+            queueUserConnected.add(requestUserConnected);
+
+        } else  {
+
         }
 
 
-        /*------------------------ Menu ---------------------*/
+        /*
         drawerLayout=findViewById(R.id.drawer_layout);
         navigationView=findViewById(R.id.nav_view);
         navigationView.bringToFront();
@@ -71,10 +181,11 @@ public class SubscriptionActivity extends AppCompatActivity implements Navigatio
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_dashboard);
+        */
 
 
-
-        /*--------------------  subscription level -----------------*/
+        /*
+        // subscription level
         student_level_spinner = (Spinner) findViewById(R.id.student_level_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.levels_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -90,7 +201,7 @@ public class SubscriptionActivity extends AppCompatActivity implements Navigatio
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        /*-------------------- subscription material -----------------*/
+        // subscription material
         student_matiere_spinner = (Spinner) findViewById(R.id.student_matiere_spinner);
         ArrayAdapter<CharSequence> adapterMatier = ArrayAdapter.createFromResource(this, R.array.matiere_array, android.R.layout.simple_spinner_item);
         adapterMatier.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -106,7 +217,7 @@ public class SubscriptionActivity extends AppCompatActivity implements Navigatio
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        /*-------------------- subscription duration -----------------*/
+        // subscription duration
         student_duration_spinner = (Spinner) findViewById(R.id.student_duration_spinner);
         ArrayAdapter<CharSequence> adapterDuration = ArrayAdapter.createFromResource(this, R.array.duration_array, android.R.layout.simple_spinner_item);
         adapterDuration.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -123,7 +234,7 @@ public class SubscriptionActivity extends AppCompatActivity implements Navigatio
         });
 
 
-        /*--------------get user from session --------------*/
+        // get user from session
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         final String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
 
@@ -173,12 +284,13 @@ public class SubscriptionActivity extends AppCompatActivity implements Navigatio
 
             }
         });
+         */
 
     }
 
-    /*---------------------- Log out function --------------------------*/
+    /*
+    // Log out function
     public  void logout(){
-        /*--------------get user from session --------------*/
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
         String user_connected_login = sharedpreferences.getString(MainActivity.Login, null);
@@ -187,7 +299,7 @@ public class SubscriptionActivity extends AppCompatActivity implements Navigatio
             Toast.makeText(context, "You are already disconnected!", Toast.LENGTH_LONG).show();
         }
 
-        /*---------------clear session ------*/
+        // clear session
         SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.clear();
@@ -199,10 +311,9 @@ public class SubscriptionActivity extends AppCompatActivity implements Navigatio
 
     }
 
-    /*---------------------- Menu actions ---------------------*/
+    // Menu actions
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        /*--------------get user from session --------------*/
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_profile = sharedpreferences.getString(MainActivity.Role, null);
         String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
@@ -268,6 +379,7 @@ public class SubscriptionActivity extends AppCompatActivity implements Navigatio
         }
         drawerLayout.closeDrawer(GravityCompat.START); return true;
     }
+    */
 }
 
 

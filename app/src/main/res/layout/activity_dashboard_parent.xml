@@ -85,7 +85,7 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="130dp"
         android:layout_marginBottom="60dp"
         android:alignmentMode="alignMargins"
         android:columnCount="2"
@@ -95,7 +95,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@id/dashboard"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_editor_absoluteX="0dp">
+        app:layout_editor_absoluteX="0dp"
+        android:background="@drawable/bg_cube">
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"

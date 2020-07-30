@@ -36,6 +36,7 @@ import com.example.ecoleenligne.util.SQLiteHelper;
 import com.example.ecoleenligne.util.SubjectListAdapter;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -190,7 +191,7 @@ public class FragmentCourse extends Fragment {
                             //set user avatar
                             String path_img = MainActivity.IP_myspace +"/TER.git/public/upload/picture/"+ response.getString("image");
                             Picasso.get().load(path_img)
-                                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                                    .networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE)
                                     .into(image);
                             String fullname_data = response.getString("firstName")+" "+response.getString("lastName");
                             String role = sharedpreferences.getString(MainActivity.Role, null);

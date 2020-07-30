@@ -140,13 +140,14 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
                         String student_firstName = studentJson.getString("firstName");
                         String student_lastName = studentJson.getString("lastName");
                         String student_email = studentJson.getString("email");
+                        String student_image = studentJson.getString("image");
 
                         User student= new User();
                         if(response.getJSONArray("kinshipStudents").length()>0) {
                             JSONObject studentSubscription = studentJson.getJSONArray("subscriptions").getJSONObject(0);
                             JSONObject levelJson = studentSubscription.getJSONObject("level");
                             String student_level = levelJson.getString("name");
-                            student = new User(Integer.parseInt(student_id), student_firstName, student_lastName, student_email, student_level);
+                            student = new User(Integer.parseInt(student_id), student_firstName, student_lastName, student_email, student_level, student_image);
                         } else {
                             student = new User(Integer.parseInt(student_id), student_firstName, student_lastName, student_email);
                         }

@@ -34,10 +34,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ecoleenligne.model.Compte;
 import com.example.ecoleenligne.model.Profile;
+import com.example.ecoleenligne.model.Subscription;
 import com.example.ecoleenligne.model.User;
 import com.example.ecoleenligne.util.SQLiteHelper;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -123,8 +125,8 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
             @Override
             public void onClick(View v) {
                 if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intent = new Intent(context, DashboardActivity.class);
-                    intent.putExtra("ToSubscription", "1");
+                    Intent intent = new Intent(context, SubscriptionListActivity.class);
+                    //intent.putExtra("ToSubscription", "1");
                     intent.putExtra("parent_id", ""+user_connected_id);
                     context.startActivity(intent);
                 } else {
@@ -195,7 +197,7 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
                             //set user avatar
                             String path_img = MainActivity.IP_myspace +"/TER.git/public/upload/picture/"+ response.getString("image");
                             Picasso.get().load(path_img)
-                                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                                    .networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE)
                                     .into(image);
                             String fullname_data = response.getString("firstName")+" "+response.getString("lastName");
                             String role = sharedpreferences.getString(MainActivity.Role, null);
