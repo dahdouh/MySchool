@@ -71,6 +71,8 @@
     <string name="subscribe_msg">Souscrire à un nouvel abonnement </string>
     <string name="subscribe_done"> Votre abonnement a été bien effectué </string>
     <string name="subscribtion_empty"> Pas d\'abonnenement pour le moment </string>
+    <string name="subscribtion_already"> Vous êtes déjà abonné à ce cours </string>
+    <string name="subscribtion_confirm"> Voulez-vous confirmer votre abonnement à ce cours? </string>
     <string name="forum_post_add" translatable="false">Le message ne peut pas être vide</string>
 
     <string name="unsubscribe_success">You are successfully unsubscribed!</string>

@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,7 +37,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.ecoleenligne.model.Course;
 import com.example.ecoleenligne.model.Subject;
+import com.example.ecoleenligne.model.Subscription;
 import com.example.ecoleenligne.util.SubjectListAdapter;
 import com.google.android.material.navigation.NavigationView;
 
@@ -46,6 +49,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SubscriptionActivity extends AppCompatActivity {
 
@@ -58,6 +62,12 @@ public class SubscriptionActivity extends AppCompatActivity {
     private SubjectListAdapter subjectListAdapter;
     ListView listview;
     List<Subject> subjects = new ArrayList<Subject>();
+
+    //dialog
+    Dialog dialog, dialog_success;
+    ImageView closePoppupNegativeImg, closePoppupPositiveImg;
+    TextView negative_title, negative_content, positive_title, positive_content;
+    Button negative_button, positive_button;
 
     /*
     DrawerLayout drawerLayout;
@@ -90,8 +100,8 @@ public class SubscriptionActivity extends AppCompatActivity {
         //image upload
         image = (ImageView)findViewById(R.id.image);
 
-        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
+        SharedPreferences sharedpreferences = context.getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        String parent_student_selected = sharedpreferences.getString("parent_student_selected", null);
 
         this.subjectListAdapter = new SubjectListAdapter(context, subjects);
         ListView subjectsListView = findViewById(R.id.list_subjects);
@@ -101,14 +111,63 @@ public class SubscriptionActivity extends AppCompatActivity {
         subjectsListView.setOnItemClickListener((parent, view1, position, id) -> {
             String subject_id = ((TextView) view1.findViewById(R.id.subject_id)).getText().toString();
             String subject_name = ((TextView) view1.findViewById(R.id.name)).getText().toString();
+            //String student_id = ((TextView) view1.findViewById(R.id.student_id)).getText().toString();
 
+            /*
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString("subject_id", ""+ subject_id);
             editor.putString("subject_name", ""+ subject_name);
             editor.commit();
-
             Intent intent = new Intent(context, ListeCoursActivity.class);
             context.startActivity(intent);
+            */
+
+            // check if there is connection-
+            if(MainActivity.MODE.equals("ONLINE")) {
+                // get courses from server RESTful
+                //String url =  MainActivity.IP+"/api/cours/"+ user_connected;
+                String url =  MainActivity.IP+"/api/subscription/student/check/"+ parent_student_selected +"/"+ subject_id;
+                Toast.makeText(SubscriptionActivity.this,"student= "+ url+ " subject= "+subject_id,Toast.LENGTH_SHORT);
+                RequestQueue queueUserConnected = Volley.newRequestQueue(context);
+                JsonArrayRequest requestUserConnected = new JsonArrayRequest(Request.Method.GET, url, null,
+                        response -> {
+                                if (response.length() != 0) {
+                                    //  dialog student already subscribed
+                                    dialog = new Dialog(context);
+                                    actionNegative();
+                                    negative_title = dialog.findViewById(R.id.negative_title);
+                                    negative_content = dialog.findViewById(R.id.negative_content);
+                                    negative_button = dialog.findViewById(R.id.negative_button);
+                                    negative_button.setOnClickListener(v -> {
+                                        finish();
+                                    });
+                                    negative_title.setText(subject_name);
+                                    negative_content.setText(R.string.subscribtion_already);
+                                    negative_button.setText(R.string.button_ok);
+                                } else {
+                                    //confirm subscrition dialog
+                                    dialog_success = new Dialog(context);
+                                    actionPositive();
+                                    positive_title = dialog_success.findViewById(R.id.positive_title);
+                                    positive_content = dialog_success.findViewById(R.id.positive_content);
+                                    positive_button = dialog_success.findViewById(R.id.positive_button);
+                                    positive_button.setOnClickListener(v -> {
+                                        finish();
+                                    });
+                                    positive_title.setText(subject_name);
+                                    positive_content.setText(R.string.subscribtion_confirm);
+                                    positive_button.setText(R.string.button_confirm);
+                                }
+                        },
+                        error -> new AlertDialog.Builder(context)
+                                .setTitle("Error")
+                                .setMessage(error.getMessage())
+                                .show()
+                );
+                queueUserConnected.add(requestUserConnected);
+
+            } else  {}
+
         });
 
 
@@ -286,6 +345,22 @@ public class SubscriptionActivity extends AppCompatActivity {
         });
          */
 
+    }
+
+    private void actionNegative() {
+        dialog.setContentView(R.layout.popup_negative);
+        closePoppupNegativeImg = dialog.findViewById(R.id.negative_close);
+        closePoppupNegativeImg.setOnClickListener(v -> dialog.dismiss());
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    private void actionPositive() {
+        dialog_success.setContentView(R.layout.popup_positive);
+        closePoppupPositiveImg = dialog_success.findViewById(R.id.positive_close);
+        closePoppupPositiveImg.setOnClickListener(v -> dialog_success.dismiss());
+        Objects.requireNonNull(dialog_success.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog_success.show();
     }
 
     /*

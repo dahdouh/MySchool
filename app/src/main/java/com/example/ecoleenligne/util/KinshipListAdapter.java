@@ -3,6 +3,7 @@ package com.example.ecoleenligne.util;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -87,7 +88,11 @@ public class KinshipListAdapter extends BaseAdapter {
         Button child_subscribe_btn = view.findViewById(R.id.child_subscribe_btn);
         child_subscribe_btn.setOnClickListener(v -> {
             Intent intent = new Intent(context, SubscriptionActivity.class);
-            intent.putExtra("user_id",kinship.getStudent().getId());
+            SharedPreferences sharedpreferences = context.getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+            sharedpreferences = context.getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("parent_student_selected", ""+kinship.getStudent().getId());
+            editor.commit();
             context.startActivity(intent);
         });
 
