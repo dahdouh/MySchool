@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.ecoleenligne.DashboardActivity;
 import com.example.ecoleenligne.R;
+import com.example.ecoleenligne.SubscriptionActivity;
 import com.example.ecoleenligne.model.Subscription;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class SubscriptionListAdapter extends BaseAdapter {
         subscription_delete_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Intent intent1 = new Intent(context, DashboardActivity.class);
+                Intent intent1 = new Intent(context, SubscriptionActivity.class);
                 intent1.putExtra("ToSubscription", "1");
                 context.startActivity(intent1);
                 /*

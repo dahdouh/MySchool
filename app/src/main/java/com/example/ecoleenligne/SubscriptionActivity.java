@@ -47,6 +47,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -66,7 +67,7 @@ public class SubscriptionActivity extends AppCompatActivity {
     //dialog
     Dialog dialog, dialog_success;
     ImageView closePoppupNegativeImg, closePoppupPositiveImg;
-    TextView negative_title, negative_content, positive_title, positive_content;
+    TextView negative_title, negative_content, negative_title_big, positive_title, positive_content, positive_title_big;
     Button negative_button, positive_button;
 
     /*
@@ -124,46 +125,43 @@ public class SubscriptionActivity extends AppCompatActivity {
                 RequestQueue queueUserConnected = Volley.newRequestQueue(context);
                 JsonArrayRequest requestUserConnected = new JsonArrayRequest(Request.Method.GET, url, null,
                         response -> {
-                                /*
-                                for (int i = 0; i < response.length(); i++) {
-                                    try {
-                                        JSONObject item = item = response.getJSONObject(0);
-                                        String subscription_id = item.getString("id");
-                                        String subscription_type = item.getString("type");
-                                        JSONObject LevelJsonObject = item.getJSONObject("level");
-                                        String level_id = LevelJsonObject.getString("id");
-
-                                        Toast.makeText(context, "### "+subscription_id + " iiii "+subscription_type + " oooo "+ level_id, Toast.LENGTH_LONG).show();
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                 */
                                 if (response.length() != 0) {
                                     //  dialog student already subscribed
                                     dialog = new Dialog(context);
                                     actionNegative();
                                     negative_title = dialog.findViewById(R.id.negative_title);
                                     negative_content = dialog.findViewById(R.id.negative_content);
+                                    negative_title_big = dialog.findViewById(R.id.negative_title_big);
                                     negative_button = dialog.findViewById(R.id.negative_button);
                                     negative_button.setOnClickListener(v -> {
-                                        finish();
+                                        String url1 = MainActivity.IP + "/api/subscription/parent/student/unsubscribe/" + parent_student_selected + "/" + subject_id;
+                                        // delete subscriptions from server through RESTful webservice
+                                        RequestQueue queueUnsub = Volley.newRequestQueue(context);
+                                        HttpsTrustManager.allowAllSSL();
+                                        JsonArrayRequest requestUnsub = new JsonArrayRequest(Request.Method.GET, url1, null,
+                                                response12 -> {
+                                                    Toast.makeText(context, " You are successfully unscribed", Toast.LENGTH_SHORT).show();
+                                                    dialog.cancel();
+                                                },
+                                                error -> new AlertDialog.Builder(context).setTitle("Error").setMessage(error.getMessage()).show()
+                                        );
+                                        queueUnsub.add(requestUnsub);
+
                                     });
                                     negative_title.setText(subject_name);
                                     negative_content.setText(R.string.subscribtion_already);
-                                    negative_button.setText(R.string.button_ok);
+                                    negative_title_big.setText(R.string.subscribtion_unsubscribe);
+                                    negative_button.setText(R.string.parent_child_unsubscribe);
                                 } else {
                                     //confirm subscrition dialog
                                     dialog_success = new Dialog(context);
                                     actionPositive();
                                     positive_title = dialog_success.findViewById(R.id.positive_title);
                                     positive_content = dialog_success.findViewById(R.id.positive_content);
+                                    positive_title_big = dialog_success.findViewById(R.id.positive_title_big);
                                     positive_button = dialog_success.findViewById(R.id.positive_button);
                                     final int[] done = {0};
                                     positive_button.setOnClickListener(v -> {
-                                        //finish();
-
                                         if(done[0] == 0) {
                                             done[0] = 1;
                                             String url1 = MainActivity.IP + "/api/subscription/parent/student/done/" + parent_student_selected + "/" + parent_student_level + "/" + parent_student_subscription_type + "/" + subject_id;
@@ -174,6 +172,7 @@ public class SubscriptionActivity extends AppCompatActivity {
                                             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url1, jsonObject, response1 -> {
                                                 positive_title.setText(subject_name);
                                                 positive_content.setText(R.string.subscribe_done);
+                                                positive_title_big.setText("");
                                                 positive_button.setText(R.string.button_ok);
                                             }, e -> new AlertDialog.Builder(context).setTitle("Error").setMessage(e.toString()).show());
 
@@ -185,6 +184,29 @@ public class SubscriptionActivity extends AppCompatActivity {
                                     });
                                     positive_title.setText(subject_name);
                                     positive_content.setText(R.string.subscribtion_confirm);
+
+                                    int months = 0;
+                                    double priceReduction = 0;
+                                    switch (parent_student_subscription_type) {
+                                        case "Trimestre":
+                                            months = 3;
+                                            priceReduction = 1;
+                                            break;
+                                        case "Semestre":
+                                            months = 6;
+                                            priceReduction = 0.9;
+                                            break;
+                                        case "Année":
+                                            months = 12;
+                                            priceReduction = 0.8;
+                                            break;
+                                    }
+
+                                    double totalPrice = priceReduction * months * 7;
+
+                                    DecimalFormat df = new DecimalFormat("#.####");
+
+                                    positive_title_big.setText(getString(R.string.subscribtion_price)+" " + parent_student_subscription_type +" = "+ df.format(totalPrice));
                                     positive_button.setText(R.string.button_confirm);
                                 }
                         },

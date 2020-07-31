@@ -82,7 +82,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@id/name"
-                android:background="@drawable/button_red"
+                android:background="@drawable/button_red_round"
                 android:elevation="0dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"

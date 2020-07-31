@@ -102,6 +102,8 @@
     <string name="subscribtion_empty"> No subscription for the moment </string>
     <string name="subscribtion_already"> You have already subscribed to this course </string>
     <string name="subscribtion_confirm"> Do you want to confirm your subscription to this course? </string>
+    <string name="subscribtion_unsubscribe"> Do you want to unsubscribe from this course? </string>
+    <string name="subscribtion_price"> Price </string>
     <string name="forum_post_add" translatable="false">Message cannot be empty</string>
 
 
