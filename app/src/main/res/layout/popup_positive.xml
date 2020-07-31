@@ -96,7 +96,8 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/button_green_round"
                     android:text="@string/button_ok"
-                    android:textColor="@color/colorWhite" />
+                    android:textColor="@color/colorWhite"
+                    android:textAllCaps="false"/>
 
 
             </LinearLayout>

@@ -124,35 +124,38 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
             @Override
             public void onResponse(JSONObject response) {
                 try{
-                    String emailResponse = response.getString("email");
-                    String tutor_id = response.getString("id");
-                    String tutor_firstName = response.getString("firstName");
-                    String tutor_lastName = response.getString("lastName");
-                    User tutor = new User(Integer.parseInt(tutor_id), tutor_firstName, tutor_lastName);
+                    if(response.length()>0) {
+                        String emailResponse = response.getString("email");
+                        String tutor_id = response.getString("id");
+                        String tutor_firstName = response.getString("firstName");
+                        String tutor_lastName = response.getString("lastName");
+                        User tutor = new User(Integer.parseInt(tutor_id), tutor_firstName, tutor_lastName);
 
-                    kinships = new ArrayList<>(response.getJSONArray("kinshipStudents").length());
-                    for (int j = 0; j < response.getJSONArray("kinshipStudents").length(); j++) {
-                        JSONObject kindshipJsonObject = response.getJSONArray("kinshipStudents").getJSONObject(j);
-                        String kinship_id = kindshipJsonObject.getString("id");
+                        kinships = new ArrayList<>(response.getJSONArray("kinshipStudents").length());
+                        for (int j = 0; j < response.getJSONArray("kinshipStudents").length(); j++) {
+                            JSONObject kindshipJsonObject = response.getJSONArray("kinshipStudents").getJSONObject(j);
+                            String kinship_id = kindshipJsonObject.getString("id");
 
-                        JSONObject studentJson = kindshipJsonObject.getJSONObject("student");
-                        String student_id = studentJson.getString("id");
-                        String student_firstName = studentJson.getString("firstName");
-                        String student_lastName = studentJson.getString("lastName");
-                        String student_email = studentJson.getString("email");
-                        String student_image = studentJson.getString("image");
+                            JSONObject studentJson = kindshipJsonObject.getJSONObject("student");
+                            String student_id = studentJson.getString("id");
+                            String student_firstName = studentJson.getString("firstName");
+                            String student_lastName = studentJson.getString("lastName");
+                            String student_email = studentJson.getString("email");
+                            String student_image = studentJson.getString("image");
 
-                        User student= new User();
-                        if(response.getJSONArray("kinshipStudents").length()>0) {
-                            JSONObject studentSubscription = studentJson.getJSONArray("subscriptions").getJSONObject(0);
-                            JSONObject levelJson = studentSubscription.getJSONObject("level");
-                            String student_level = levelJson.getString("name");
-                            student = new User(Integer.parseInt(student_id), student_firstName, student_lastName, student_email, student_level, student_image);
-                        } else {
-                            student = new User(Integer.parseInt(student_id), student_firstName, student_lastName, student_email);
+                            User student = new User();
+                            if (studentJson.getJSONArray("subscriptions").length() > 0) {
+                                JSONObject studentSubscription = studentJson.getJSONArray("subscriptions").getJSONObject(0);
+                                JSONObject levelJson = studentSubscription.getJSONObject("level");
+                                String student_level = levelJson.getString("name");
+                                String student_subscription_type = studentSubscription.getString("type");
+                                student = new User(Integer.parseInt(student_id), student_firstName, student_lastName, student_email, student_level, student_image, student_subscription_type);
+                            } else {
+                                student = new User(Integer.parseInt(student_id), student_firstName, student_lastName, student_email);
+                            }
+
+                            kinships.add(new Kinship(Integer.parseInt(kinship_id), tutor, student));
                         }
-
-                        kinships.add(new Kinship(Integer.parseInt(kinship_id), tutor, student));
                     }
 
                     dialog = new Dialog(context);

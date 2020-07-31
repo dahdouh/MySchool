@@ -119,11 +119,6 @@ public class StudentAddActivity extends AppCompatActivity implements AdapterView
                    String user_connected = sharedpreferences.getString(MainActivity.Id, null);
 
                    registeStudentRest(user_connected, login_data, password_data, firstname_data, lastname_data, email_data, date_data, level_data, subscription_data);
-                   //Toast.makeText(StudentAddActivity.this, parent_data + " is Selected", Toast.LENGTH_SHORT).show();
-                   //Intent intent=new Intent(StudentAddActivity.this, DashboardParentActivity.class);
-                   //context.startActivity(intent);
-
-
                 }
             }
         });

@@ -13,6 +13,7 @@ public class User {
 	public String tel;
 	public String ville;
 	public String level;
+	public String subscriptionType;
 	public String sex;
 	public String parentRelation;
 	public Compte compte;
@@ -43,13 +44,14 @@ public class User {
 		this.email = email;
 	}
 
-	public User(int id, String firstname, String lastname, String email, String level, String image) {
+	public User(int id, String firstname, String lastname, String email, String level, String image, String subscriptionType) {
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
 		this.level = level;
 		this.image = image;
+		this.subscriptionType = subscriptionType;
 	}
 
 
@@ -135,6 +137,10 @@ public class User {
 	public void setLevel(String level) {
 		this.level = level;
 	}
+
+	public String getSubscriptionType() { return this.subscriptionType; }
+
+	public void setSubscriptionType(String subscriptionType) { this.subscriptionType = subscriptionType; }
 
 	public String getParentRelation() {
 		return this.parentRelation;

@@ -82,7 +82,8 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/button_red_round"
                     android:text="@string/button_yes"
-                    android:textColor="@color/colorWhite" />
+                    android:textColor="@color/colorWhite"
+                    android:textAllCaps="false"/>
 
 
             </LinearLayout>

@@ -92,6 +92,8 @@ public class KinshipListAdapter extends BaseAdapter {
             sharedpreferences = context.getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString("parent_student_selected", ""+kinship.getStudent().getId());
+            editor.putString("parent_student_level", ""+ kinship.getStudent().getLevel());
+            editor.putString("parent_student_subscription_type", ""+ kinship.getStudent().getSubscriptionType());
             editor.commit();
             context.startActivity(intent);
         });

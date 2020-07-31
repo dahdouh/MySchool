@@ -102,6 +102,9 @@ public class SubscriptionActivity extends AppCompatActivity {
 
         SharedPreferences sharedpreferences = context.getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String parent_student_selected = sharedpreferences.getString("parent_student_selected", null);
+        String parent_student_level = sharedpreferences.getString("parent_student_level", null);
+        String parent_student_subscription_type = sharedpreferences.getString("parent_student_subscription_type", null);
+
 
         this.subjectListAdapter = new SubjectListAdapter(context, subjects);
         ListView subjectsListView = findViewById(R.id.list_subjects);
@@ -111,16 +114,6 @@ public class SubscriptionActivity extends AppCompatActivity {
         subjectsListView.setOnItemClickListener((parent, view1, position, id) -> {
             String subject_id = ((TextView) view1.findViewById(R.id.subject_id)).getText().toString();
             String subject_name = ((TextView) view1.findViewById(R.id.name)).getText().toString();
-            //String student_id = ((TextView) view1.findViewById(R.id.student_id)).getText().toString();
-
-            /*
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putString("subject_id", ""+ subject_id);
-            editor.putString("subject_name", ""+ subject_name);
-            editor.commit();
-            Intent intent = new Intent(context, ListeCoursActivity.class);
-            context.startActivity(intent);
-            */
 
             // check if there is connection-
             if(MainActivity.MODE.equals("ONLINE")) {
@@ -131,6 +124,22 @@ public class SubscriptionActivity extends AppCompatActivity {
                 RequestQueue queueUserConnected = Volley.newRequestQueue(context);
                 JsonArrayRequest requestUserConnected = new JsonArrayRequest(Request.Method.GET, url, null,
                         response -> {
+                                /*
+                                for (int i = 0; i < response.length(); i++) {
+                                    try {
+                                        JSONObject item = item = response.getJSONObject(0);
+                                        String subscription_id = item.getString("id");
+                                        String subscription_type = item.getString("type");
+                                        JSONObject LevelJsonObject = item.getJSONObject("level");
+                                        String level_id = LevelJsonObject.getString("id");
+
+                                        Toast.makeText(context, "### "+subscription_id + " iiii "+subscription_type + " oooo "+ level_id, Toast.LENGTH_LONG).show();
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                 */
                                 if (response.length() != 0) {
                                     //  dialog student already subscribed
                                     dialog = new Dialog(context);
@@ -151,8 +160,28 @@ public class SubscriptionActivity extends AppCompatActivity {
                                     positive_title = dialog_success.findViewById(R.id.positive_title);
                                     positive_content = dialog_success.findViewById(R.id.positive_content);
                                     positive_button = dialog_success.findViewById(R.id.positive_button);
+                                    final int[] done = {0};
                                     positive_button.setOnClickListener(v -> {
-                                        finish();
+                                        //finish();
+
+                                        if(done[0] == 0) {
+                                            done[0] = 1;
+                                            String url1 = MainActivity.IP + "/api/subscription/parent/student/done/" + parent_student_selected + "/" + parent_student_level + "/" + parent_student_subscription_type + "/" + subject_id;
+                                            RequestQueue queue = Volley.newRequestQueue(context);
+                                            JSONObject jsonObject = new JSONObject();
+                                            // allow connection with https and ssl
+                                            HttpsTrustManager.allowAllSSL();
+                                            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url1, jsonObject, response1 -> {
+                                                positive_title.setText(subject_name);
+                                                positive_content.setText(R.string.subscribe_done);
+                                                positive_button.setText(R.string.button_ok);
+                                            }, e -> new AlertDialog.Builder(context).setTitle("Error").setMessage(e.toString()).show());
+
+                                            queue.add(request);
+                                        } else {
+                                            dialog_success.cancel();
+                                        }
+
                                     });
                                     positive_title.setText(subject_name);
                                     positive_content.setText(R.string.subscribtion_confirm);

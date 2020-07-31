@@ -73,16 +73,16 @@
                     android:gravity="center_horizontal" />
 
 
-
                 <Button
                     android:id="@+id/negative_button"
                     android:layout_width="200dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="37dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/button_red_round"
                     android:text="@string/button_ok"
-                    android:textColor="@color/colorWhite" />
+                    android:textColor="@color/colorWhite"
+                    android:textAllCaps="false"/>
 
 
             </LinearLayout>
