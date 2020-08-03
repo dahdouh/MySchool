@@ -43,6 +43,7 @@
 
     <string name="login_continue">Sign in to continue</string>
     <string name="login_signin">Sign in</string>
+    <string name="login_signin_as_parent_or_student">Sign in as parent or student</string>
     <string name="login_username" translatable="false">Username</string>
     <string name="login_avatar_modify">Update Avatar</string>
     <string name="login_avatar_upload_wait">Uploading, please wait...</string>
@@ -141,11 +142,14 @@
 
     <string name="credit_card">Credit Card</string>
     <string name="credit_card_owner">Owner</string>
+    <string name="credit_card_owner_msg_error">Owner\'s name cannot be empty</string>
     <string name="card_number">Card number</string>
+    <string name="card_number_msg_error">Credit Card number cannot be empty</string>
     <string name="expiration">Expiration</string>
     <string name="mont">Month</string>
     <string name="year">Year</string>
     <string name="crypto">Crypto</string>
+    <string name="crypto_msg_error">Crypto number cannot be empty</string>
     <string name="type_content_choice">Content Type choice</string>
 
     <string name="course_list_msg">Courses of all levels</string>

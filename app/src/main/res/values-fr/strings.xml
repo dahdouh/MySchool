@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">EcoleEnLigne</string>
-    <string name="app_learn" translatable="false">Apprendre depuis chez vous!</string>
+    <string name="app_learn" translatable="false">Apprendre de chez vous!</string>
     <string name="login_welcome" translatable="false">Bienvenue</string>
     <string name="welcome_demo" translatable="false">Vidéo de démo</string>
     <string name="welcome_tester_app" translatable="false">Essayer</string>
@@ -42,6 +42,7 @@
 
     <string name="login_continue" translatable="false">Connectez-vous pour continue</string>
     <string name="login_signin">Se connecter</string>
+    <string name="login_signin_as_parent_or_student">Se connecter en tant que parent ou étudiant</string>
     <string name="login_username">Login</string>
     <string name="login_password">Password</string>
     <string name="login_avatar_modify">Modifier l\'Avatar</string>
@@ -141,11 +142,14 @@
 
     <string name="credit_card">Carte de credit</string>
     <string name="credit_card_owner">Propriétaire</string>
+    <string name="credit_card_owner_msg_error">Le nom de propriétaire peut pas être vide </string>
     <string name="card_number">Numero de la carte</string>
+    <string name="card_number_msg_error">Numero de la carte ne peut pas être vide</string>
     <string name="expiration">Expiration</string>
     <string name="mont">Mois</string>
     <string name="year">Année</string>
     <string name="crypto">Crypto</string>
+    <string name="crypto_msg_error">Crypto ne peut pas être vide</string>
 
 
     <string name="menu_maths">Mathematiques</string>

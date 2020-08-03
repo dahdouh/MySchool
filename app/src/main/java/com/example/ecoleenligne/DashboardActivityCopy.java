@@ -85,11 +85,13 @@ public class DashboardActivityCopy extends AppCompatActivity implements Navigati
         navigationView.setCheckedItem(R.id.nav_dashboard);
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
-        /*------------------- hide items from menu ---------------------*/
+        /*
+        // hide items from menu
         if(user_profile_data.equals("ROLE_TUTOR")) {
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.nav_courses).setVisible(false);
         }
+        */
 
         /*--------------get user from session --------------*/
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
@@ -261,10 +263,6 @@ public class DashboardActivityCopy extends AppCompatActivity implements Navigati
                 Intent intent_profile = new Intent(this, ProfileActivity.class);
                 startActivity(intent_profile);
                 break;
-            case R.id.nav_myspace:
-                Intent intent_myspace = new Intent(this, MySpaceActivity.class);
-                startActivity(intent_myspace);
-                break;
             case R.id.nav_dashboard:
                 Intent intent_dashboard;
                 if(user_profile.equals("ROLE_TUTOR")) {
@@ -274,18 +272,11 @@ public class DashboardActivityCopy extends AppCompatActivity implements Navigati
                 }
                 startActivity(intent_dashboard);
                 break;
-            case R.id.nav_courses:
-                Intent intent_courses = new Intent(this, ListeCoursActivity.class);
-                startActivity(intent_courses);
-                break;
             case R.id.nav_subscriptions:
                 //Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
                 //startActivity(intent_subscription);
                 break;
-            case R.id.nav_forum:
-                Intent intent_forum = new Intent(this, ForumActivity.class);
-                startActivity(intent_forum);
-                break;
+            /*
             case R.id.nav_chat:
                 if(MainActivity.MODE.equals("ONLINE")) {
                     Intent intent_chat = new Intent(this, ChatActivity.class);
@@ -297,6 +288,7 @@ public class DashboardActivityCopy extends AppCompatActivity implements Navigati
                     toast.show();
                 }
                 break;
+                */
             case R.id.nav_logout:
                 logout();
                 break;

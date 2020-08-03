@@ -6,19 +6,32 @@
             android:id="@+id/nav_dashboard"
             android:icon="@drawable/icons8_student_homme_48"
             android:title="@string/navigation_menu_dashboard" />
+        <!--
         <item
             android:id="@+id/nav_courses"
             android:icon="@drawable/courses_icon"
             android:title="@string/navigation_menu_courses" />
+        -->
         <item
             android:id="@+id/nav_subscriptions"
             android:icon="@drawable/abonnement"
             android:title="@string/subscribe_title" />
+
+        <item
+            android:id="@+id/nav_payment"
+            android:icon="@drawable/payment_icon_48"
+            android:title="@string/navigation_menu_payment" />
+        <item
+            android:id="@+id/nav_historic"
+            android:icon="@drawable/icons8_historic_48"
+            android:title="@string/menu_histoire" />
+        <!--
         <item
             android:id="@+id/nav_forum"
             android:icon="@drawable/icons8_chat_48"
             android:title="@string/navigation_menu_forum"
             android:numericShortcut="@string/subscribe_title"/>
+            -->
         <!--
         <item
             android:id="@+id/nav_exercices"
@@ -41,10 +54,12 @@
         <menu>
 
             <group android:checkableBehavior="single">
+                <!--
                 <item
                     android:id="@+id/nav_myspace"
                     android:icon="@drawable/icons8_dossier_100"
                     android:title="@string/navigation_menu_myspace" />
+                    -->
                 <item
                     android:id="@+id/nav_profile"
                     android:icon="@drawable/profile_icon"
@@ -71,10 +86,12 @@
     <item android:title="@string/navigation_menu_communicate">
 
         <menu>
+            <!--
             <item
                 android:id="@+id/nav_chat"
                 android:icon="@drawable/icons8_chat_48"
                 android:title="@string/navigation_menu_chat" />
+                -->
             <item
             android:id="@+id/nav_share"
             android:icon="@drawable/share_icon"

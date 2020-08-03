@@ -3,6 +3,8 @@ package com.example.ecoleenligne;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -52,7 +54,11 @@ public class PayementActivity extends AppCompatActivity implements AdapterView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payement);
-
+        //Actionbar config
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.navigation_menu_payment);
+        getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.colorRedGo)));
+        //getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.colorRedGo)));
         /*------------------  make transparent Status Bar  -----------------*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow();
@@ -93,16 +99,14 @@ public class PayementActivity extends AppCompatActivity implements AdapterView.O
                if(!validateOwner() || !validateCardNumber() || !validateCrypto()){
                     return;
                 } else {
-
-
-                   /*--------------get user from session --------------*/
+                   //get user from session
                    sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
                    String user_connected = sharedpreferences.getString(MainActivity.Email, null);
                    String id = sharedpreferences.getString(MainActivity.Id,null);
                 //   idUser = Integer.parseInt(id);
-                   registerpayement(owner_data, cardnumber_data, mont_data, year_data, crypto_data);
-                   //Toast.makeText(StudentAddActivity.this, parent_data + " is Selected", Toast.LENGTH_SHORT).show();
-                   Intent intent=new Intent(PayementActivity.this, PayementListActivity.class);
+                   String expriration_date = mont_data+"-"+year_data;
+                   registerpayement(owner_data, cardnumber_data, expriration_date, crypto_data);
+                   Intent intent=new Intent(PayementActivity.this, DashboardParentActivity.class);
                    context.startActivity(intent);
 
 
@@ -115,8 +119,8 @@ public class PayementActivity extends AppCompatActivity implements AdapterView.O
     }
 
 
-    /*------------------ save data in server database ----------------*/
-    public void registerpayement(String owner, String card_number, int month, int year, int  crypto) {
+    //  save data in server database
+    public void registerpayement(String owner, String card_number, String expriration_date, int  crypto) {
 
         String id = sharedpreferences.getString(MainActivity.Id,null);
 
@@ -125,9 +129,8 @@ public class PayementActivity extends AppCompatActivity implements AdapterView.O
         }
 
         int id_user = Integer.parseInt(id);
-        String url = MainActivity.IP+"/api/payement/"+owner+"/"+ card_number+"/"+ month +"/"+ year +"/"+ crypto +"/"+ id_user;
+        String url = MainActivity.IP+"/api/payment/"+ id_user +"/"+owner+"/"+ card_number+"/"+ expriration_date +"/"+ crypto;
         RequestQueue queue = Volley.newRequestQueue(context);
-        //Toast.makeText(context, "s###################."+login_data+"??????????"+password_data, Toast.LENGTH_LONG).show();
         JSONObject jsonObject = new JSONObject();
         JsonObjectRequest request=new JsonObjectRequest(Request.Method.GET, url,jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -156,7 +159,7 @@ public class PayementActivity extends AppCompatActivity implements AdapterView.O
     private Boolean validateOwner() {
         owner_data = owner.getEditText().getText().toString();
         if (owner_data.isEmpty()) {
-            owner.setError(getString(R.string.register_login_validat_empty));
+            owner.setError(getString(R.string.credit_card_owner_msg_error));
             return false;
         } else {
             owner.setError(null);
@@ -167,7 +170,7 @@ public class PayementActivity extends AppCompatActivity implements AdapterView.O
     private Boolean validateCardNumber() {
         cardnumber_data = card_number.getEditText().getText().toString();
         if (cardnumber_data.isEmpty()) {
-            card_number.setError(getString(R.string.register_password_validat_empty));
+            card_number.setError(getString(R.string.card_number_msg_error));
             return false;
         } else{
             return true;
@@ -178,7 +181,7 @@ public class PayementActivity extends AppCompatActivity implements AdapterView.O
     private Boolean validateCrypto() {
         crypto_data = Integer.parseInt(crypto.getEditText().getText().toString());
         if (crypto_data == 0) {
-            crypto.setError(getString(R.string.register_firstname_validat_empty));
+            crypto.setError(getString(R.string.crypto_msg_error));
             return false;
         } else {
             crypto.setError(null);

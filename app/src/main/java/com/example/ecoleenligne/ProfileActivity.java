@@ -78,12 +78,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
 
-        /*------------------- hide items from menu ---------------------*/
-        if(user_profile_data.equals("ROLE_PARENT")) {
-            Menu menu = navigationView.getMenu();
-            menu.findItem(R.id.nav_courses).setVisible(false);
-        }
-
         /*------------------ profile update listener -----------------*/
         ImageView img = (ImageView) findViewById(R.id.edit);
         img.setOnClickListener(new View.OnClickListener() {
@@ -215,31 +209,20 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 Intent intent_profile = new Intent(this, ProfileActivity.class);
                 startActivity(intent_profile);
                 break;
-            case R.id.nav_myspace:
-                Intent intent_myspace = new Intent(this, MySpaceActivity.class);
-                startActivity(intent_myspace);
-                break;
             case R.id.nav_dashboard:
                 Intent intent_dashboard;
                 if(user_profile.equals("ROLE_TUTOR")) {
                     intent_dashboard = new Intent(this, DashboardParentActivity.class);
                 } else {
-                    intent_dashboard = new Intent(this, DashboardActivity.class);
+                    intent_dashboard = new Intent(this, DashboardActivityCopy.class);
                 }
                 startActivity(intent_dashboard);
-                break;
-            case R.id.nav_courses:
-                Intent intent_courses = new Intent(this, ListeCoursActivity.class);
-                startActivity(intent_courses);
                 break;
             case R.id.nav_subscriptions:
                 //Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
                 //startActivity(intent_subscription);
                 break;
-            case R.id.nav_forum:
-                Intent intent_forum = new Intent(this, ForumActivity.class);
-                startActivity(intent_forum);
-                break;
+            /*
             case R.id.nav_chat:
                 if(MainActivity.MODE.equals("ONLINE")) {
                     Intent intent_chat = new Intent(this, ChatActivity.class);
@@ -251,6 +234,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                     toast.show();
                 }
                 break;
+                */
             case R.id.nav_logout:
                 logout();
                 break;
@@ -259,7 +243,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                     Intent intentShare = new Intent(Intent.ACTION_SEND);
                     intentShare.setType("text/plain");
                     intentShare.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_msg));
-                    intentShare.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+                    intentShare.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
                     startActivity(Intent.createChooser(intentShare, ""+R.string.share_title));
                 } else {
                     Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);

@@ -83,12 +83,6 @@ public class SubscriptionListActivity extends AppCompatActivity implements Navig
 
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
-        /*------------------- hide items from menu ---------------------*/
-        if(user_profile_data.equals("ROLE_PARENT")) {
-            Menu menu = navigationView.getMenu();
-            menu.findItem(R.id.nav_courses).setVisible(false);
-        }
-
         /*------------------------ Button add subscription ---------------------*/
         final ImageButton student_add_imageButton = findViewById(R.id.student_add_imageButton);
         student_add_imageButton.setOnClickListener(new View.OnClickListener() {
@@ -295,31 +289,20 @@ public class SubscriptionListActivity extends AppCompatActivity implements Navig
                 Intent intent_profile = new Intent(this, ProfileActivity.class);
                 startActivity(intent_profile);
                 break;
-            case R.id.nav_myspace:
-                Intent intent_myspace = new Intent(this, MySpaceActivity.class);
-                startActivity(intent_myspace);
-                break;
             case R.id.nav_dashboard:
                 Intent intent_dashboard;
                 if(user_profile.equals("ROLE_TUTOR")) {
                     intent_dashboard = new Intent(this, DashboardParentActivity.class);
                 } else {
-                    intent_dashboard = new Intent(this, DashboardActivity.class);
+                    intent_dashboard = new Intent(this, DashboardActivityCopy.class);
                 }
                 startActivity(intent_dashboard);
                 break;
-            case R.id.nav_courses:
-                Intent intent_courses = new Intent(this, ListeCoursActivity.class);
-                startActivity(intent_courses);
-                break;
             case R.id.nav_subscriptions:
-                Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
-                startActivity(intent_subscription);
+                //Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
+                //startActivity(intent_subscription);
                 break;
-            case R.id.nav_forum:
-                Intent intent_forum = new Intent(this, ForumActivity.class);
-                startActivity(intent_forum);
-                break;
+            /*
             case R.id.nav_chat:
                 if(MainActivity.MODE.equals("ONLINE")) {
                     Intent intent_chat = new Intent(this, ChatActivity.class);
@@ -331,6 +314,7 @@ public class SubscriptionListActivity extends AppCompatActivity implements Navig
                     toast.show();
                 }
                 break;
+                */
             case R.id.nav_logout:
                 logout();
                 break;

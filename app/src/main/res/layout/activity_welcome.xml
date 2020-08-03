@@ -7,8 +7,8 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".WelcomeActivity">
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+<ScrollView
+    android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     <LinearLayout
@@ -19,7 +19,7 @@ tools:context=".WelcomeActivity">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@drawable/bg_header_small">
+            android:background="@drawable/bg_curvee2">
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -68,49 +68,78 @@ tools:context=".WelcomeActivity">
         android:layout_marginTop="13dp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/welcome_video"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/antic"
-            android:text="@string/welcome_demo"
-            android:textSize="22sp"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:transitionName="logo_text"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/register_image"
-            android:paddingLeft="26dp"
-            android:layout_marginTop="17dp"/>
-
-        <WebView
-            android:id="@+id/mWebView"
+        <LinearLayout
+            android:id="@+id/child_select"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:layout_marginLeft="55dp"
-            android:layout_marginRight="55dp"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="3dp"
+            android:orientation="vertical"
+            android:background="#EBECF0">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
 
-        <Button
-            android:id="@+id/signin"
-            android:layout_width="330dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:background="@drawable/button_orange_round"
-            android:elevation="0dp"
-            android:text="@string/navigation_menu_login"
-            android:textColor="#fff"
-            android:transitionName="trans_btn_signup"
-            android:textSize="20sp"
-            android:layout_marginTop="17dp"
-            android:layout_marginBottom="4dp"
-            android:paddingRight="20dp" />
+                <WebView
+                    android:id="@+id/mWebView"
+                    android:layout_width="450dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="55dp"
+                    android:layout_marginRight="55dp"
+                    android:layout_marginBottom="0dp"
+                    android:padding="0dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"/>
+                <VideoView
+                    android:layout_width="450dp"
+                    android:layout_height="136dp"
+                    android:id="@+id/video_view"
+                    android:visibility="gone"/>
+
+                <!-- android:layout_below="@id/mWebView" -->
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+                <!-- android:layout_below="@id/mWebView" -->
+                <Button
+                    android:id="@+id/demo"
+                    android:layout_width="330dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_green_round"
+                    android:elevation="4dp"
+                    android:text="@string/welcome_tester_app"
+                    android:textColor="#fff"
+                    android:transitionName="trans_btn_signup"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="14dp"
+                    android:paddingRight="17dp"
+                    android:layout_marginTop="6dp"
+                    android:textAllCaps="false" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/register"
             android:layout_width="330dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
             android:background="@drawable/button_red_round"
             android:elevation="0dp"
             android:text="@string/register"
@@ -118,161 +147,186 @@ tools:context=".WelcomeActivity">
             android:transitionName="trans_btn_signup"
             android:textSize="20sp"
             android:layout_marginBottom="4dp"
-            android:paddingRight="20dp" />
+            android:paddingRight="20dp"
+            android:textAllCaps="false"/>
 
-        <Button
-            android:id="@+id/demo"
-            android:layout_width="330dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/button_green_round"
-            android:elevation="0dp"
-            android:text="@string/welcome_tester_app"
-            android:textColor="#fff"
-            android:transitionName="trans_btn_signup"
-            android:textSize="20sp"
-            android:layout_marginBottom="14dp"
-            android:paddingRight="17dp" />
-
-        <TextView
-            android:id="@+id/register_singup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/antic"
-            android:text="@string/register_profile_choose_msg"
-            android:textSize="22sp"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:transitionName="logo_text"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/register_image"
-            android:paddingLeft="26dp"
-            android:layout_marginTop="14dp"/>
-
-
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp"
-            android:alignmentMode="alignMargins"
-            android:columnCount="2"
-            android:columnOrderPreserved="false"
-            android:padding="14dp"
-            android:rowCount="3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@id/dashboard"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_editor_absoluteX="0dp">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@color/colorAccent"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="6dp">
-
+            <RelativeLayout
+                android:id="@+id/signin_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="14dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="0dp"
+                android:paddingLeft="0dp"
+                android:paddingBottom="3dp"
+                android:orientation="vertical"
+                android:background="#EBECF0">
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/register_singup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/antic"
+                android:text="@string/login_signin_as_parent_or_student"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:transitionName="logo_text"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/register_image"
+                android:layout_marginTop="5dp"/>
+                    <!--
+                    <Button
+                        android:id="@+id/signin"
+                        android:layout_width="330dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/button_orange_round"
+                        android:elevation="0dp"
+                        android:text="@string/navigation_menu_login"
+                        android:textColor="#fff"
+                        android:transitionName="trans_btn_signup"
+                        android:textSize="20sp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="4dp"
+                        android:paddingRight="20dp"
+                        android:textAllCaps="false"/>
+                        -->
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginBottom="0dp"
+                        android:alignmentMode="alignMargins"
+                        android:columnCount="2"
+                        android:columnOrderPreserved="false"
+                        android:padding="14dp"
+                        android:rowCount="3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/dashboard"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:layout_editor_absoluteX="0dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:background="@color/colorAccent"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="6dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal|center_vertical"
+                                android:layout_margin="16dp"
+                                android:layout_marginBottom="36dp"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:id="@+id/student"
+                                android:clickable="true">
+
+                                <ImageView
+                                    android:layout_width="105dp"
+                                    android:layout_height="75dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:background="@drawable/icon_student" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/register_profile_student"
+                                    android:layout_marginTop="8dp"
+                                    android:fontFamily="@font/antic"
+                                    android:textColor="#cc6600"
+                                    android:textSize="18sp" />
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_row="0"
+                            android:layout_rowWeight="1"
+                            android:layout_column="1"
+                            android:layout_columnWeight="1"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:background="@color/colorPrimary"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="6dp">
+
+                            <LinearLayout
+                                android:id="@+id/parent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal|center_vertical"
+                                android:layout_margin="16dp"
+                                android:clickable="true"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="70dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:background="@drawable/icons8_father_48" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:fontFamily="@font/antic"
+                                    android:text="@string/register_profile_parent"
+                                    android:textColor="#cc6600"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+                    </GridLayout>
+
+                </LinearLayout>
+                </RelativeLayout>
+
+                <!--
+                <TextView
+                    android:id="@+id/cours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:layout_margin="16dp"
-                    android:layout_marginBottom="36dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:id="@+id/student"
-                    android:clickable="true">
-
-                    <ImageView
-                        android:layout_width="105dp"
-                        android:layout_height="75dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/icon_student" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/register_profile_student"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/antic"
-                        android:textColor="#cc6600"
-                        android:textSize="18sp" />
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@color/colorPrimary"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="6dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:layout_margin="16dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:id="@+id/parent"
-                    android:clickable="true">
-
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="70dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/icons8_father_48" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/register_profile_parent"
-                        android:textColor="#cc6600"
-                        android:textSize="18sp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/antic"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-        </GridLayout>
+                    android:fontFamily="@font/antic"
+                    android:text="@string/course_list_msg"
+                    android:textSize="18sp"
+                    android:textColor="#000"
+                    android:transitionName="logo_text"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/register_image"
+                    android:paddingLeft="26dp"
+                    android:layout_marginTop="5dp"/>
 
 
-        <TextView
-            android:id="@+id/cours"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/antic"
-            android:text="@string/course_list_msg"
-            android:textSize="18sp"
-            android:textColor="#000"
-            android:transitionName="logo_text"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/register_image"
-            android:paddingLeft="26dp"
-            android:layout_marginTop="5dp"/>
-
-
-        <ImageView
-            android:layout_width="300dp"
-            android:layout_height="110dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/courses_home"
-            android:foregroundGravity="center"
-            android:layout_marginBottom="38dp"/>
+                <ImageView
+                    android:layout_width="300dp"
+                    android:layout_height="110dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/courses_home"
+                    android:foregroundGravity="center"
+                    android:layout_marginBottom="38dp"/>
+                -->
 
     </LinearLayout>
 </LinearLayout>

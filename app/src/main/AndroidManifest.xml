@@ -137,7 +137,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PayementActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:parentActivityName=".DashboardActivity" />
         <activity
             android:name=".PayementListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
