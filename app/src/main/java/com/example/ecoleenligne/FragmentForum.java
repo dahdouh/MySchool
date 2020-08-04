@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
@@ -75,25 +76,28 @@ public class FragmentForum extends Fragment {
                     response -> {
                         try {
                             if (response.length() != 0) {
-                                topics = new ArrayList<>(response.length());
-                                String topic_id = response.getString("id");
-                                String topic_title = response.getString("title");
-                                String topic_date = response.getString("date");
+                                String topic_exist = response.getString("title");
+                                if (!topic_exist.equals("not found")) {
+                                    topics = new ArrayList<>(response.length());
+                                    String topic_id = response.getString("id");
+                                    String topic_title = response.getString("title");
+                                    String topic_date = response.getString("date");
 
-                                JSONObject subjectJsonObject = response.getJSONObject("subject");
-                                String subject_id = subjectJsonObject.getString("id");
-                                String subject_name = subjectJsonObject.getString("name");
-                                Subject subject = new Subject(Integer.parseInt(subject_id), subject_name);
+                                    JSONObject subjectJsonObject = response.getJSONObject("subject");
+                                    String subject_id = subjectJsonObject.getString("id");
+                                    String subject_name = subjectJsonObject.getString("name");
+                                    Subject subject = new Subject(Integer.parseInt(subject_id), subject_name);
 
-                                JSONObject authorJsonObject = response.getJSONObject("author");
-                                String author_id = authorJsonObject.getString("id");
-                                String author_firstName = authorJsonObject.getString("firstName");
-                                String author_lastName = authorJsonObject.getString("lastName");
-                                User author = new User(Integer.parseInt(author_id), author_firstName, author_lastName);
+                                    JSONObject authorJsonObject = response.getJSONObject("author");
+                                    String author_id = authorJsonObject.getString("id");
+                                    String author_firstName = authorJsonObject.getString("firstName");
+                                    String author_lastName = authorJsonObject.getString("lastName");
+                                    User author = new User(Integer.parseInt(author_id), author_firstName, author_lastName);
 
-                                topics.add(new Topic(Integer.parseInt(topic_id), topic_title, topic_date, subject, author));
+                                    topics.add(new Topic(Integer.parseInt(topic_id), topic_title, topic_date, subject, author));
 
-                                forumListAdapter.setTopics(topics);
+                                    forumListAdapter.setTopics(topics);
+                                }
                             }
 
                         } catch (JSONException error) {

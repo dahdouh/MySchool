@@ -141,13 +141,14 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(JSONObject response) {
                     try {
                         String connected = response.getString("email");
-                        if (!connected.equals("not found")) {
-
+                        if (connected.equals("not activated")) {
+                            //Toast.makeText(context, getString(R.string.login_failed), Toast.LENGTH_LONG).show();
+                            msg_error.setText(getString(R.string.login_failed_account_not_activated));
+                        } else if (connected.equals("not found")) {
+                            Toast.makeText(context, getString(R.string.login_failed), Toast.LENGTH_LONG).show();
+                            msg_error.setText(getString(R.string.login_failed));
+                        } else {
                             Toast.makeText(context, getString(R.string.login_success), Toast.LENGTH_LONG).show();
-
-                            /********************* Profile of user connected *******************/
-                            //String profile_role = profileJsonObject.getString("0");
-
                             String id = response.getString("id");
                             String email = response.getString("email");
                             String firstname = response.getString("firstName");
@@ -168,25 +169,13 @@ public class LoginActivity extends AppCompatActivity {
 
                             if (role.equals("ROLE_ADMIN")) {
                                 Toast.makeText(context, "#admiiiin not yet configured", Toast.LENGTH_LONG).show();
-                            } else if(role.equals("ROLE_TUTOR")) {
+                            } else if (role.equals("ROLE_TUTOR")) {
                                 Intent intent = new Intent(LoginActivity.this, DashboardParentActivity.class);
                                 context.startActivity(intent);
                             } else if (role.equals("ROLE_STUDENT")) {
                                 Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                                 context.startActivity(intent);
                             }
-
-                        } else {
-                            Toast.makeText(context, getString(R.string.login_failed), Toast.LENGTH_LONG).show();
-                            msg_error.setText(getString(R.string.login_failed));
-                            /*
-                            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(context);
-                            dlgAlert.setMessage(getString(R.string.login_failed));
-                            dlgAlert.setTitle("warning");
-                            dlgAlert.setPositiveButton("OK", null);
-                            dlgAlert.setCancelable(true);
-                            dlgAlert.create().show();
-                             */
                         }
 
 

@@ -153,9 +153,6 @@ public class PayementActivity extends AppCompatActivity implements AdapterView.O
 
     }
 
-
-
-
     private Boolean validateOwner() {
         owner_data = owner.getEditText().getText().toString();
         if (owner_data.isEmpty()) {

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dashboard"
+        android:icon="@drawable/courses_icon"
+        android:title="@string/navigation_menu_dashboard" />
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/profile_icon"
+        android:title="@string/navigation_menu_profile" />
+    <item
+        android:id="@+id/subscription"
+        android:icon="@drawable/abonnement"
+        android:title="@string/subscribe_title" />
+    <item
+        android:id="@+id/payment"
+        android:icon="@drawable/payment_icon_48"
+        android:title="@string/navigation_menu_payment" />
+
+    <item
+        android:id="@+id/historic"
+        android:icon="@drawable/icons8_historic_48"
+        android:title="@string/navigation_menu_log" />
+
+
+</menu>

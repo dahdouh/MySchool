@@ -24,7 +24,7 @@
         <item
             android:id="@+id/nav_historic"
             android:icon="@drawable/icons8_historic_48"
-            android:title="@string/menu_histoire" />
+            android:title="@string/navigation_menu_log" />
         <!--
         <item
             android:id="@+id/nav_forum"

@@ -17,6 +17,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".ProfilePictureActivity"></activity>
         <activity android:name=".DashboardActivity" />
+        <activity android:name=".DashboardParentActivity"/>
         <activity
             android:name=".MySpaceActivity"
             android:parentActivityName=".DashboardActivity" />
@@ -104,9 +105,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ListeExercicesActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".DashboardParentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PassowordForgetActivity"

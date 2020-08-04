@@ -65,6 +65,7 @@
     <string name="login_singup">Sign up</string>
     <string name="login_success">You are successfully connected</string>
     <string name="login_failed">incorrect login or password. Try again!</string>
+    <string name="login_failed_account_not_activated">Your account is not yet activated. Please, activate your account and try again!</string>
     <string name="logout_success">You are successfully logged out</string>
     <string name="login_never_connected">Student doesn\'t yet connected to this application!</string>
 
@@ -136,6 +137,7 @@
 
     <string name="parent_register_title">Parent account</string>
     <string name="parent_children">Children</string>
+    <string name="parent_children_manage">Manage students</string>
     <string name="parent_child_not_found">No kids! Please add your children.</string>
     <string name="parent_child_delete">Delete</string>
     <string name="parent_child_unsubscribe">Unsubscribe</string>

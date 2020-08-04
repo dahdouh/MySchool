@@ -1,17 +1,21 @@
 package com.example.ecoleenligne;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -37,6 +41,7 @@ import com.example.ecoleenligne.model.Profile;
 import com.example.ecoleenligne.model.Subscription;
 import com.example.ecoleenligne.model.User;
 import com.example.ecoleenligne.util.SQLiteHelper;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
@@ -46,22 +51,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DashboardParentActivity extends AppCompatActivity implements Response.Listener<JSONArray>, Response.ErrorListener, NavigationView.OnNavigationItemSelectedListener {
+public class DashboardParentActivity extends AppCompatActivity implements Response.Listener<JSONArray>, Response.ErrorListener {
 
-    /*------------------ Menu ----------------*/
     final Context context = this;
     SharedPreferences sharedpreferences;
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    Toolbar toolbar;
-    Menu menu;
     TextView user_name, user_profile;
     ListView listview;
     //avatar
     ImageView image;
 
-    /*------ offline mode -------*/
+    // offline mode
     SQLiteHelper sqLiteHelper;
+
+    private static ActionBar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,147 +80,96 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
-        /*------------------------ Menu ---------------------*/
-        drawerLayout=findViewById(R.id.drawer_layout);
-        navigationView=findViewById(R.id.nav_view);
-        navigationView.bringToFront();
-        toolbar=findViewById(R.id.toolbar);
-        toolbar.bringToFront();
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_darawer_open, R.string.navigation_darawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.getDrawerArrowDrawable().setColor(Color.parseColor("#FF4500"));
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.nav_dashboard);
+        toolbar = getSupportActionBar();
 
-        image = (ImageView)findViewById(R.id.image);
+        BottomNavigationView navigation = findViewById(R.id.navigationView);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        toolbar.setTitle(R.string.navigation_menu_dashboard);
+        //toolbar.setBackgroundDrawable(new ColorDrawable(R.color.primary_light));
+        toolbar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#283e4a")));
+        //BitmapDrawable background = new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.bg_red));
+        //toolbar.setBackgroundDrawable(background);
 
         sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
-
-
-        /*--------------get user from session --------------*/
-        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
-
-        LinearLayout child = (LinearLayout) findViewById(R.id.child);
-        LinearLayout subscription = (LinearLayout) findViewById(R.id.subscription);
-        LinearLayout lbhist = (LinearLayout) findViewById(R.id.rlhist);
-        LinearLayout recommendation = (LinearLayout) findViewById(R.id.recommendation);
-
-        child.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DashboardParentActivity.this, ChildActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        subscription.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intent = new Intent(context, SubscriptionListActivity.class);
-                    //intent.putExtra("ToSubscription", "1");
-                    intent.putExtra("parent_id", ""+user_connected_id);
-                    context.startActivity(intent);
-                } else {
-                    Toast toast = Toast.makeText(context, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-            }
-        });
-
-        lbhist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intent = new Intent(DashboardParentActivity.this, HistoricListActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast toast = Toast.makeText(context, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-            }
-        });
-
-        recommendation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DashboardParentActivity.this, PayementActivity.class);
-                startActivity(intent);
-            }
-        });
+        String parent_connected_id = sharedpreferences.getString(MainActivity.Id, null);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("parent_id", ""+ parent_connected_id);
+        editor.commit();
 
 
 
 
 
+        Intent intent = getIntent();
+        String ToSubscription = intent.getStringExtra("ToSubscription");
+        //String ToProfile = intent.getStringExtra("ToProfile");
+        String ToPayment = intent.getStringExtra("ToPayment");
+        String ToLog = intent.getStringExtra("ToLog");
 
+        if (ToSubscription != null && ToSubscription.contentEquals("1")) {
+            toolbar.setTitle(R.string.navigation_menu_subscription);
+            loadFragment(new FragmentParentSubscription());
+            navigation.setSelectedItemId(R.id.subscription);
 
-        /*-------------- check if there is connection--------------*/
-        if(MainActivity.MODE.equals("ONLINE")) {
-            /*------------------------ ONLINE MODE  ---------------------*/
-            /*------------------  get profile of user connected from server  -----------------*/
-            String url = MainActivity.IP+"/api/user/"+user_connected_id;
-            RequestQueue queue = Volley.newRequestQueue(context);
-            JSONObject jsonObject = new JSONObject();
-            /*--------------- allow connection with https and ssl-------------*/
-            HttpsTrustManager.allowAllSSL();
-            JsonObjectRequest request=new JsonObjectRequest(Request.Method.GET, url,jsonObject, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        String user_exist = response.getString("email");
-                        if(user_exist.equals("not found")) {
-                            Toast.makeText(context, "=====>  User not found", Toast.LENGTH_LONG).show();
-                        } else {
-                            //set user avatar
-                            String path_img = MainActivity.IP_myspace +"/TER.git/public/upload/picture/"+ response.getString("image");
-                            Picasso.get().load(path_img)
-                                    .networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE)
-                                    .into(image);
-                            String fullname_data = response.getString("firstName")+" "+response.getString("lastName");
-                            String role = sharedpreferences.getString(MainActivity.Role, null);
-                            user_name.setText(fullname_data);
-                            user_profile.setText(role);
-                        }
+        }
+        else if (ToPayment != null && ToPayment.contentEquals("1")) {
+            toolbar.setTitle(R.string.navigation_menu_payment);
+            loadFragment(new FragmentParentPayment());
+            navigation.setSelectedItemId(R.id.payment);
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        new AlertDialog.Builder(context)
-                                .setTitle("Error")
-                                .setMessage(e.toString())
-                                .show();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    new AlertDialog.Builder(context)
-                            .setTitle("Error")
-                            .setMessage(error.toString())
-                            .show();
-                }
-            });
-            queue.add(request);
-        } else  {
-            User user= sqLiteHelper.getUserByIdFromDb(Integer.parseInt(user_connected_id));
-            String fullname_data = user.getFirstname()+" "+user.getLastname();
-            int compte_id = user.getCompte_id();
-            Compte compte = sqLiteHelper.getCompteByIdFromDb(compte_id);
-            int profile_id = compte.getProfile_id();
-            Profile profile = sqLiteHelper.getProfileByIdFromDb(profile_id);
-            String profile_role_data = profile.getLibelle();
-            user_name.setText(fullname_data);
-            user_profile.setText(profile_role_data);
+        } else if (ToLog != null && ToLog.contentEquals("1")) {
+            toolbar.setTitle(R.string.navigation_menu_log);
+            loadFragment(new FragmentLog());
+            navigation.setSelectedItemId(R.id.historic);
+
+        }
+        else {
+            loadFragment(new FragmentParentDashboard());
         }
 
     }
+
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.dashboard:
+                    toolbar.setTitle(R.string.navigation_menu_dashboard);
+                    loadFragment(new FragmentParentDashboard());
+                    return true;
+                case R.id.profile:
+                    toolbar.setTitle(R.string.navigation_menu_profile);
+                    loadFragment(new FragmentProfile());
+                    return true;
+                case R.id.subscription:
+                    toolbar.setTitle(R.string.subscribe_title);
+                    loadFragment(new FragmentParentSubscription());
+                    return true;
+                case R.id.payment:
+                    toolbar.setTitle(R.string.navigation_menu_payment);
+                    loadFragment(new FragmentParentPayment());
+                    return true;
+                case R.id.historic:
+                    toolbar.setTitle(R.string.navigation_menu_log);
+                    loadFragment(new FragmentLog());
+                    return true;
+            }
+            return false;
+        }
+    };
+
+    private void loadFragment(Fragment fragment) {
+        // load fragment
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
 
     @Override
     public void onResponse(JSONArray response) {
@@ -246,103 +197,6 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
             queue.add(microPostsRequest);
         }
         */
-    }
-
-    /*---------------------- Log out function --------------------------*/
-    public  void logout(){
-        /*--------------get user from session --------------*/
-        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
-        String user_connected_login = sharedpreferences.getString(MainActivity.Login, null);
-
-        if(user_connected_id == null && user_connected_login == null) {
-            Toast.makeText(context, "You are already disconnected!", Toast.LENGTH_LONG).show();
-        }
-
-        /*---------------clear session ------*/
-        SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.clear();
-        editor.commit();
-        Toast.makeText(context, getString(R.string.logout_success), Toast.LENGTH_LONG).show();
-
-        Intent intent=new Intent(this, LoginActivity.class);
-        context.startActivity(intent);
-
-    }
-
-    /*---------------------- Menu actions ---------------------*/
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        /*--------------get user from session --------------*/
-        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String user_profile = sharedpreferences.getString(MainActivity.Role, null);
-        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
-
-        switch (menuItem.getItemId()) {
-            case R.id.nav_profile:
-                Intent intent_profile = new Intent(this, ProfileActivity.class);
-                startActivity(intent_profile);
-                break;
-            case R.id.nav_dashboard:
-                Intent intent_dashboard;
-                if(user_profile.equals("ROLE_TUTOR")) {
-                    intent_dashboard = new Intent(this, DashboardParentActivity.class);
-                } else {
-                    intent_dashboard = new Intent(this, DashboardActivityCopy.class);
-                }
-                startActivity(intent_dashboard);
-                break;
-            case R.id.nav_subscriptions:
-                sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-                String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
-                Intent intent_sub = new Intent(context, SubscriptionListActivity.class);
-                //intent.putExtra("ToSubscription", "1");
-                intent_sub.putExtra("parent_id", ""+user_connected_id);
-                context.startActivity(intent_sub);
-                break;
-            case R.id.nav_payment:
-                sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-                Intent intent_payment = new Intent(context, PayementActivity.class);
-                context.startActivity(intent_payment);
-                break;
-
-            case R.id.nav_historic:
-                Intent intent_historic = new Intent(context, HistoricListActivity.class);
-                context.startActivity(intent_historic);
-                break;
-            /*
-            case R.id.nav_chat:
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intent_chat = new Intent(this, ChatActivity.class);
-                    startActivity(intent_chat);
-                } else {
-                    Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-                break;
-                */
-            case R.id.nav_logout:
-                logout();
-                break;
-            case R.id.nav_share:
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intentShare = new Intent(Intent.ACTION_SEND);
-                    intentShare.setType("text/plain");
-                    intentShare.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_msg));
-                    intentShare.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
-                    startActivity(Intent.createChooser(intentShare, ""+R.string.share_title));
-                } else {
-                    Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-                break;
-        }
-        drawerLayout.closeDrawer(GravityCompat.START); return true;
     }
 
 }

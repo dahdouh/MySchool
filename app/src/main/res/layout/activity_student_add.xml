@@ -87,20 +87,54 @@
                     android:layout_marginBottom="-10dp"
                     android:layout_gravity="center"/>
 
-                <TextView
+                <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/level_text"
+                    style="@style/MaterialSpinnerItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/student_level"
+                    android:layout_marginTop="15dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/level"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/student_level"
-                    android:textColor="#000"
-                    android:textSize="14sp"/>
+                    android:hint="@string/student_level"
+                    android:layout_marginTop="5dp">
+                    <Spinner
+                        android:id="@+id/student_level_spinner"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="25dp"
+                        android:layout_marginLeft="20dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <Spinner
-                    android:id="@+id/student_level_spinner"
-                    android:layout_width="fill_parent"
+
+
+                <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/subsription_text"
+                    style="@style/MaterialSpinnerItem"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp"/>
+                    android:hint="@string/subscribe_title"
+                    android:layout_marginTop="5dp"/>
 
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/subscription_material"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/student_level"
+                    android:layout_marginTop="5dp">
+                    <Spinner
+                        android:id="@+id/student_subscription_spinner"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="25dp"
+                        android:layout_marginLeft="20dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--
                 <TextView
                     android:id="@+id/subsription"
                     android:layout_width="wrap_content"
@@ -114,6 +148,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="25dp"/>
+                    -->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"

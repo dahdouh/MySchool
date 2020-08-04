@@ -64,6 +64,7 @@
     <string name="login_singup">S\'inscrire</string>
     <string name="login_success">Vous êtes connecté avec succès</string>
     <string name="login_failed">login ou mot de passe incorrect. Veuillez réessayer!</string>
+    <string name="login_failed_account_not_activated">Votre compte n\'est pas actif, veuillez l\'activier avant de vous connecter!!</string>
     <string name="logout_success">Vous êtes déconnecté avec succès</string>
     <string name="login_never_connected">Etudiant n\'est pas encore connecté à l\'applciation</string>
 
@@ -133,6 +134,7 @@
 
     <string name="parent_register_title">Compte parent</string>
     <string name="parent_children">Enfants</string>
+    <string name="parent_children_manage">Gérer èlèves</string>
     <string name="parent_child_not_found">Pas d\'enfants! Veuillez ajouter vos enfants.</string>
     <string name="parent_child_delete">Delete</string>
     <string name="parent_child_unsubscribe">Se désabonner</string>
