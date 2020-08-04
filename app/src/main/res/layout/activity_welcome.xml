@@ -134,22 +134,6 @@ tools:context=".WelcomeActivity">
             </RelativeLayout>
         </LinearLayout>
 
-
-        <Button
-            android:id="@+id/register"
-            android:layout_width="330dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:background="@drawable/button_red_round"
-            android:elevation="0dp"
-            android:text="@string/register"
-            android:textColor="#fff"
-            android:transitionName="trans_btn_signup"
-            android:textSize="20sp"
-            android:layout_marginBottom="4dp"
-            android:paddingRight="20dp"
-            android:textAllCaps="false"/>
-
             <RelativeLayout
                 android:id="@+id/signin_layout"
                 android:layout_width="match_parent"
@@ -251,7 +235,8 @@ tools:context=".WelcomeActivity">
                                     android:layout_marginTop="8dp"
                                     android:fontFamily="@font/antic"
                                     android:textColor="#cc6600"
-                                    android:textSize="18sp" />
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"/>
                             </LinearLayout>
 
                         </androidx.cardview.widget.CardView>
@@ -293,7 +278,7 @@ tools:context=".WelcomeActivity">
                                     android:fontFamily="@font/antic"
                                     android:text="@string/register_profile_parent"
                                     android:textColor="#cc6600"
-                                    android:textSize="18sp"
+                                    android:textSize="20sp"
                                     android:textStyle="bold" />
                             </LinearLayout>
 
@@ -302,6 +287,21 @@ tools:context=".WelcomeActivity">
 
                 </LinearLayout>
                 </RelativeLayout>
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="330dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:background="@drawable/button_blue_round"
+            android:elevation="0dp"
+            android:text="@string/register"
+            android:textColor="#fff"
+            android:transitionName="trans_btn_signup"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="8dp"
+            android:textAllCaps="false"/>
 
                 <!--
                 <TextView

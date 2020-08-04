@@ -4,7 +4,7 @@
     <string name="app_learn" translatable="false">Apprendre de chez vous!</string>
     <string name="login_welcome" translatable="false">Bienvenue</string>
     <string name="welcome_demo" translatable="false">Vidéo de démo</string>
-    <string name="welcome_tester_app" translatable="false">Essayer</string>
+    <string name="welcome_tester_app" translatable="false">Essayer gratuitement app</string>
 
     <string name="navigation_menu" translatable="false">Menu</string>
     <string name="navigation_menu_dashboard" translatable="false">Dashboard</string>

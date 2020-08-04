@@ -3,7 +3,7 @@
     <string name="app_learn" translatable="false">Learn from home!</string>
     <string name="login_welcome" translatable="false">Hello there, Welcome Back</string>
     <string name="welcome_demo" translatable="false">Demo video</string>
-    <string name="welcome_tester_app" translatable="false">Try</string>
+    <string name="welcome_tester_app" translatable="false">Try app for free</string>
 
     <string name="navigation_menu" translatable="false">Menu</string>
     <string name="navigation_menu_dashboard" translatable="false">Dashboard</string>
