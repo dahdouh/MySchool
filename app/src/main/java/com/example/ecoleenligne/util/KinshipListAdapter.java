@@ -23,6 +23,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ecoleenligne.ChildActivity;
+import com.example.ecoleenligne.DashboardParentActivity;
 import com.example.ecoleenligne.EvaluationActivity;
 import com.example.ecoleenligne.ListeQuestionsActivity;
 import com.example.ecoleenligne.MainActivity;
@@ -101,9 +102,15 @@ public class KinshipListAdapter extends BaseAdapter {
         // button delete child
         RelativeLayout child_select = view.findViewById(R.id.child_select);
         child_select.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ProfileActivity.class);
-            intent.putExtra("id", ""+ kinship.getStudent().getId());
-            context.startActivity(intent);
+            Intent intent1 = new Intent(context, DashboardParentActivity.class);
+            intent1.putExtra("ToProfile", "1");
+
+            SharedPreferences sharedpreferences = context.getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("parent_student_selected", ""+kinship.getStudent().getId());
+            editor.commit();
+            context.startActivity(intent1);
+
         });
 
         // button confirm delete child

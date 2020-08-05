@@ -135,7 +135,7 @@ public class FragmentParentDashboard extends Fragment {
 
         recommendation.setOnClickListener(v -> {
             Intent intent1 = new Intent(context, DashboardParentActivity.class);
-            intent1.putExtra("ToPayment", "1");
+            intent1.putExtra("ToProfile", "1");
             context.startActivity(intent1);
         });
 

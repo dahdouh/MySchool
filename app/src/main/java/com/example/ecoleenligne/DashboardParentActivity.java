@@ -103,7 +103,7 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
 
         Intent intent = getIntent();
         String ToSubscription = intent.getStringExtra("ToSubscription");
-        //String ToProfile = intent.getStringExtra("ToProfile");
+        String ToProfile = intent.getStringExtra("ToProfile");
         String ToPayment = intent.getStringExtra("ToPayment");
         String ToLog = intent.getStringExtra("ToLog");
 
@@ -113,7 +113,12 @@ public class DashboardParentActivity extends AppCompatActivity implements Respon
             navigation.setSelectedItemId(R.id.subscription);
 
         }
-        else if (ToPayment != null && ToPayment.contentEquals("1")) {
+        else if (ToProfile != null && ToProfile.contentEquals("1")) {
+            toolbar.setTitle(R.string.navigation_menu_profile);
+            loadFragment(new FragmentProfile());
+            navigation.setSelectedItemId(R.id.profile);
+
+        } else if (ToPayment != null && ToPayment.contentEquals("1")) {
             toolbar.setTitle(R.string.navigation_menu_payment);
             loadFragment(new FragmentParentPayment());
             navigation.setSelectedItemId(R.id.payment);

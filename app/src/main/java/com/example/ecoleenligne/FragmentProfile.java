@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,15 @@ public class FragmentProfile extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        //change background of profile according to the profile of connected user
+        RelativeLayout profile_relative_layout = view.findViewById(R.id.profile_layout);
+        sharedpreferences = getActivity().getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
+        if(user_profile_data.equals("ROLE_TUTOR"))
+            profile_relative_layout.setBackgroundResource(R.color.linkedin);
+        else
+            profile_relative_layout.setBackgroundResource(R.color.accent);
+
         ImageView img = (ImageView) view.findViewById(R.id.edit);
         img.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -88,15 +98,14 @@ public class FragmentProfile extends Fragment {
             context.startActivity(intent);
         });
 
-        /*--------------get user from session --------------*/
-        sharedpreferences = getActivity().getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        // get user from session
         String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
 
         // If child selected, by parent, show his profile
         Intent intent = getActivity().getIntent();
-        final String child_id = intent.getStringExtra("id");
-        if(child_id != null) {
-            user_connected_id = "" + child_id;
+        String parent_student_selected = sharedpreferences.getString("parent_student_selected", null);
+        if(parent_student_selected != null) {
+            user_connected_id = parent_student_selected;
         }
 
         /*-------------- check if there is connection--------------*/

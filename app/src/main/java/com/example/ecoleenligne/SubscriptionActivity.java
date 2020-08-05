@@ -86,9 +86,13 @@ public class SubscriptionActivity extends AppCompatActivity {
         //Actionbar config
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.subscribe_title);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1976D2")));
-        getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.colorRedGo)));
-        //getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.colorRedGo)));
+        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
+        if(user_profile_data.equals("ROLE_TUTOR"))
+            getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.linkedin)));
+        else
+            getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.primary)));
+
         //Transparent statusbar
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();

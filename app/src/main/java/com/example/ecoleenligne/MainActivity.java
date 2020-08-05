@@ -35,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
 
     //public static final String IP="https://10.115.187.47:8000";
     //public static final String IP_myspace="http://10.115.187.47";
-    public static final String IP="https://10.115.187.47:8000";
-    public static final String IP_myspace="http://10.115.187.47";
+    public static final String IP="https://10.113.187.47:8000";
+    public static final String IP_myspace="http://10.113.187.47";
     //public static final String IP="https://onlineschool.cfapps.io";
 
 
-    /*--------------- user connected session ------*/
+    // user connected session
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String Login = "loginKey";
     public static final String Password = "passwordKey";

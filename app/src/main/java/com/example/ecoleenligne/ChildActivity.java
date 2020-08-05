@@ -49,21 +49,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ChildActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ChildActivity extends AppCompatActivity {
 
     final Context context = this;
-    /*------------------ Menu ----------------*/
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    Toolbar toolbar;
-    Menu menu;
-    TextView textView;
-    GridLayout mainGrid;
-    TextView user_name, user_profile;
     SharedPreferences sharedpreferences;
 
     private KinshipListAdapter kinshipListAdapter;
-    ListView listView;
     List<Kinship> kinships = new ArrayList<Kinship>();
 
     String email_data;
@@ -81,27 +72,15 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_child);
 
-        /*------------------  make transparent Status Bar  -----------------*/
+        //Actionbar config
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.parent_children);
+        getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.linkedin)));
+        //Transparent statusbar
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
-
-        /*------------------------ Menu ---------------------*/
-        drawerLayout=findViewById(R.id.drawer_layout);
-        navigationView=findViewById(R.id.nav_view);
-        navigationView.bringToFront();
-        toolbar=findViewById(R.id.toolbar);
-        toolbar.bringToFront();
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_darawer_open, R.string.navigation_darawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.getDrawerArrowDrawable().setColor(Color.parseColor("#FF4500"));
-
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.nav_dashboard);
-        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
 
         this.kinshipListAdapter = new KinshipListAdapter(this, kinships);
         ListView listView = findViewById(R.id.list_students);
@@ -226,6 +205,19 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(context, DashboardParentActivity.class);
+                context.startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
     private Boolean validateEmail() {
         TextInputLayout emailInput = (TextInputLayout) dialog_child_form.findViewById(R.id.email);
         email_data = emailInput.getEditText().getText().toString();
@@ -243,7 +235,6 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
             return true;
         }
     }
-
 
     /*------------------ Authentification (RESTful) ----------------*/
     public void addChild(String email) {
@@ -309,88 +300,5 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
         closePoppupNegativeImg.setOnClickListener(v -> dialog.dismiss());
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-    }
-
-    /*---------------------- Log out function --------------------------*/
-    public  void logout(){
-        /*--------------get user from session --------------*/
-        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
-        String user_connected_login = sharedpreferences.getString(MainActivity.Login, null);
-
-        if(user_connected_id == null && user_connected_login == null) {
-            Toast.makeText(context, "You are already disconnected!", Toast.LENGTH_LONG).show();
-        }
-
-        /*---------------clear session ------*/
-        SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.clear();
-        editor.commit();
-        Toast.makeText(context, getString(R.string.logout_success), Toast.LENGTH_LONG).show();
-
-        Intent intent=new Intent(this, LoginActivity.class);
-        context.startActivity(intent);
-
-    }
-
-    /*---------------------- Menu actions ---------------------*/
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        /*--------------get user from session --------------*/
-        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String user_profile = sharedpreferences.getString(MainActivity.Role, null);
-        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
-
-        switch (menuItem.getItemId()) {
-            case R.id.nav_profile:
-                Intent intent_profile = new Intent(this, ProfileActivity.class);
-                startActivity(intent_profile);
-                break;
-            case R.id.nav_dashboard:
-                Intent intent_dashboard;
-                if(user_profile.equals("ROLE_TUTOR")) {
-                    intent_dashboard = new Intent(this, DashboardParentActivity.class);
-                } else {
-                    intent_dashboard = new Intent(this, DashboardActivityCopy.class);
-                }
-                startActivity(intent_dashboard);
-                break;
-            case R.id.nav_subscriptions:
-                //Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
-                //startActivity(intent_subscription);
-                break;
-            /*
-            case R.id.nav_chat:
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intent_chat = new Intent(this, ChatActivity.class);
-                    startActivity(intent_chat);
-                } else {
-                    Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-                break;
-                */
-            case R.id.nav_logout:
-                logout();
-                break;
-            case R.id.nav_share:
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intentShare = new Intent(Intent.ACTION_SEND);
-                    intentShare.setType("text/plain");
-                    intentShare.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_msg));
-                    intentShare.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
-                    startActivity(Intent.createChooser(intentShare, ""+R.string.share_title));
-                } else {
-                    Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-                break;
-        }
-        drawerLayout.closeDrawer(GravityCompat.START); return true;
     }
 }

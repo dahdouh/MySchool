@@ -59,7 +59,13 @@ public class StudentAddActivity extends AppCompatActivity implements AdapterView
         //Actionbar config
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.child_add_title);
-        getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.colorRedGo)));
+        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
+        if(user_profile_data.equals("ROLE_TUTOR"))
+            getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.linkedin)));
+        else
+            getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.primary)));
+
         //Transparent statusbar
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow();
