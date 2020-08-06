@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name" translatable="false">Schoolax</string>
+<string name="app_learn" translatable="false">Learn from home!</string>
+<string name="login_welcome" translatable="false">Hello there, Welcome Back</string>
+<string name="welcome_demo" translatable="false">Demo video</string>
+<string name="welcome_tester_app" translatable="false">Try app for free</string>
+
+<string name="navigation_menu" translatable="false">Menu</string>
+<string name="navigation_menu_dashboard" translatable="false">لوحة القيادة</string>
+<string name="navigation_menu_courses" translatable="false">Courses</string>
+<string name="navigation_menu_subscription" translatable="false">Subscription</string>
+<string name="navigation_menu_log" translatable="false">سجل</string>
+<string name="navigation_menu_exercices" translatable="false">Exercices</string>
+<string name="navigation_menu_quiz" translatable="false">Quiz</string>
+<string name="navigation_menu_recommendation" translatable="false">Recommendation</string>
+<string name="navigation_menu_evaluation" translatable="false">Evaluation</string>
+<string name="navigation_menu_login" translatable="false">Sign in</string>
+<string name="navigation_menu_unsubscribe" translatable="false">Unsubscribe</string>
+<string name="navigation_menu_logout" translatable="false">Logout</string>
+<string name="navigation_menu_profile" translatable="false">حسابي </string>
+<string name="navigation_menu_myspace" translatable="false">الملف الشخصي</string>
+<string name="navigation_menu_communicate" translatable="false">Communicate</string>
+<string name="navigation_menu_share" translatable="false">Share</string>
+<string name="share_title" translatable="false"> Share using </string>
+<string name="share_msg" translatable="false">Now you can learn from your home. Please click in this link to start learning from your home: https://github.com/dahdouh/android/tree/master/APK</string>
+<string name="navigation_darawer_open" translatable="false">Open navigation drawer</string>
+<string name="navigation_darawer_close" translatable="false">Close navigation drawer</string>
+<string name="navigation_menu_synchronisation" translatable="false">Synchronization</string>
+<string name="navigation_menu_payment" translatable="false">أداء</string>
+<string name="navigation_menu_chat" translatable="false">Chat</string>
+<string name="navigation_menu_forum" translatable="false">المنتدى</string>
+
+
+<string name="slide1_title" translatable="false">A tool designed by experts</string>
+<string name="slide1_content" translatable="false"> Educational engineers, teachers, video production professionals! </string>
+<string name="slide2_title" translatable="false">Unique and adapted content</string>
+<string name="slide2_content" translatable="false"> Online courses of all subjects with videos, exercises, interactive quizzes ... nothing is missing! </string>
+<string name="slide3_title" translatable="false">An innovative and positive approach to learning</string>
+<string name="slide3_content" translatable="false"> Designed for students, parents and anyone who wants to learn </string>
+<string name="slide4_title" translatable="false"> Succeeding in your year has never been easier </string>
+<string name="slide4_content" translatable="false"> Insure your year or that of your children using SchoolAx application </string>
+
+
+<string name="login_continue">Sign in to continue</string>
+<string name="login_signin">Sign in</string>
+<string name="login_signin_as_parent_or_student">Sign in as parent or student</string>
+<string name="login_username" translatable="false">Username</string>
+<string name="login_avatar_modify">Update Avatar</string>
+<string name="login_avatar_upload_wait">Uploading, please wait...</string>
+<string name="login_avatar_upload_succes">Uploaded Successful</string>
+<string name="login_avatar_upload_error">Some error occurred!</string>
+<string name="login_password">Password</string>
+<string name="login_password_retype">Retype password</string>
+<string name="login_username_valid" translatable="false">Username cannot be empty</string>
+<string name="login_username_valid_toolong" translatable="false">Username too long</string>
+<string name="login_username_valid_space" translatable="false">White Spaces are not allowed</string>
+<string name="login_password_valid" translatable="false">Password cannot be empty</string>
+<string name="login_password_valid_weak" translatable="false">Password is too weak </string>
+<string name="login_forget">Forget Password?</string>
+<string name="login_forget_title">Recover password</string>
+<string name="login_forget_message">To recover the password, please enter your email address.</string>
+<string name="login_forget_send">Send password</string>
+<string name="login_forget_send_ok">Your password has been successfully sent to your email</string>
+<string name="login_forget_email_notfoud">That email does not exist, Try another</string>
+<string name="login_singup">Sign up</string>
+<string name="login_success">You are successfully connected</string>
+<string name="login_failed">incorrect login or password. Try again!</string>
+<string name="login_failed_account_not_activated">Your account is not yet activated. Please, activate your account and try again!</string>
+<string name="logout_success">You are successfully logged out</string>
+<string name="login_never_connected">Student doesn\'t yet connected to this application!</string>
+
+<string name="register">Register</string>
+<string name="register_go">Let\'s go</string>
+<string name="confirm">Confirm</string>
+<string name="register_profile_student">Student</string>
+<string name="register_profile_parent">Parent</string>
+<string name="register_profile_Teacher">Teacher</string>
+<string name="register_profile_choose">choice of profile</string>
+<string name="register_profile_choose_msg">You are </string>
+<string name="register_login_validat_empty">Login connot be empty</string>
+<string name="register_password_validat_empty">Password connot be empty</string>
+<string name="register_password_validat_regex"> Password must contain minimum 4 characters at least 1 Alphabet, 1 Number and 1 Special Character</string>
+<string name="register_password_validat_match"> Passwords do not match</string>
+<string name="register_firstname">First Name</string>
+<string name="register_firstname_validat_empty">First name cannot be empty</string>
+<string name="register_lastname">Last Name</string>
+<string name="register_lastname_validat_empty">Last name cannot be empty</string>
+<string name="register_email">Email adress</string>
+<string name="register_email_validat_empty">Email cannot be empty</string>
+<string name="register_email_validat_invalid">Invalid email address</string>
+<string name="register_tel">Phone number</string>
+<string name="register_tel_validat_empty">Phone number account cannot be empty</string>
+<string name="register_ville">City</string>
+<string name="register_ville_validat_empty">City cannot be empty</string>
+<string name="register_alreadyHaveAccount">Already have an account? Login </string>
+<string name="register_user_alreadyexist">Username or email is taken. Try another. </string>
+<string name="register_success">You are account is successfully created. </string>
+<string name="register_welcome" translatable="false">Welcome you!</string>
+
+
+<string name="subscribe_title">اشتراك</string>
+<string name="subscribe_msg"> Subscribe to a new subscription</string>
+<string name="subscribe_done"> your subscription has been successfully completed </string>
+<string name="subscribtion_empty"> No subscription for the moment </string>
+<string name="subscribtion_already"> You have already subscribed to this course </string>
+<string name="subscribtion_confirm"> Do you want to confirm your subscription to this course? </string>
+<string name="subscribtion_unsubscribe"> Do you want to unsubscribe from this course? </string>
+<string name="subscribtion_price"> Price </string>
+<string name="forum_post_add" translatable="false">Message cannot be empty</string>
+
+
+<string name="unsubscribe_success">You are successfully unsubscribed!</string>
+<string name="unsubscribe_confirm">You want really unscuscribe?</string>
+<string name="unsubscribe_no">No</string>
+<string name="unsubscribe_yes">Yes</string>
+
+
+<string name="child_add_title">Child\'s account</string>
+<string name="child_add_msg">To add new child, please type his email adress</string>
+<string name="student_update_title">UPDATE STUDENT</string>
+<string name="student_update_msg">For updating student profile, please enter the following information</string>
+<string name="student_firstname">Firstname</string>
+<string name="student_lastname">Lastname</string>
+<string name="student_parent">Parent</string>
+<string name="student_parent_mother">Mother</string>
+<string name="student_parent_father">Father</string>
+<string name="student_parent_other">Autre</string>
+<string name="student_sex">Student</string>
+<string name="student_sex_girl">girl</string>
+<string name="student_sex_boy">boy</string>
+<string name="student_birthday">Birthday</string>
+<string name="student_level">Classroom</string>
+<string name="student_matiere">Material</string>
+<string name="student_duration">Duration</string>
+<string name="save">Save</string>
+<string name="pay">Pay</string>
+
+<string name="parent_register_title">Parent account</string>
+<string name="parent_children">Children</string>
+<string name="parent_children_manage">Manage students</string>
+<string name="parent_child_not_found">No kids! Please add your children.</string>
+<string name="parent_child_delete">Delete</string>
+<string name="parent_child_unsubscribe">Unsubscribe</string>
+
+<string name="credit_card">Credit Card</string>
+<string name="credit_card_owner">Owner</string>
+<string name="credit_card_owner_msg_error">Owner\'s name cannot be empty</string>
+<string name="card_number">Card number</string>
+<string name="card_number_msg_error">Credit Card number cannot be empty</string>
+<string name="expiration">Expiration</string>
+<string name="mont">Month</string>
+<string name="year">Year</string>
+<string name="crypto">Crypto</string>
+<string name="crypto_msg_error">Crypto number cannot be empty</string>
+<string name="type_content_choice">Content Type choice</string>
+
+
+<string name="course_user_connect">Vous devez être connecté pour accéder à ce cours</string>
+<string name="course_list_msg">Courses of all levels</string>
+<string name="course_list_title">List of courses</string>
+<string name="exercice_list_title">List of exercices</string>
+<string name="exercice_show">Show</string>
+<string name="exercice_correction">Correction</string>
+<string name="exercice_correction_understand"> Well understood !</string>
+<string name="course_description">Course Description</string>
+<string name="go_to_course">See more</string>
+<string name="course">دروس</string>
+<string name="course_video_title"> Video </string>
+<string name="course_video_not_found">No video! You can see other courses </string>
+<string name="course_pdf_title">Course </string>
+<string name="course_pdf_not_found">No Course! You can read other courses </string>
+<string name="qcm">QCM</string>
+
+<string name="recommandation_title">Recommandations for you</string>
+<string name="synchronisation_inprogress" translatable="false">Synchronisation in progress</string>
+
+
+<string-array name="levels_array">
+    <item>Sixième</item>
+    <item>Cinquième</item>
+    <item>Quatrième</item>
+    <item>Troisième</item>
+    <item>Seconde </item>
+    <item>Première L</item>
+    <item>Première S</item>
+    <item>Première ES</item>
+    <item>Terminale L</item>
+    <item>Terminale S</item>
+    <item>Terminale ES</item>
+</string-array>
+
+<string-array name="subscriptions_array">
+    <item>Trimestre</item>
+    <item>Semestre</item>
+    <item>Année</item>
+</string-array>
+
+<string-array name="matiere_array">
+    <item>Mathématiques</item>
+    <item>Français</item>
+    <item>Anglais</item>
+    <item>Espagnol</item>
+    <item>Histoire </item>
+    <item>Géographie</item>
+    <item>SVT</item>
+    <item>Economie</item>
+</string-array>
+
+<string-array name="duration_array">
+    <item>1 mois</item>
+    <item>3 mois</item>
+    <item>6 mois</item>
+    <item>1 an</item>
+    <item>2 ans </item>
+</string-array>
+
+<string-array name="mois">
+    <item>01</item>
+    <item>02</item>
+    <item>03</item>
+    <item>04</item>
+    <item>05</item>
+    <item>06</item>
+    <item>07</item>
+    <item>08</item>
+    <item>09</item>
+    <item>10</item>
+    <item>11</item>
+    <item>12</item>
+</string-array>
+
+<string-array name="annee">
+    <item>2020</item>
+    <item>2021</item>
+    <item>2022</item>
+    <item>2023</item>
+    <item>2024</item>
+    <item>2025</item>
+    <item>2026</item>
+    <item>2027</item>
+    <item>2028</item>
+    <item>2029</item>
+    <item>2030</item>
+</string-array>
+
+
+<string name="my_preference">"com.abc.com.MyPref"</string>
+<string name="my_preference_key">"com.abc.com.MyPrefKey"</string>
+
+
+<string name="connection_msg">You should be connected to access to this service</string>
+<string name="server_restful_error">Server connexion error</string>
+
+
+<string name="accueil">Accueil</string>
+<string name="cours">Cours</string>
+<string name="exercices">Exercices</string>
+<string name="progression">Progression</string>
+<string name="historique">Historic</string>
+<string name="recommandation">Recommandations</string>
+<string name="btnconnexion">Se connecter</string>
+<string name="btninscription">Inscription</string>
+<string name="login">Nom d\'utilisateur</string>
+<string name="password">Mot de passe</string>
+<string name="mdpoublie">Mot de passe oublié?</string>
+
+<string name="menu_maths">Mathmatiques</string>
+<string name="menu_français">Français</string>
+<string name="menu_physique">Physique</string>
+<string name="menu_chimie">Chimie</string>
+<string name="menu_biologie">Biologie</string>
+<string name="menu_geographie">Géographie</string>
+<string name="menu_histoire">Histoire</string>
+
+<string name="menu_anglais">Anglais</string>
+
+
+<string name="button_ok">Ok</string>
+<string name="button_yes">Yes</string>
+<string name="button_no">No</string>
+<string name="button_confirm">Confirm</string>
+<string name="button_send">Send</string>
+<string name="button_add">Add</string>
+<string name="button_update">Update</string>
+<string name="button_delete">Delete</string>
+<string name="button_details">Details</string>
+<string name="button_next">Next</string>
+<string name="button_letsgo">Let\'s go</string>
+<string name="button_subscribe">Subscribe</string>
+
+
+<string name="msg_delete"> Ara you sure you want to delete this item?</string>
+<string name="msg_result_title"> Results</string>
+<string name="msg_result_cool_title"> Cool</string>
+<string name="msg_result_cool_content"> Too strong ! You\'re the best!</string>
+<string name="msg_result_good_title"> Good! </string>
+<string name="msg_result_good_content"> You had the average, well played! Are we trying to do better?</string>
+<string name="msg_result_ok_title"> Ooops !</string>
+<string name="msg_result_ok_content"> So close to average! Try again? </string>
+<string name="msg_result_no_title"> Aieee ! !</string>
+<string name="msg_result_no_content"> I\'m sure you can do better! Shall we start again? </string>
+
+
+</resources>

@@ -165,6 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString(MainActivity.Email, email);
                             editor.putString(MainActivity.Id, id);
                             editor.putString(MainActivity.Role, role);
+                            editor.putString(MainActivity.TRY, "false");
                             editor.commit();
 
                             if (role.equals("ROLE_ADMIN")) {

@@ -378,7 +378,7 @@ public class ChatActivity extends AppCompatActivity implements RoomListener, Nav
     }
 
 }
-
+/*
 class MemberData {
     private String name;
     private String color;
@@ -407,3 +407,5 @@ class MemberData {
                 '}';
     }
 }
+
+ */

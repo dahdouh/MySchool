@@ -108,21 +108,20 @@ public class WelcomeActivity extends AppCompatActivity {
 
         //button demo
         final Button demo = findViewById(R.id.demo);
-        demo.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString(MainActivity.Login, "karim.dahdouh.fr@gmail.com");
-                editor.putString(MainActivity.Password, "schoolax");
-                editor.putString(MainActivity.Email, "karim.dahdouh.fr@gmail.com");
-                editor.putString(MainActivity.Id, ""+17);
-                editor.putString(MainActivity.Role, "ROLE_STUDENT");
-                editor.commit();
-                Intent intent = new Intent(WelcomeActivity.this, DashboardActivity.class);
-                context.startActivity(intent);
+        demo.setOnClickListener(v -> {
+            sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString(MainActivity.Login, "karim.dahdouh.fr@gmail.com");
+            editor.putString(MainActivity.Password, "schoolax");
+            editor.putString(MainActivity.Email, "karim.dahdouh.fr@gmail.com");
+            editor.putString(MainActivity.Id, ""+17);
+            editor.putString(MainActivity.Role, "ROLE_STUDENT");
+            editor.putString(MainActivity.TRY, "true");
+            editor.commit();
+            Intent intent = new Intent(WelcomeActivity.this, DashboardActivity.class);
+            context.startActivity(intent);
 
-                context.startActivity(intent);
-            }
+            context.startActivity(intent);
         });
 
         LinearLayout student_card = (LinearLayout) findViewById(R.id.student);

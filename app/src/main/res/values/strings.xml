@@ -154,6 +154,7 @@
     <string name="crypto_msg_error">Crypto number cannot be empty</string>
     <string name="type_content_choice">Content Type choice</string>
 
+    <string name="course_user_connect">You should be connected to access to all courses</string>
     <string name="course_list_msg">Courses of all levels</string>
     <string name="course_list_title">List of courses</string>
     <string name="exercice_list_title">List of exercices</string>

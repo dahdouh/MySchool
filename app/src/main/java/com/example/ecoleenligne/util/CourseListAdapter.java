@@ -13,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
+
+import com.example.ecoleenligne.ListPdfActivity;
+import com.example.ecoleenligne.ListVideoActivity;
 import com.example.ecoleenligne.ListeCourseContentActivity;
 import com.example.ecoleenligne.ListeExercicesActivity;
 import com.example.ecoleenligne.LoginActivity;
@@ -65,19 +69,35 @@ public class CourseListAdapter extends BaseAdapter {
 
         final int course_id = course.getId();
 
-        final Button details_btn = view.findViewById(R.id.details);
-        details_btn.setOnClickListener(new View.OnClickListener() {
+        final Button video_btn = view.findViewById(R.id.video);
+        video_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Intent intent = new Intent(context, ListVideoActivity.class);
+                intent.putExtra("course_id", ""+course_id);
+                intent.putExtra("course_title", ""+ course.getName());
+                context.startActivity(intent);
+                /*
                 // save id course in session
                 SharedPreferences sharedpreferences = context.getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("course_id", ""+ course_id);
                 editor.putString("course_title", ""+ course.getName());
                 editor.commit();
-
                 Intent intent = new Intent(context, ListeCourseContentActivity.class);
                 intent.putExtra("course_id", ""+course_id);
                 intent.putExtra("course_title", ""+course.getName());
+                context.startActivity(intent);
+                */
+            }
+        });
+
+        final Button courses_btn = view.findViewById(R.id.courses);
+        courses_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ListPdfActivity.class);
+                intent.putExtra("course_id", ""+course_id);
+                intent.putExtra("course_title", ""+ course.getName());
+                intent.putExtra("course_image", ""+ course.getImage());
                 context.startActivity(intent);
             }
         });
@@ -100,6 +120,21 @@ public class CourseListAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
+
+        //if user try app show him only first course and desable the rest
+        if(position>=1) {
+            SharedPreferences sharedpreferences = context.getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+            String user_try_app = sharedpreferences.getString(MainActivity.TRY, null);
+            if (user_try_app.equals("true")) {
+                courses_btn.setClickable(false);
+                exercices_btn.setClickable(false);
+                video_btn.setEnabled(false);
+                quiz_btn.setEnabled(false);
+                Toast.makeText(context, context.getString(R.string.course_user_connect), Toast.LENGTH_LONG).show();
+            }
+
+        }
+
 
 
 

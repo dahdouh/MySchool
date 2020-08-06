@@ -10,16 +10,20 @@
         android:id="@+id/profile"
         android:icon="@drawable/profile_icon"
         android:title="@string/navigation_menu_profile" />
-
+    <!--
     <item
         android:id="@+id/log"
         android:icon="@drawable/icons8_historic_48"
         android:title="@string/navigation_menu_log" />
-
+    -->
     <item
         android:id="@+id/forum"
-        android:icon="@drawable/icons8_chat_48"
+        android:icon="@drawable/icons8_chat2_48"
         android:title="@string/navigation_menu_forum" />
+    <item
+        android:id="@+id/chat"
+        android:icon="@drawable/icons8_chat_48"
+        android:title="@string/navigation_menu_chat" />
 
     <item
         android:id="@+id/myspace"

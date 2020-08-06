@@ -89,10 +89,6 @@ public class ListeCoursActivity extends AppCompatActivity {
         ListView studentsListView = findViewById(R.id.list_students);
         studentsListView.setAdapter(courseListAdapter);
 
-
-
-
-
         // check if there is connection-
         if(MainActivity.MODE.equals("ONLINE")) {
             // get user from session

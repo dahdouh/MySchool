@@ -58,11 +58,11 @@
                 android:layout_marginRight="10dp"
                 android:layout_toRightOf="@id/name"
                 android:fontFamily="sans-serif-medium"
-                android:text=""
+                android:text="cccccc"
                 android:textColor="#FF4500"
-                android:textSize="20dp"
+                android:textSize="19dp"
                 android:textStyle="bold|italic" />
-
+            <!--
             <ImageButton
                 android:id="@+id/subscription_delete_icon"
                 android:layout_width="40dp"
@@ -73,13 +73,14 @@
                 android:layout_toLeftOf="@id/subscription_delete_btn"
                 android:background="@android:color/transparent"
                 app:srcCompat="@drawable/icons8_delete_65" />
+            -->
 
             <Button
                 android:id="@+id/subscription_delete_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_below="@id/price"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@id/name"
                 android:background="@drawable/button_red_round"

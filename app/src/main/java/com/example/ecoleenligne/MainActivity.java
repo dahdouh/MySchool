@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     //public static final String IP="https://10.115.187.47:8000";
     //public static final String IP_myspace="http://10.115.187.47";
-    public static final String IP="https://10.113.187.47:8000";
-    public static final String IP_myspace="http://10.113.187.47";
+    public static final String IP="https://10.115.187.47:8000";
+    public static final String IP_myspace="http://10.115.187.47";
     //public static final String IP="https://onlineschool.cfapps.io";
 
 
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String Email = "emailKey";
     public static final String Id = "idKey";
     public static final String Role = "RoleKey";
+    public static final String TRY = "try";
     /*--------------- mode online or offline ------*/
     public static String MODE ;
     SQLiteHelper sqLiteHelper;

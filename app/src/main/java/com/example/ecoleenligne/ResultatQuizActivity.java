@@ -2,6 +2,7 @@ package com.example.ecoleenligne;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -29,10 +30,8 @@ public class ResultatQuizActivity extends AppCompatActivity {
 
     final Context context = this;
 
-    private LinearLayout navBar;
     private LinearLayout entrainementLayout;
     private LinearLayout correctionLayout;
-    private TextView titleLeconText;
     private TextView gTitre;
     private TextView pTitre;
     private TextView score_quiz;
@@ -49,14 +48,17 @@ public class ResultatQuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultat_quiz);
 
+        //Actionbar config
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.msg_result_title);
+        getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.linkedin)));
+
+
         Intent intent = getIntent();
         course_id = intent.getStringExtra("course_id");
 
         Bundle bundle = getIntent().getExtras();
 
-        navBar = findViewById(R.id.navBar);
-
-        titleLeconText = findViewById(R.id.titleLecon);
         gTitre = findViewById(R.id.gTitre);
         pTitre = findViewById(R.id.pTitre);
         score_quiz = findViewById(R.id.score_quiz);
@@ -86,18 +88,8 @@ public class ResultatQuizActivity extends AppCompatActivity {
             gTitre.setText(R.string.msg_result_no_title);
             pTitre.setText(R.string.msg_result_no_content);
         }
-        /*
-        titleLeconText.setText(titleLecon);
-        entrainementLayout.setBackground(getApplicationContext().getDrawable(Integer.parseInt(colorMatiere)));
-        arrowEntrainement.setImageResource(getApplicationContext().getResources().getIdentifier(colorEntrainement, "drawable", getApplicationContext().getPackageName()));
-        */
-        score_quiz.setText(score +" / "+ nbrQuestion);
-        /*
-        navBar.setBackground(getApplicationContext().getDrawable(Integer.parseInt(colorDarkMatiere)));
-        correctionLayout.setBackground(getApplicationContext().getDrawable(Integer.parseInt(colorQuiz)));
-        recommencer.setTextColor(getResources().getColor(Integer.parseInt(colorDarkMatiere)));
-         */
 
+        score_quiz.setText(score +" / "+ nbrQuestion);
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);

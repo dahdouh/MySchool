@@ -26,7 +26,7 @@
             android:parentActivityName=".DashboardActivity"></activity>
         <activity
             android:name=".ContentActivity"
-            android:parentActivityName=".DashboardActivity" />
+            android:parentActivityName=".ListeCoursActivity" />
         <activity
             android:name=".SubscriptionListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -45,19 +45,18 @@
         <activity
             android:name=".StartActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ListPdfActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ListPdfActivity"
+            android:parentActivityName=".ListeCoursActivity"/>
         <activity
             android:name=".ListVideoActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:parentActivityName=".ListeCoursActivity" />
         <activity android:name=".ChildActivity" />
         <activity
             android:name=".QuizActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:parentActivityName=".ListeCoursActivity" />
         <activity
             android:name=".ResultatQuizActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:parentActivityName=".ListeCoursActivity" />
         <activity
             android:name=".PostActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -66,7 +65,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CorrectionActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:parentActivityName=".ListeCoursActivity"/>
         <activity
             android:name=".WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -103,7 +102,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ListeExercicesActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:parentActivityName=".ListeCoursActivity"/>
         <activity
             android:name=".PassowordForgetActivity"
             android:theme="@style/AppTheme.NoActionBar" />

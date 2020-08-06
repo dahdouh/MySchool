@@ -13,41 +13,13 @@
         android:background="@color/colorWhite"
         tools:context=".resultatQuizz">
 
-        <LinearLayout
-            android:id="@+id/navBar"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp">
-
-            <ImageView
-                android:id="@+id/arrowBack"
-                android:layout_width="30dp"
-                android:layout_height="50dp"
-                android:src="@drawable/icons8_back_48"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"
-                android:clickable="true"
-                android:onClick="backStep"/>
-
-            <TextView
-                android:id="@+id/titleLecon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="@string/msg_result_title"
-                android:textSize="20dp"
-                android:textStyle="bold"/>
-        </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/quizzdrawable"
         android:layout_gravity="center"
-        android:layout_marginTop="-40dp"
+        android:layout_marginTop="10dp"
         android:elevation="20dp"
         android:padding="20dp">
 

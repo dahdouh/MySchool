@@ -1,6 +1,7 @@
 package com.example.ecoleenligne.util;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,11 +15,13 @@ import android.widget.Toast;
 import android.widget.ImageView;
 
 import com.example.ecoleenligne.ListeExercicesActivity;
+import com.example.ecoleenligne.MainActivity;
 import com.example.ecoleenligne.VideoContentActivity;
 import com.example.ecoleenligne.ContentActivity;
 import com.example.ecoleenligne.QuizActivity;
 import com.example.ecoleenligne.R;
 import com.example.ecoleenligne.model.CourseContent;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,12 +46,19 @@ public class CourseContentListAdapter extends BaseAdapter {
         }
 
         ImageView mainImage = view.findViewById(R.id.content_image);
-        //Pdf content
+
+        Intent intent = ((Activity) context).getIntent();
+        String course_id = intent.getStringExtra("course_id");
+        String course_image = intent.getStringExtra("course_image");
+        String path_img = MainActivity.IP_myspace +"/TER.git/public/upload/course/"+ course_id +"/"+ course_image;
+        Picasso.get().load(path_img).into(mainImage);
+        /*
         if(courseContent.type.equals("1")) {
             mainImage.setBackgroundResource(R.drawable.image_pdf);
         }else if(courseContent.type.equals("3")) {
             mainImage.setBackgroundResource(R.drawable.image_logo);
         }
+        */
 
         TextView video_title = view.findViewById(R.id.video_title);
         video_title.setText(""+ courseContent.getTitle());

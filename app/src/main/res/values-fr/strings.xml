@@ -166,6 +166,7 @@
 
     <string name="type_content_choice">Choix du tYpe de contenu</string>
 
+    <string name="course_user_connect">Vous devez être connecté pour accéder à l\'ensemble de cours</string>
     <string name="course_list_msg">Cours de tous les niveaux</string>
     <string name="course_list_title">Liste des cours</string>
     <string name="exercice_list_title">Liste des exercices</string>

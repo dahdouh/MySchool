@@ -72,14 +72,20 @@ public class DashboardActivity extends AppCompatActivity {
                     toolbar.setTitle(R.string.navigation_menu_profile);
                     loadFragment(new FragmentProfile());
                     return true;
-                case R.id.log:
-                    toolbar.setTitle(R.string.navigation_menu_log);
-                    loadFragment(new FragmentLog());
-                    return true;
                 case R.id.forum:
                     toolbar.setTitle(R.string.navigation_menu_forum);
                     loadFragment(new FragmentForum());
                     return true;
+                case R.id.chat:
+                    toolbar.setTitle(R.string.navigation_menu_chat);
+                    loadFragment(new FragmentChat());
+                    return true;
+                /*
+                case R.id.log:
+                    toolbar.setTitle(R.string.navigation_menu_log);
+                    loadFragment(new FragmentLog());
+                    return true;
+                 */
                 case R.id.myspace:
                     toolbar.setTitle(R.string.navigation_menu_myspace);
                     loadFragment(new FragmentMySpace());

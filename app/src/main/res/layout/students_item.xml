@@ -6,6 +6,7 @@
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_course"
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:layout_rowWeight="1"
@@ -62,23 +63,41 @@
 
 
             <Button
-                android:id="@+id/details"
-                android:layout_width="100dp"
+                android:id="@+id/video"
+                android:layout_width="75dp"
                 android:layout_height="35dp"
                 android:layout_gravity="left"
                 android:layout_marginTop="18dp"
                 android:background="@drawable/button_red"
                 android:elevation="0dp"
-                android:text="@string/button_details"
+                android:text="@string/course_video_title"
                 android:textColor="#fff"
                 android:transitionName="trans_btn_signup"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:layout_below="@id/name"
-                android:layout_marginLeft="15dp"/>
+                android:layout_marginLeft="15dp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/courses"
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:layout_gravity="left"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/button_blue_round"
+                android:elevation="0dp"
+                android:text="@string/course_pdf_title"
+                android:textColor="#fff"
+                android:transitionName="trans_btn_signup"
+                android:textSize="16sp"
+                android:layout_below="@id/name"
+                android:layout_toRightOf="@id/video"
+                android:layout_marginLeft="15dp"
+                android:textAllCaps="false"/>
 
             <Button
                 android:id="@+id/exercices"
-                android:layout_width="100dp"
+                android:layout_width="90dp"
                 android:layout_height="35dp"
                 android:layout_gravity="left"
                 android:layout_marginTop="18dp"
@@ -87,14 +106,15 @@
                 android:text="@string/navigation_menu_exercices"
                 android:textColor="#fff"
                 android:transitionName="trans_btn_signup"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:layout_below="@id/name"
-                android:layout_toRightOf="@id/details"
-                android:layout_marginLeft="15dp"/>
+                android:layout_toRightOf="@id/courses"
+                android:layout_marginLeft="15dp"
+                android:textAllCaps="false"/>
 
             <Button
                 android:id="@+id/quiz"
-                android:layout_width="100dp"
+                android:layout_width="75dp"
                 android:layout_height="35dp"
                 android:layout_gravity="left"
                 android:layout_marginTop="18dp"
@@ -103,16 +123,17 @@
                 android:text="@string/navigation_menu_quiz"
                 android:textColor="#fff"
                 android:transitionName="trans_btn_signup"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:layout_below="@id/name"
                 android:layout_toRightOf="@id/exercices"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:textAllCaps="false"/>
 
 
             <ImageView
                 android:id="@+id/course_photo"
                 android:layout_width="185dp"
-                android:layout_height="80dp"
+                android:layout_height="70dp"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/name"
                 android:elevation="5dp"

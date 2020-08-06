@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -44,7 +47,7 @@ public class ListPdfActivity extends AppCompatActivity {
 
     Dialog dialog;
     ImageView closePoppupNegativeImg;
-    TextView negative_title, negative_content;
+    TextView negative_title, negative_content, negative_title_big;
     Button negative_button;
 
     @Override
@@ -55,10 +58,17 @@ public class ListPdfActivity extends AppCompatActivity {
         Intent intent = getIntent();
         course_id = intent.getStringExtra("course_id");
         course_title = intent.getStringExtra("course_title");
-        //put dyamic course's title
-        TextView titleCourse = findViewById(R.id.titleCourse);
-        titleCourse.setText(""+course_title);
-        //Toast.makeText(context, "cooooooooourse = "+ course_id + " "+ course_title, Toast.LENGTH_SHORT).show();
+
+        //Actionbar config
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(course_title);
+        getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.linkedin)));
+
+        //Transparent statusbar
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
 
         this.courseContentListAdapter = new CourseContentListAdapter(this, courseContents);
         ListView studentsListView = findViewById(R.id.list_students);
@@ -96,6 +106,8 @@ public class ListPdfActivity extends AppCompatActivity {
                                 actionNegative();
                                 negative_title = dialog.findViewById(R.id.negative_title);
                                 negative_content = dialog.findViewById(R.id.negative_content);
+                                negative_title_big = dialog.findViewById(R.id.negative_title_big);
+                                negative_title_big.setVisibility(View.GONE);
                                 negative_button = dialog.findViewById(R.id.negative_button);
                                 negative_button.setOnClickListener(v -> {
                                     finish();

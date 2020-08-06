@@ -130,40 +130,32 @@ public class FragmentCourse extends Fragment {
             // allow connection with https and ssl
             HttpsTrustManager.allowAllSSL();
             JsonArrayRequest requestUserConnected = new JsonArrayRequest(Request.Method.GET, url, null,
-                    new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray response) {
-                            try {
-                                if (response.length() != 0) {
-                                    subjects = new ArrayList<>(response.length());
-                                    for (int i = 0; i < response.length(); i++) {
-                                        JSONObject item = response.getJSONObject(i);
-                                        String id = item.getString("id");
-                                        String name = item.getString("name");
-                                        String icon = item.getString("icon");
-                                        //String content = item.getString("content");
-                                        subjects.add(new Subject(Integer.parseInt(id), name, icon));
-                                    }
-                                    subjectListAdapter.setSubjects(subjects);
+                    response -> {
+                        try {
+                            if (response.length() != 0) {
+                                subjects = new ArrayList<>(response.length());
+                                for (int i = 0; i < response.length(); i++) {
+                                    JSONObject item = response.getJSONObject(i);
+                                    String id = item.getString("id");
+                                    String name = item.getString("name");
+                                    String icon = item.getString("icon");
+                                    //String content = item.getString("content");
+                                    subjects.add(new Subject(Integer.parseInt(id), name, icon));
                                 }
-
-                            } catch (JSONException error) {
-                                new AlertDialog.Builder(context)
-                                        .setTitle("Error")
-                                        .setMessage(error.toString())
-                                        .show();
+                                subjectListAdapter.setSubjects(subjects);
                             }
-                        }
-                    },
-                    new Response.ErrorListener(){
-                        @Override
-                        public void onErrorResponse(VolleyError error){
+
+                        } catch (JSONException error) {
                             new AlertDialog.Builder(context)
                                     .setTitle("Error")
-                                    .setMessage(error.getMessage())
+                                    .setMessage(error.toString())
                                     .show();
                         }
-                    }
+                    },
+                    error -> new AlertDialog.Builder(context)
+                            .setTitle("Error")
+                            .setMessage(error.getMessage())
+                            .show()
             );
             queueUserConnected.add(requestUserConnected);
 

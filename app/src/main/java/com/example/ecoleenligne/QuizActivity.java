@@ -2,6 +2,7 @@ package com.example.ecoleenligne;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -45,8 +46,6 @@ public class QuizActivity extends AppCompatActivity {
 
     final Context context = this;
 
-    private LinearLayout navBar;
-    private TextView titleLeconText;
     private TextView number_question;
     private TextView text_question;
     private TextView text_rep1;
@@ -63,9 +62,6 @@ public class QuizActivity extends AppCompatActivity {
     private int currentQuestion = 0;
     private String course_id = "";
 
-    private String titleLecon;
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -73,11 +69,10 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        /*------------------  make  Status Bar transparent ----------------*/
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = getWindow();
-            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        }
+        //Actionbar config
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.navigation_menu_quiz);
+        getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.linkedin)));
 
         Intent intent = getIntent();
         course_id = intent.getStringExtra("course_id");
@@ -85,14 +80,12 @@ public class QuizActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 
 
-        navBar = findViewById(R.id.navBar);
        /* layoutReponse1 = findViewById(R.id.layoutReponse1);
         layoutReponse2 = findViewById(R.id.layoutReponse2);
         layoutReponse3 = findViewById(R.id.layoutReponse3);
         layoutReponse4 = findViewById(R.id.layoutReponse4);
         */
 
-        titleLeconText = findViewById(R.id.titleLecon);
         number_question = findViewById(R.id.number_question);
         text_question = findViewById(R.id.text_question);
         text_rep1 = findViewById(R.id.text_rep1);
@@ -104,7 +97,6 @@ public class QuizActivity extends AppCompatActivity {
 
         /*
         matiere = (String) bundle.get("matiere");
-        titleLecon = (String) bundle.get("titleLecon");
         colorMatiere = (String) bundle.get("colorMatiere");
         colorDarkMatiere = (String) bundle.get("colorDarkMatiere");
         colorEntrainement = (String) bundle.get("colorEntrainement");
@@ -112,8 +104,6 @@ public class QuizActivity extends AppCompatActivity {
         */
 
 
-        titleLeconText.setText(titleLecon);
-        //navBar.setBackground(getApplicationContext().getDrawable(Integer.parseInt(colorDarkMatiere)));
         /*
         layoutReponse1.setBackground(getApplicationContext().getDrawable(Integer.parseInt(colorQuiz)));
         layoutReponse2.setBackground(getApplicationContext().getDrawable(Integer.parseInt(colorQuiz)));
@@ -223,7 +213,6 @@ public class QuizActivity extends AppCompatActivity {
 
             Intent intent = new Intent(this, ResultatQuizActivity.class);
             //intent.putExtra("matiere", matiere);
-            //intent.putExtra("titleLecon", titleLecon);
             //intent.putExtra("colorMatiere", colorMatiere);
             //intent.putExtra("colorDarkMatiere", colorDarkMatiere);
             //intent.putExtra("colorEntrainement", colorEntrainement);
