@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -20,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
@@ -47,14 +49,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class PostActivity extends AppCompatActivity {
 
     final Context context = this;
-    /*------------------ Menu ----------------*/
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    Toolbar toolbar;
-    Menu menu;
     TextView textView;
     GridLayout mainGrid;
     TextView user_name, user_profile;
@@ -75,21 +72,11 @@ public class PostActivity extends AppCompatActivity implements NavigationView.On
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
-        /*------------------------ Menu ---------------------*/
-        drawerLayout=findViewById(R.id.drawer_layout);
-        navigationView=findViewById(R.id.nav_view);
-        navigationView.bringToFront();
-        toolbar=findViewById(R.id.toolbar);
-        toolbar.bringToFront();
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_darawer_open, R.string.navigation_darawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.getDrawerArrowDrawable().setColor(Color.parseColor("#FF4500"));
 
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.nav_dashboard);
-        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
+        //Actionbar config
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.navigation_menu_forum);
+        getSupportActionBar().setBackgroundDrawable( new ColorDrawable( getResources().getColor(R.color.primary)));
 
 
         this.postListAdapter = new PostListAdapter(this, posts);
@@ -112,7 +99,7 @@ public class PostActivity extends AppCompatActivity implements NavigationView.On
             post_add_layout.setVisibility(View.GONE);
 
             //Toast.makeText(context, "##### "+ topic_id, Toast.LENGTH_LONG).show();
-            final ImageButton post_add_btn = findViewById(R.id.post_add_btn);
+            final Button post_add_btn = findViewById(R.id.post_add_btn);
             post_add_btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     post_add_layout.setVisibility(View.VISIBLE);
@@ -245,85 +232,16 @@ public class PostActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    /*---------------------- Log out function --------------------------*/
-    public  void logout(){
-        /*--------------get user from session --------------*/
-        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String user_connected_id = sharedpreferences.getString(MainActivity.Id, null);
-        String user_connected_login = sharedpreferences.getString(MainActivity.Login, null);
-
-        if(user_connected_id == null && user_connected_login == null) {
-            Toast.makeText(context, "You are already disconnected!", Toast.LENGTH_LONG).show();
-        }
-
-        /*---------------clear session ------*/
-        SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.clear();
-        editor.commit();
-        Toast.makeText(context, getString(R.string.logout_success), Toast.LENGTH_LONG).show();
-
-        Intent intent=new Intent(this, LoginActivity.class);
-        context.startActivity(intent);
-
-    }
-    /*---------------------- Menu actions ---------------------*/
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        /*--------------get user from session --------------*/
-        sharedpreferences = getSharedPreferences(MainActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String user_profile = sharedpreferences.getString(MainActivity.Role, null);
-        String user_profile_data = sharedpreferences.getString(MainActivity.Role, null);
-
-        switch (menuItem.getItemId()) {
-            case R.id.nav_profile:
-                Intent intent_profile = new Intent(this, ProfileActivity.class);
-                startActivity(intent_profile);
-                break;
-            case R.id.nav_dashboard:
-                Intent intent_dashboard;
-                if(user_profile.equals("ROLE_TUTOR")) {
-                    intent_dashboard = new Intent(this, DashboardParentActivity.class);
-                } else {
-                    intent_dashboard = new Intent(this, DashboardActivityCopy.class);
-                }
-                startActivity(intent_dashboard);
-                break;
-            case R.id.nav_subscriptions:
-                //Intent intent_subscription = new Intent(this, SubscriptionListActivity.class);
-                //startActivity(intent_subscription);
-                break;
-            /*
-            case R.id.nav_chat:
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intent_chat = new Intent(this, ChatActivity.class);
-                    startActivity(intent_chat);
-                } else {
-                    Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-                break;
-                */
-            case R.id.nav_logout:
-                logout();
-                break;
-            case R.id.nav_share:
-                if(MainActivity.MODE.equals("ONLINE")) {
-                    Intent intentShare = new Intent(Intent.ACTION_SEND);
-                    intentShare.setType("text/plain");
-                    intentShare.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_msg));
-                    intentShare.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
-                    startActivity(Intent.createChooser(intentShare, ""+R.string.share_title));
-                } else {
-                    Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#FFFFFF'><b>"+ getString(R.string.connection_msg) +"</b></font>"), Toast.LENGTH_SHORT);
-                    View view = toast.getView();
-                    view.setBackgroundColor(Color.parseColor("#ff0040"));
-                    toast.show();
-                }
-                break;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(context, DashboardActivity.class);
+                intent.putExtra("ToForum", "1");
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        drawerLayout.closeDrawer(GravityCompat.START); return true;
     }
 }

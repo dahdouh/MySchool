@@ -42,6 +42,7 @@ public class DashboardActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String ToSubscription = intent.getStringExtra("ToSubscription");
         String ToProfile = intent.getStringExtra("ToProfile");
+        String ToForum = intent.getStringExtra("ToForum");
 
         if (ToSubscription != null && ToSubscription.contentEquals("1")) {
             toolbar.setTitle(R.string.navigation_menu_subscription);
@@ -52,7 +53,10 @@ public class DashboardActivity extends AppCompatActivity {
             toolbar.setTitle(R.string.navigation_menu_profile);
             loadFragment(new FragmentProfile());
             navigation.setSelectedItemId(R.id.profile);
-
+        }else if (ToForum != null && ToForum.contentEquals("1")) {
+            toolbar.setTitle(R.string.navigation_menu_forum);
+            loadFragment(new FragmentForum());
+            navigation.setSelectedItemId(R.id.forum);
         } else {
             loadFragment(new FragmentCourse());
         }

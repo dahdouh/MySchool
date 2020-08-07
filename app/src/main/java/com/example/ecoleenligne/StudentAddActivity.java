@@ -243,7 +243,7 @@ public class StudentAddActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         level_data = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), level_data, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(parent.getContext(), level_data, Toast.LENGTH_SHORT).show();
     }
     @Override
     public void onNothingSelected(AdapterView<?> parent) { }

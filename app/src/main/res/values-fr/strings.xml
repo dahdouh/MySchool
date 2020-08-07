@@ -78,6 +78,12 @@
     <string name="subscribtion_unsubscribe"> Voulez-vous se désabonner de ce cours? </string>
     <string name="subscribtion_price"> Prix </string>
     <string name="forum_post_add" translatable="false">Le message ne peut pas être vide</string>
+    <string name="forum_post_add_msg">Pour ajouter nouveau sujet, veuillez entrer les informations suivantes:</string>
+    <string name="forum_post_add_title">Titre</string>
+    <string name="forum_post_add_title_error">Title cannot be empty</string>
+    <string name="forum_post_add_content">Contenu</string>
+    <string name="forum_post_add_content_error">Contenu ne peut être vide</string>
+    <string name="forum_post_add_subject">Sujet</string>
 
     <string name="unsubscribe_success">You are successfully unsubscribed!</string>
     <string name="unsubscribe_confirm">You want really unscuscribe?</string>
@@ -237,6 +243,8 @@
     <string name="button_no">Non</string>
     <string name="button_confirm">Confirmer</string>
     <string name="button_send">Envoyer</string>
+    <string name="button_add_comment">Ajouter commentaire</string>
+    <string name="button_add_topic">Add Topic</string>
     <string name="button_add">Ajouter</string>
     <string name="button_update">Modifier</string>
     <string name="button_delete">Supprimer</string>

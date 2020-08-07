@@ -64,9 +64,9 @@
 
         <GridLayout
             android:layout_width="match_parent"
-            android:layout_height="460dp"
-            android:layout_marginTop="120dp"
-            android:layout_marginBottom="60dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="95dp"
+            android:layout_marginBottom="0dp"
             android:alignmentMode="alignMargins"
             android:columnCount="2"
             android:columnOrderPreserved="false"

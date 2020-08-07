@@ -57,9 +57,7 @@
         <activity
             android:name=".ResultatQuizActivity"
             android:parentActivityName=".ListeCoursActivity" />
-        <activity
-            android:name=".PostActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".PostActivity"/>
         <activity
             android:name=".ForumActivity"
             android:theme="@style/AppTheme.NoActionBar" />
