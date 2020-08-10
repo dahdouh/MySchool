@@ -4,6 +4,7 @@ package com.example.ecoleenligne.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,18 +64,31 @@ public class CourseContentListAdapter extends BaseAdapter {
         TextView video_title = view.findViewById(R.id.video_title);
         video_title.setText(""+ courseContent.getTitle());
 
+        ImageView content_image = view.findViewById(R.id.content_image);
+        content_image.setBackgroundColor(Color.TRANSPARENT);
+        if(courseContent.type.equals("1")) { //pdf
+            content_image.setImageDrawable(context.getResources().getDrawable(R.drawable.pdf));
+        } else if(courseContent.type.equals("3")) { //image
+            content_image.setImageDrawable(context.getResources().getDrawable(R.drawable.image_logo));
+        } else { //video
+            content_image.setImageDrawable(context.getResources().getDrawable(R.drawable.icons8_video_96));
+        }
+
+
         //Start video player
         final LinearLayout video_play = view.findViewById(R.id.video_play);
         video_play.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //pdf content
                 if(courseContent.type.equals("1")) {
+                    content_image.setImageDrawable(context.getResources().getDrawable(R.drawable.pdf));
                     Intent intent = new Intent(context, ContentActivity.class);
                     intent.putExtra("lien", courseContent.getPath());
                     intent.putExtra("course_name", courseContent.getTitle());
 
                     context.startActivity(intent);
                 } else if(courseContent.type.equals("3")) {
+                    content_image.setImageDrawable(context.getResources().getDrawable(R.drawable.image_logo));
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
                     intent.setDataAndType(Uri.parse(courseContent.getPath()), "image/*");
@@ -82,6 +96,7 @@ public class CourseContentListAdapter extends BaseAdapter {
 
                 } else {
                     //video content
+                    content_image.setImageDrawable(context.getResources().getDrawable(R.drawable.icons8_video_96));
                     Intent intent = new Intent(context, VideoContentActivity.class);
                     intent.putExtra("lien", courseContent.getPath());
                     intent.putExtra("course_name", courseContent.getTitle());

@@ -46,6 +46,8 @@
     <string name="login_username">Login</string>
     <string name="login_password">Password</string>
     <string name="login_avatar_modify">Modifier l\'Avatar</string>
+    <string name="myspace_file_upload_file">Télécharger un fichier</string>
+    <string name="myspace_file_upload_file_choose">Veuillez choisir le type du fichier à télécharegr</string>
     <string name="login_avatar_upload_wait">Téléchargement, veuillez patienter ...</string>
     <string name="login_avatar_upload_succes">Téléchargement réussi</string>
     <string name="login_avatar_upload_error">Une erreur s\'est produite!</string>
